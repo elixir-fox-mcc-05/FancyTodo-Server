@@ -22,9 +22,9 @@
 
   `status=[boolean]`
 
-  Data Params
+- **Data Params**
 
-- **Required:**
+  **Required:**
 
   `None`
 
@@ -219,11 +219,13 @@
 
   `none`
 
+- 
+
   
 
-- success Response:
+- **Success Response:**
 
-- - **Code:** 200 
+  - **Code:** 200 
     **Content:** 
 
     ```json
@@ -293,9 +295,9 @@
   **Required:**
 
   `token=[string]`
-
   
-
+  
+  
 - **Data Params**
 
   **Required:**

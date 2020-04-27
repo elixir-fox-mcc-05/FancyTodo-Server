@@ -4,35 +4,11 @@
 
 | URL           | Method        |
 | ------------- |:-------------:|
-| /             | GET           |
 | /todos        | GET           |
 | /todos        | POST          |
 | /todos/:id    | GET           |
 | /todos/:id    | PUT           |
 | /todos/:id    | DELETE        |
-<br><br>
-
------
-## /
------
-* method: GET <br>
-* purpose: Connect to the website home page <br>
-* success response: <br>
-    * code: 200 <br>
-    * content: <br>
-        ```javascript
-        {
-            "msg": "Welcome to server todos"
-        }
-        ```
-* error response: <br>
-    * code: 500 <br>
-    * content: <br>
-        ```javascript
-        {
-            "error": "internal server error"
-        }
-        ```
 <br><br>
 
 -----

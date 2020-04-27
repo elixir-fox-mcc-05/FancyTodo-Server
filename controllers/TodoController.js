@@ -32,7 +32,30 @@ class TodoController{
             })
     }
     static create(req, res){
-
+        const {title, description, due_date} = req.body;
+        const todo = {
+            title,
+            description,
+            due_date
+        }
+        Todo.create(todo)
+            .then(response => {
+                res.status(201).json(response);
+            })
+            .catch(err => {
+                if(err.errors){
+                    let errorMsg = err.errors.map(error => {
+                        return error.message;
+                    })
+                    res.status(400).json({
+                        message: errorMsg
+                    })
+                }else{
+                    res.status(500).json({
+                        message: err.message
+                    })
+                }
+            })
     }
     static update(req, res){
 

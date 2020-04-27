@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const homeRouter = require('./home.js');
 const todosRouter = require('./todos.js');
 
-router.use('/', (req, res) => {
-    res.send('masuk')
+router.get('/', (req, res) => {
+    res.status(200).json({
+        msg: 'Welcome to server todos'
+    })
 });
 router.use('/todos', todosRouter);
 

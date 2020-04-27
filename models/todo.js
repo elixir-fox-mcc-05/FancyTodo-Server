@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.DATE,
       allowNull: false
-    }
+    },
+    UserId : DataTypes.INTEGER
   }, {sequelize, modelName: "Todo"});
 
   Todo.associate = function(models) {

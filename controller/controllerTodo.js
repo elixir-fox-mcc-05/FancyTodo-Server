@@ -11,7 +11,7 @@ class TodoController {
             })
             .catch(err => {
                 res.status(500).json({
-                    error: err
+                    Error: "Error Acces Server"
                 })
             })
     }
@@ -32,7 +32,7 @@ class TodoController {
             })
             .catch(err => {
                 res.status(500).json({
-                    error : err
+                    Error : "Error Creating Data"
                 })
             })
     }
@@ -41,18 +41,18 @@ class TodoController {
         Todo
             .findByPk(id)
             .then(result => {
-                res.status(201).json({
+                res.status(200).json({
                     Todos : result
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    Error : err
+                res.status(404).json({
+                    Error : "Not Found"
                 })
             })
     }
     static Update(req, res){
-        const { title, description, status, due_date } = req.body
+        const { title, description, status, due_date} = req.body
         const {id} = req.params
         const values = {
             title,
@@ -67,13 +67,13 @@ class TodoController {
                 }
             })
             .then(result => {
-                res.status(200).json({
+                res.status(201).json({
                     Todos : result
                 })
             })
             .catch(err => {
-                res.status(400).json({
-                    Error : err
+                res.status(304).json({
+                    Error : "Not Modified"
                 })
             })
     }
@@ -86,13 +86,13 @@ class TodoController {
                 }
             })
             .then(result => {
-                res.status(200).json({
+                res.status(202).json({
                     msg : `Completely Destroy Todo ${id}`
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    Error : err
+                res.status(501).json({
+                    Error : "Not Implemented"
                 })
             })
     }

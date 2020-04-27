@@ -184,18 +184,9 @@
 
         Code : 201
 
-        Content : {
+        Content :   {
                         "Todos": [
-                            {
-                            "id": 3,
-                            "title": "Sport",
-                            "description": "Go Swimming",
-                            "status": false,
-                            "due_date": "2020-04-27",
-                            "UserId": null,
-                            "createdAt": "2020-04-27T05:44:45.150Z",
-                            "updatedAt": "2020-04-27T05:44:45.150Z"
-                            },
+                            1
                         ]
                     }
 

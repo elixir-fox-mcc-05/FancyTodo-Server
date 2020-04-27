@@ -28,9 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.DATE,
       validate: {
-
+        isDate: true
       }
-    }
+    },
+    UserId: DataTypes.STRING
   }, {
     validate: {
       checkEmpty() {
@@ -58,6 +59,10 @@ module.exports = (sequelize, DataTypes) => {
   })
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User, {
+      foreignKey: "UserId",
+      targetKey: "id"
+    });
   };
   return Todo;
 };

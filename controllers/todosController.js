@@ -10,7 +10,7 @@ class TodosController {
             })
             .catch(err => {
                 res.status(500).json({
-                    msg: err
+                    error: err
                 })
             })
     }
@@ -29,7 +29,7 @@ class TodosController {
             })
             .catch(err => {
                 res.status(500).json({
-                    msg: err
+                    error: err
                 })
             })
     }
@@ -44,7 +44,7 @@ class TodosController {
             })
             .catch(err => {
                 res.status(500).json({
-                    msg: err
+                    error: err
                 })
             })
     }
@@ -69,7 +69,7 @@ class TodosController {
             })
             .catch(err => {
                 res.status(500).json({
-                    msg: err
+                    error: err
                 })
             })
     }
@@ -88,7 +88,7 @@ class TodosController {
             })
             .catch(err => {
                 res.status(500).json({
-                    msg: err
+                    error: err
                 })
             })
     }

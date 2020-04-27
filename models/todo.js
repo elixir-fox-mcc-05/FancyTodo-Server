@@ -5,9 +5,19 @@ module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {}
 
   Todo.init({
-    title: DataTypes.STRING,
+    title: {
+      type : DataTypes.STRING,
+      validate : {
+        notEmpty : {
+          msg : `title cannot be empty`
+        }
+      }
+    },
     description: DataTypes.STRING,
-    status: DataTypes.STRING,
+    status: {
+      type : DataTypes.STRING,
+      defaultValue : `queued`
+    },
     due_date: DataTypes.DATE,
     UserId : DataTypes.INTEGER
   },

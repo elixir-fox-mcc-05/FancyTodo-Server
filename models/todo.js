@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notNull: true,
         len: [3, 40]
@@ -13,26 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notNull: true,
-        len: [3, 40]
+        len: [3, 150]
       }
     },
     status: {
-      type: DataTypes.BOOLEAN,
-      validate: {
-        notNull: true
-      }
+      type: DataTypes.BOOLEAN
     },
     due_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
+      allowNull: false,
       validate: {
         notNull: true,
         isAfter: new Date()
       }
     }
   }, {
-    sequelize
+    sequelize,
+    hooks: {
+      beforeCreate: (todo, options) => {
+        todo.status = false
+      }
+    }
   })
   
   Todo.associate = function(models) {

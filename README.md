@@ -239,3 +239,89 @@
 * **Sample Call:**
 
   http://localhost:3000/todos/2
+
+## User Register
+
+* **URL**
+
+  /register
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   NONE
+
+* **Data Params**
+
+  email=[string]<br>
+  password=[string] (min 6 length, at least 1 number)
+
+* **Success Response:**
+
+  * **Code:** 201 Created<br />
+    **Content:** `{
+    "data": {
+        "id": 4,
+        "email": "alfiqiey@gmail.com",
+        "password": "$2b$10$Cp2ciwJuLfMOgQW/eoXBIurao0qv1SLnUi8c7JkFm6mTdl6fgZ1Jq",
+        "updatedAt": "2020-04-27T10:39:05.422Z",
+        "createdAt": "2020-04-27T10:39:05.422Z"
+    }
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 400 <br />
+    **Content:** `{ error : "Validate Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/register
+
+## User Login
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   NONE
+
+* **Data Params**
+
+  email=[string]<br>
+  password=[string]
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ5b3NhQG1haWwuY29tIiwiaWF0IjoxNTg3OTgzNTExfQ.99Xx38e9IQygRvuvUdus0mHccwE5LLznCDAO5FWyQoU"
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 400 <br />
+    **Content:** `{ error : "Validate Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/login

@@ -8,7 +8,8 @@ app.use(express.urlencoded({ extended:false }))
 app.use(express.json())
 
 
-app.use('/todo',routes)
+app.use(routes)
+
 
 
 

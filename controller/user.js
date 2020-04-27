@@ -1,6 +1,6 @@
 const Model = require('../models')
 const User = Model.User
-const CheckPassword = require('../helpers/bcrypt.js')
+const {CheckPassword} = require('../helpers/bcrypt.js')
 
 class UserController {
     static signUp (req, res) {
@@ -34,10 +34,10 @@ class UserController {
             }
         })
         .catch(err => {
-            res.status(500).json({error : err})
+            res.status(500).json({error : err.message})
         })
     }
-    
+
 }
 
 module.exports = UserController;

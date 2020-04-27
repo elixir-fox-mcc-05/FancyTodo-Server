@@ -27,24 +27,24 @@ class UserController {
     }
 
     static login(req, res) {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
         User
         .findOne({
             where: {
-                username
+                email
             }
         })
         .then(result => {
             if(result) {
                 let compare = compareHash(password, result.password);
                 if(compare) {
-                    let token = generateToken({
+                    let accessToken = generateToken({
                         id: result.id,
-                        username: result.username
+                        email: result.email
                     });
                     res.status(200).json({
-                        token
+                        accessToken
                     })
                 } else {
                     res.status(401).json({
@@ -53,7 +53,7 @@ class UserController {
                 }
             } else {
                 res.status(401).json({
-                    msg: "wrong username"
+                    msg: "wrong email"
                 })
             }
         })

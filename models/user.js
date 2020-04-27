@@ -10,20 +10,39 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     name: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        notEmpty: {
+          msg: "Name cant be left empty"
+        }
+      }
     },
     username: {
       type: DataTypes.STRING,
       allowNull:false,
-      unique: true
+      unique: {
+        args: true,
+        msg: "username already taken"
+      },
+      validate: {
+        notEmpty: {
+          msg: "username cant be left empty"
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull:false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: "email already registered"
+      },
       validate: {
         isEmail: {
           msg: "Invalid email format"
+        },
+        notEmpty: {
+          msg: "password cant be left empty"
         }
       }
     },
@@ -34,6 +53,13 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [8,],
           msg: "password must contain at least 8 character"
+        },
+        is: {
+          args: /^[\w]+$/gi,
+          msg: "invalid password format"
+        },
+        notEmpty: {
+          msg: "password cant beleft empty"
         }
       }
     }

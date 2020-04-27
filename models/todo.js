@@ -7,20 +7,41 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      notEmpty: {
+        msg: "title cant be empty"
+      }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      notEmpty: {
+        msg: "description cant be empty"
+      }
     },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: false,
+      notEmpty: {
+        msg: "status cant be empty"
+      }
     },
     due_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      notEmpty: {
+        msg: "due_date cant be empty"
+      },
+      isDate: {
+        msg: "due_date must be input in date format"
+      },
+      isFuture(date) {
+        let today = new Date;
+        if (date < today) {
+          throw new Error('it\'s either today or future date for due_date');
+        }
+      }
     },
     UserId: {
       type: DataTypes.INTEGER,

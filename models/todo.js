@@ -29,12 +29,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: 'NOT YET',
+      allowNull: false,
+
     },
     due_date: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
+        isAfter: `${new Date()}`,
         check(value) {
           if (value == '') {
             throw new Error('due_date required')

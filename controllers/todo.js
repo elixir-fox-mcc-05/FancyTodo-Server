@@ -1,29 +1,28 @@
 const { Todo } = require('../models')
-const get_token = require('../helpers/jwt')
 
 class FancyTodo {
-    static add(req, res) {
+    static add(req, res, next) {
         const { title, description, status, due_date } = req.body
         Todo.create({ title, description, status, due_date })
-        .then(data => { 
-            let token = get_token(req.body)
+            .then(data => {
                 res
                   .status(201)
-                  .json({ new_data: token }) 
+                  .json({ new_data: data }) 
             })
             .catch(err => { 
-                res.status(400).json({ err: err.message})
-                if (err.message) {
+                if (err.name == 'SequelizeValidationError') {
                     res
                       .status(400)
-                      .json({ msg: 'invalid input' })
+                      .json({ err })
                 } else {
                     res
                       .status(500)
-                      .json({ msg: 'status code 500' })
+                      .json({ 
+                        name: 'InternalServerError',  
+                        msg: 'status code 500' })
                 }
             })
-    }
+    }   
 
     static show(req, res) {
         Todo.findAll()

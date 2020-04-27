@@ -58,7 +58,40 @@ class TodoController{
             })
     }
     static update(req, res){
-
+        const {id} = req.params;
+        const {title, description, status, due_date} = req.body;
+        const newTodo = {
+            title,
+            description,
+            status,
+            due_date
+        }
+        const option = {
+            where: {id}
+        }
+        Todo.update(newTodo,option)
+                    .then(updated => {
+                        if(!updated[0]){
+                            res.status(404).json({
+                                message: 'Id Not Found'
+                            })
+                        }
+                        res.status(200).json(newTodo);
+                    })
+                    .catch(err => {
+                        if(err.errors){
+                            let errorMsg = err.errors.map(error => {
+                                return error.message;
+                            })
+                            res.status(400).json({
+                                message: errorMsg
+                            })
+                        }else{
+                            res.status(500).json({
+                                message: err.message
+                            })
+                        }
+                    })
     }
     static delete(req, res){
 

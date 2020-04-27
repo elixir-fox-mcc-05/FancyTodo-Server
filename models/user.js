@@ -1,4 +1,6 @@
 'use strict';
+const { hashPassword } = require('../helpers/bcrypt.js');
+
 module.exports = (sequelize, DataTypes) => {
 
   const { Model } = sequelize.Sequelize;
@@ -27,9 +29,20 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        len: {
+          args: [8,],
+          msg: "password must contain at least 8 character"
+        }
+      }
     }
   }, {
+    hooks: {
+      beforeCreate(user) {
+        user.password = hashPassword(user.password);
+      }
+    },  
     sequelize,
     modelName: "User"
   });

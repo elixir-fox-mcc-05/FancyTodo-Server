@@ -1,6 +1,5 @@
 "use strict"
 
-
 const router = require('express').Router()
 const todoRouter = require('./todo')
 const userRouter = require('./user')

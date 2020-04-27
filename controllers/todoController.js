@@ -29,10 +29,9 @@ class TodoController{
                 })
             })
             .catch(err => {
-                if(err.name === 'SequelizeValidationError'){
-                    err = `Validation error`
+                if(err.name === 'SequelizeValidationError'){ 
                     res.status(400).json({
-                        error: err     
+                        error: `Validation error`     
                     })
                 } else {
                     res.status(500).json({
@@ -51,9 +50,8 @@ class TodoController{
                         todo:data
                     })
                 } else {
-                    data = `data not found`
                     res.status(404).json({
-                        error:data
+                        error: `data not found`
                     })
                 }
             })
@@ -80,17 +78,15 @@ class TodoController{
                         todo: newData
                     })
                 } else {
-                    data = 'Data not found'
                     res.status(404).json({
-                        error: data
+                        error: 'Data not found'
                     })
                 }
             })
             .catch(err => {
                 if(err.name === 'SequelizeValidationError'){
-                    err = `validation error`
                     res.status(400).json({
-                        error: err
+                        error: `validation error`
                     })
                 } else {
                     res.status(500).json({
@@ -108,10 +104,9 @@ class TodoController{
                     res.status(200).json({
                         Success: `Success delete data with id ${id}`
                     })
-                } else {
-                    data = `data not found`
+                } else { 
                     res.status(404).json({
-                        error:data
+                        error: `data not found`
                     })
                 }
             })

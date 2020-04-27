@@ -21,6 +21,15 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Users",
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
     }
   }, {
     sequelize,

@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull:false,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: {
+          msg: "Invalid email format"
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -26,10 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: "user"
+    modelName: "User"
   });
   User.associate = function(models) {
-    Model.hasMany(models.Todo);
+    User.hasMany(models.Todo);
   };
   return User;
 };

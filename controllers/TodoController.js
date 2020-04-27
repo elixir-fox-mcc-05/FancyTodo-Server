@@ -75,8 +75,9 @@ class TodoController{
                             res.status(404).json({
                                 message: 'Id Not Found'
                             })
+                        }else{
+                            res.status(200).json(newTodo);
                         }
-                        res.status(200).json(newTodo);
                     })
                     .catch(err => {
                         if(err.errors){

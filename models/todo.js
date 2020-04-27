@@ -18,20 +18,30 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
-      validate: {
-        notEmpty: {args: true, msg: 'status cannot be empty'}
-      }
     },
     due_date: {
       type: DataTypes.DATEONLY,
       validate: {
-        notEmpty: {args: true, msg: 'due date cannot be empty'}
+        notEmpty: {args: true, msg: 'due date cannot be empty'},
+        checkBackdate(){
+          const currentDate = new Date();
+          if(Math.floor((currentDate - new Date(this.due_date)) / 86400000) <= 0){
+            throw new Error('Cannot set due date to backdate or today');
+          }
+        }
       }
     },
   }, {
     hooks:{
       beforeCreate: (todo) => {
         todo.status =  'Not Started';
+      },
+      beforeBulkUpdate: (todo) => {
+        console.log(todo);
+        if(!todo.attributes.status){
+          todo.attributes.status =  'Not Started';
+        }
+        console.log(todo);
       }
     },
     sequelize

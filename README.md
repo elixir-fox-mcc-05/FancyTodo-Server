@@ -1,16 +1,27 @@
 # Fancy Todo
 
 Return json data for all Todos
-    * Url
+
+    Url
+
         /todos
-    * Method:
+
+    Method:
+
         GET
-    *URL PARAMS
+
+    URL PARAMS
+
         NONE
-    *Data PARAMS
+
+    Data PARAMS
+
         NONE
-    *Succes Response
-        *Code : 200
+
+    Succes Response
+
+        Code : 200
+
          Content : {
                         "Todos": [
                             {
@@ -24,11 +35,12 @@ Return json data for all Todos
                             },
                         ]
                     }
-    *Error Response :
-        *Code :  500
+
+    Error Response :
+        Code :  500
         Content : "Error Acces Server"
     
-    *Sample Call :
+    Sample Call :
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -41,19 +53,30 @@ Return json data for all Todos
         });
 
 Return json data with create feature
-    * Url
+
+    Url
+
         /todos
-    * Method:
+
+    Method:
+
         POST
-    *URL PARAMS
+
+    URL PARAMS
+
         NONE
-    *Data PARAMS
+
+    Data PARAMS
+
         title : String
         description : String
         status : Boolean
         due_date : DateOnly
-    *Succes Response
-        *Code : 201
+
+    Succes Response
+
+        Code : 201
+
          Content : {
                     "Todos": {
                         "id": 1,
@@ -66,11 +89,12 @@ Return json data with create feature
                         "updatedAt": "2020-04-27T05:57:48.461Z"
                         }
                     }
-    *Error Response :
-        *Code :  500
+
+    Error Response :
+        Code :  500
         Content : "Error Acces Server"
     
-    *Sample Call :
+    Sample Call :
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -83,17 +107,28 @@ Return json data with create feature
         });
 
 Return json data for a single Todo
-    * Url
+
+    Url
+
         /todos/:id
-    * Method:
+
+    Method:
+
         GET
-    *URL PARAMS
+
+    URL PARAMS
+
         id = [integer]
-    *Data PARAMS
+
+    Data PARAMS
+
         None
-    *Succes Response
-        *Code : 200
-         Content : {
+
+    Succes Response
+
+        Code : 200
+
+        Content : {
                         "Todos": [
                             {
                             "id": 3,
@@ -107,11 +142,12 @@ Return json data for a single Todo
                             },
                         ]
                     }
-    *Error Response :
-        *Code :  500
+
+    Error Response :
+        Code :  500
         Content : "Not Found"
     
-    *Sample Call :
+    Sample Call :
         $.ajax({
             url: "/todos/3",
             dataType: "json",
@@ -124,20 +160,31 @@ Return json data for a single Todo
         });
 
 Return json data after edit
-    * Url
+
+    Url
+
         /todos/:id
-    * Method:
+
+    Method:
+
         PUT
-    *URL PARAMS
+
+    URL PARAMS
+
         id = [integer]
-    *Data PARAMS
+
+    Data PARAMS
+
         title : String
         description : String
         status : Boolean
         due_date : DateOnly
-    *Succes Response
-        *Code : 201
-         Content : {
+
+    Succes Response
+
+        Code : 201
+
+        Content : {
                         "Todos": [
                             {
                             "id": 3,
@@ -151,11 +198,12 @@ Return json data after edit
                             },
                         ]
                     }
-    *Error Response :
-        *Code :  304
+
+    Error Response :
+        Code :  304
         Content : "Not Modified"
     
-    *Sample Call :
+    Sample Call :
         $.ajax({
             url: "/todos/3",
             dataType: "json",
@@ -168,23 +216,34 @@ Return json data after edit
         });
 
 Return json data after delete
-    * Url
+
+    Url
+
         /todos/:id
-    * Method:
+
+    Method:
+
         DELETE
-    *URL PARAMS
+
+    URL PARAMS
+
         id : INTEGER
-    *Data PARAMS
+
+    Data PARAMS
+
         NONE
-    *Succes Response
-        *Code : 202
-         Content : { msg : "Succes Destroy Todo with ${Id} "
-                    }
-    *Error Response :
-        *Code :  501
+
+    Succes Response
+
+        Code : 202
+
+        Content : { msg : "Succes Destroy Todo with ${Id} " }
+
+    Error Response :
+        Code :  501
         Content : "Not Implemented"
     
-    *Sample Call :
+    Sample Call :
         $.ajax({
             url: "/todos/3",
             dataType: "json",
@@ -197,18 +256,29 @@ Return json data after delete
         });
 
 Return json data after create user
-    * Url
+
+    Url
+
         /user/register
-    * Method:
+
+    Method:
+
         POST
-    *URL PARAMS
+
+    URL PARAMS
+
         NONE
-    *Data PARAMS
+
+    Data PARAMS
+
         email : String
         password : String
-    *Succes Response
-        *Code : 201
-         Content : {
+
+    Succes Response
+
+        Code : 201
+
+        Content : {
                     "User": {
                         "id": 1,
                         "email": "yodji09@gmail.com",
@@ -217,11 +287,12 @@ Return json data after create user
                         "createdAt": "2020-04-27T09:11:48.226Z"
                         }
                     }
-    *Error Response :
-        *Code :  501
+                    
+    Error Response :
+        Code :  501
         Content : "Cannot Implemented"
     
-    *Sample Call :
+    Sample Call :
         $.ajax({
             url: "/user/register",
             dataType: "json",

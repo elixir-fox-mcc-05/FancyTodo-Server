@@ -1,0 +1,27 @@
+{
+  "name": "fancy-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Goberman15/FancyTodo-Server.git"
+  },
+  "author": "Akbar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Goberman15/FancyTodo-Server/issues"
+  },
+  "homepage": "https://github.com/Goberman15/FancyTodo-Server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.3",
+    "pg": "^8.0.3",
+    "sequelize": "^5.21.7",
+    "sequelize-cli": "^5.5.1"
+  }
+}

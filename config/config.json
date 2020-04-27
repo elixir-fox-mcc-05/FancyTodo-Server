@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "111315",
+    "database": "db_fancytodo",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "db_fancytodo",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "postgres",
+    "password": null,
+    "database": "db_fancytodo",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  }
+}

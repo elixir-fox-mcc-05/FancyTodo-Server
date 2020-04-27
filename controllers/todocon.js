@@ -10,7 +10,7 @@ class TodoCon {
         })
         .catch(err=>{
             res.status(500).json({
-                error : err
+                error : err.errors[0].message
             })
         })
     }
@@ -30,7 +30,7 @@ class TodoCon {
         })
         .catch(err=>{
             res.status(500).json({
-                error : err
+                error : err.errors[0].message
             })
         })
     }
@@ -53,7 +53,7 @@ class TodoCon {
         })
         .catch(err=>{
             res.status(500).json({
-                error : err
+                error : err.errors[0].message
             })
         })
     }
@@ -71,7 +71,7 @@ class TodoCon {
         })
         .catch(err=>{
             res.status(500).json({
-                error : err
+                error : err.errors[0].message
             })
         })
     }

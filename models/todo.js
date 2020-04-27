@@ -8,14 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATE,
-    UserId: DataTypes.Integer
+    due_date: {
+      type: DataTypes.DATE,
+      validate: {
+        isAfter: "2020-04-27"
+      }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize
   })
 
-  const Todo = sequelize.define('Todo', {
-  });
   Todo.associate = function (models) {
     Todo.belongsTo(models.User)
   };

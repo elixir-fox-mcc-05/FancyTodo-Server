@@ -1,11 +1,13 @@
-const router = require('express').Router()
+"use strict"
 
+
+const router = require('express').Router()
 const todoRouter = require('./todo')
 const userRouter = require('./user')
 
 router.get('/', (req, res) => {
     res.status(200).json({
-        msg: "hi from router"
+        msg: "hi from router/homepage"
     })
 });
 

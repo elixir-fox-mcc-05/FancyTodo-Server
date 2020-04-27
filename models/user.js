@@ -8,13 +8,16 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       len: [4]
-    }, 
-    email: DataTypes.STRING,
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     password: DataTypes.STRING
   }, {
     sequelize
   })
-  
+
   User.associate = function (models) {
     User.hasMany(models.Todo)
   };

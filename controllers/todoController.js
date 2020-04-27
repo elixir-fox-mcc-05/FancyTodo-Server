@@ -62,6 +62,9 @@ class TodoController {
             }, {
                 where: { id }
             })
+            .then(_ => {
+                return Todo.findByPk(id)
+            })
             .then(data => {
                 res.status(201).json({
                     todo: data

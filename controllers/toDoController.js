@@ -3,6 +3,7 @@ const {User,Todo} = require('../models')
 class ToDoController{
 
     static list(req,res){
+
         Todo
             .findAll({order : [['id','ASC']]})
             .then(data => {
@@ -16,7 +17,6 @@ class ToDoController{
     static createToDo(req,res){
         
         let {title , description, due_date} = req.body
-        // let newToDo = {title, description} 
 
         Todo    
             .create({title,description, due_date})
@@ -25,7 +25,7 @@ class ToDoController{
                 if(err.message){
                     res.status(400).json({err : err.message})
                 }else{
-                    res.status(500).json({error : err})
+                    res.status(500).json({error : err.message})
                 }
             })
     }
@@ -33,7 +33,6 @@ class ToDoController{
     static updateToDo(req,res){
 
         let { title, description , due_date} = req.body
-        // let newToDo = {title, description, due_date}
 
         Todo
             .update({
@@ -45,10 +44,14 @@ class ToDoController{
                 return Todo.findByPk(req.params.id)
             })
             .then(data => {
-                res.status(200).json({todos : data})
+                if (data == null){
+                    res.status(404).json({err : "data not found"})
+                }else {
+                    res.status(200).json({todos : data})
+                }    
             })
             .catch(err => {
-                res.status(404).json({err : err})
+                res.status(400).json({err : err.message})
             })
     }
 
@@ -57,10 +60,15 @@ class ToDoController{
         Todo
             .findByPk(req.params.id)
             .then(data => {
-                res.status(200).json({todos : data})
+                if (data == null){
+                    res.status(404).json({error : "not found"})
+                }else {
+                    res.status(200).json({todos : data})
+                }
+
             })
             .catch(err => {
-                res.status(404).json({error : err})
+                res.status(400).json({error : err})
             })
     }
 

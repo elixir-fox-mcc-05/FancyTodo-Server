@@ -10,8 +10,11 @@ const app = express()
 // app.use(express.static(__dirname + "/views"))
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
-app.use(router)
 
+app.use(router)
+app.use((err,req,res,next) => {
+    res.status(500).send('server error')
+})
 
 
 

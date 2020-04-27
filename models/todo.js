@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true,
         isAfter: `${new Date()}`
       }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
     }
   }, {
     sequelize,
@@ -41,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
   })
   
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };

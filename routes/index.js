@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const todosRouter = require('./todos.js');
+const usersRouter = require('./users.js');
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -9,5 +10,6 @@ router.get('/', (req, res) => {
     })
 });
 router.use('/todos', todosRouter);
+router.use('/users', usersRouter);
 
 module.exports = router;

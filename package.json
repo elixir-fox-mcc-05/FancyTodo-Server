@@ -18,9 +18,14 @@
   },
   "homepage": "https://github.com/adityapradipta/FancyTodo-Server#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.0.3",
     "sequelize": "^5.21.7",
     "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

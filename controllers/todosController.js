@@ -63,7 +63,7 @@ class TodosController {
             }
         })
             .then(() => {
-                res.status(201).json({
+                res.status(200).json({
                     msg: `Todo with id ${id} successfully updated`
                 })
             })

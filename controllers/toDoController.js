@@ -4,7 +4,7 @@ class ToDoController{
 
     static list(req,res){
         Todo
-            .findAll()
+            .findAll({order : [['id','ASC']]})
             .then(data => {
                 res.status(200).json({todos : data})
             })
@@ -42,6 +42,9 @@ class ToDoController{
                 'due_date' : due_date
             }, {where : {id : req.params.id}})
             .then(data => {
+                return Todo.findByPk(req.params.id)
+            })
+            .then(data => {
                 res.status(200).json({todos : data})
             })
             .catch(err => {
@@ -63,23 +66,19 @@ class ToDoController{
 
     static deleteToDo(req,res){
 
-        // const p1 = Todo 
-        //                 .findByPk(req.params.id)
-        //                 .then(data => {return data})
-
         Todo
-            .destroy({where : {id : req.params.id},returning : true})
+            .findByPk(req.params.id)
+            .then(data1 => {
+                let results = Object.assign(data1)
+                return [Todo.destroy({where : {id : req.params.id},returning : true}), results]
+            })
             .then(data => {
-                res.status(200).json({todos :data})
+                res.status(200).json({todos : data[1]})
             })
             .catch(err => {
                 res.status(404).json({error : err})
             })
 
-        // Promise.all([p1,p2]).then(data => {
-        //     let deleteddata = data[0]
-        //     res.status(200).json({todos :data})
-        // })
 
     }
 

@@ -94,7 +94,28 @@ class TodoController{
                     })
     }
     static delete(req, res){
-
+        const {id} = req.params;
+        const option = {
+            where: {id}
+        }
+        let deleted;
+        Todo.findByPk(id)
+            .then(response => {
+                if(!response){
+                    res.status(404).json({
+                        message: 'Id Not Found'
+                    })
+                }else{
+                    deleted = response;
+                    return Todo.destroy(option);
+                }
+            })
+            .then(() => {
+                res.status(200).json(deleted);
+            })
+            .catch(err => {
+                res.status(500).json(err.message);
+            })
     }
 }
 

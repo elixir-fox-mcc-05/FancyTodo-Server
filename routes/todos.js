@@ -6,4 +6,6 @@ router.get('/', TodoController.showAll);
 router.get('/:id', TodoController.showById);
 router.post('/', TodoController.create);
 router.put('/:id', TodoController.update);
+router.delete('/:id', TodoController.delete);
+
 module.exports = router

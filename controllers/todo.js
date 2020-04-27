@@ -59,13 +59,13 @@ class FancyTodo {
         Todo.destroy({ where: { id } })
             .then(data => { 
                 if (data) {
-                    res.status(204).json({
-                    status: `Success deleted with id ${id}`
-                    })
+                    res
+                      .status(204)
+                      .json({ data })
                 } else {
-                    res.status(404).json({
-                        msg: `NOT FOUND`
-                    })
+                    res
+                      .status(404)
+                      .json({ msg: `NOT FOUND` })
                 }
             })
             .catch(err => { 
@@ -75,34 +75,33 @@ class FancyTodo {
         })
     }
 
-    static edit(req, res) {
+    static edit(req, res, next) {
         const { id } = req.params
         const { title, description, status, due_date } = req.body
-        Todo.findByPk(id)
-            .then(data => {
-                if (data) {
-                    Todo.update({ title, description, status, due_date })
-                        .then(data => { 
-                            res
-                              .status(200)
-                              .json({ data }) 
-                        })
-                        .catch(err => {
-                            res
-                              .status(400)
-                              .json({ msg: `validation error` })
-                        })
-                } else {
+        Todo.update({ title, description, status, due_date }, { where: { id } })
+            .then(data => { 
+                if (data != 0) {
                     res
-                      .status(404)
-                      .json({ msg: 'NOT FOUND' })
+                    .status(200)
+                    .json({ data }) 
+                } else if (data == 0) {
+                    res
+                    .status(404)
+                    .json({ msg: 'NOT FOUND' })
                 }
+                next() 
             })
             .catch(err => {
-                res
-                  .status(500)
-                  .json({ msg: 'status code 500' }) 
+                if (err == undefined) {
+                    res
+                      .status(400)
+                      .json({ msg: `Invalid Input` })
+                }
+                    res
+                    .status(500)
+                    .json({ err: err.message }) 
             })
+
     }
 }
 

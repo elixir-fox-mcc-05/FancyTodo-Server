@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "ahmadalhq",
+    "password": "empatpuluh6",
+    "database": "db_fancytodo",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

@@ -13,6 +13,7 @@ router.post('/todos', TodoCon.addTodo )
 router.patch('/todos/:id', TodoCon.edit )
 router.delete('/todos/:id', TodoCon.delete )
 router.post('/todos/users/signup', UserCon.signup )
+router.post('/todos/users/signin', UserCon.signin )
 
 
 module.exports = router

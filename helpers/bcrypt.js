@@ -6,6 +6,12 @@ function hashPassword (password) {
     return hash;
 }
 
+function comparePassword (pass,hash) {
+    let check = bcrypt.compareSync(pass,hash);
+    return check
+}
+
 module.exports = {
-    hashPassword
+    hashPassword,
+    comparePassword
 }

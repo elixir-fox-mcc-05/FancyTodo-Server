@@ -1,4 +1,7 @@
+let jwt = require('jsonwebtoken');
 let { User } = require('../models')
+let { comparePassword } = require('../helpers/bcrypt.js')
+let { generateToken } = require('../helpers/jwt.js')
 
 class UserCon {
     static signup (req,res) {
@@ -24,6 +27,40 @@ class UserCon {
                 })
             })
         }
+    }
+
+    static signin (req,res) {
+        User.findOne({
+            where : {
+                email : req.body.email
+            }
+        })
+        .then(result => {
+            if (result) {
+                let checkPass = comparePassword(req.body.password,result.password)
+                if(checkPass) {
+                    let obj = {
+                        id : result.id,
+                        email : result.email
+                    }
+                    let token = jwt.sign(obj, 'secret')
+                    res.status(200).json({
+                        token
+                    })
+                } else {
+                    res.status(401).json({
+                        error : 'wrong email/password'
+                    })
+                }
+            } else {
+                res.status(401).json({
+                    error : 'wrong email/password'
+                })
+            }
+        })
+        .catch(err=>{
+            res.send(err)
+        })
     }
 }
 

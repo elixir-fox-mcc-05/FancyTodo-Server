@@ -15,6 +15,24 @@ class TodoController {
             })
     }
 
+    static findOne(req, res, next) {
+        let id = req.params.id
+        Todo.findOne({ where: { id } })
+            .then((result) => {
+                if (result) {
+                    return res.status(200).json(result)
+                } else {
+                    next({
+                        name: 'NotFound',
+                        errors: [{ msg: 'Data Not Found' }]
+                    })
+                }
+            })
+            .catch((err) => {
+                next(err)
+            })
+    }
+
     static add(req, res, next) {
         let payload = {
             title: req.body.title,
@@ -25,13 +43,10 @@ class TodoController {
         }
         Todo.create(payload)
             .then((result) => {
-                return res.status(201).json({ result })
+                return res.status(201).json(result)
             })
             .catch((err) => {
-                next({
-                    name: 'InternalServerError',
-                    errors: [{ msg: 'Failed to Create.' }]
-                })
+                next(err)
             })
     }
 
@@ -44,34 +59,54 @@ class TodoController {
             due_date: req.body.due_date,
             UserId: req.currentUserId
         }
-        Todo.update(payload, { where: { id: id } })
+        Todo.findOne({ where: { id } })
+            .then((data) => {
+                if (data) Todo.update(payload, { where: { id: id } })
+                else next({
+                    name: 'NotFound',
+                    msg: 'Data Not Found'
+                })
+            })
             .then((result) => {
-                return res.status(201).json({
+                return res.status(200).json({
                     title: req.body.title,
                     description: req.body.description,
                     status: req.body.status,
-                    due_date: req.body.due_date
+                    due_date: req.body.due_date,
+                    UserId: payload.UserId
                 })
             })
             .catch((err) => {
-                next({
-                    name: 'InternalServerError',
-                    errors: [{ msg: 'Failed to Update.' }]
-                })
+                // if (err.name == 'SequelizeValidationError') {
+                //     next(err)
+                // } else {
+                //     next({
+                //         name: 'InternalServerError',
+                //         errors: [{ msg: err }]
+                //     })
+                // }
+                next(err)
             })
     }
 
     static delete(req, res, next) {
         let id = +req.params.id
-        Todo.destroy({ where: { id: id } })
-            .then((result) => {
-                return res.status(201).json({ msg: 'Success Delete' })
+        Todo.findOne({ where: { id } })
+            .then((data) => {
+                if (data) {
+                    Todo.destroy({ where: { id: id } })
+                        .then((result) => {
+                            return res.status(201).json({ data })
+                        })
+                } else {
+                    next({
+                        name: 'NotFound',
+                        msg: 'Data Not Found'
+                    })
+                }
             })
             .catch((err) => {
-                next({
-                    name: 'InternalServerError',
-                    errors: [{ msg: 'Failed to Delete.' }]
-                })
+                next(err)
             })
     }
 

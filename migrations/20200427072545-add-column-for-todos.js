@@ -9,11 +9,11 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    return queryInterface.addColumn('todos', 'UserId', {
+    return queryInterface.addColumn('Todos', 'UserId', {
       type : Sequelize.INTEGER,
       foreignKey : true,
       references: {
-        model: "todos",
+        model: "Todos",
         key : 'id'
       },
       onUpdate : 'cascade',

@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
           user.last_name = user.first_name
         }
         user.password = encrypt(user.password)
+        
       },
       beforeUpdate : (user) => {
         if (user.last_name == '') {

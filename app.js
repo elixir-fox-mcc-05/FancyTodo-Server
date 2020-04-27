@@ -7,8 +7,9 @@ const router = require('./router')
 const port = process.env.PORT || 3000
 const app = express()
 
-app.use(express.static(__dirname + "/views"))
+// app.use(express.static(__dirname + "/views"))
 app.use(express.urlencoded({extended : false}))
+app.use(express.json())
 app.use(router)
 
 

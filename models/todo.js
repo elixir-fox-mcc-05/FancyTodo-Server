@@ -8,17 +8,16 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type : DataTypes.STRING,
+      allowNull : false,
       validate : {
-        notEmpty : true,
-        isInt : false,
-        len : [3, 999]
+        len : [3]
       }
     },
     description: {
       type : DataTypes.STRING,
       validate : {
-        notEmpty : true,
-        len : [3,999]
+        notEmpty : false,
+        len : [3]
       }
     },
     status: {
@@ -29,8 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     due_date:{
-      type :  DataTypes.STRING,
+      type :  DataTypes.DATE,
       validate : {
+        isDate : true,
         notEmpty : true
       }
     },
@@ -42,16 +42,11 @@ module.exports = (sequelize, DataTypes) => {
         if (!todo.status){
         todo.status = false
         }
-      },
-      beforeUpdate : (todo) => {
-        if (todo.status){
-          todo.due_date = new Date()
-        }
       }
     }
   });
   Todo.associate = function(models) {
-    Todo.belongTo(models.User)
+    Todo.belongsTo(models.User)
     // associations can be defined here
   };
   return Todo;

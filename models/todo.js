@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     due_date: DataTypes.DATE,
     UserId : DataTypes.INTEGER
+  },
+  {
+    sequelize,
+    modelName : `Todo`
   })
 
   Todo.associate = function(models) {

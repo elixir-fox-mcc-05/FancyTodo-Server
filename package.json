@@ -1,0 +1,31 @@
+{
+  "name": "fancytodo-server",
+  "version": "1.0.0",
+  "description": "fancy-Todo",
+  "main": "app.js",
+  "scripts": {
+    "test": "Portofolio_1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azka-art/FancyTodo-Server.git"
+  },
+  "keywords": [
+    "Portofolio_1"
+  ],
+  "author": "Azka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azka-art/FancyTodo-Server/issues"
+  },
+  "homepage": "https://github.com/azka-art/FancyTodo-Server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "multer": "^1.4.2",
+    "pg": "^8.0.3",
+    "sequelize": "^5.21.7"
+  }
+}

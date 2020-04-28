@@ -1,7 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
 
+  const bcrypt = require(`../helpers/bcrypt`)
   const Model = sequelize.Sequelize.Model;
+
   class User extends Model {}
 
   User.init({
@@ -21,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty : {
           msg : `email cannot be empty`
-        },
-        unique : {
-          msg : `Email has already been registered`
         }
+      },
+      unique : {
+        msg : `Email has already been registered`
       }
     },
     password: {
@@ -42,7 +44,12 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     sequelize,
-    modelName : `User`
+    modelName : `User`,
+    hooks : {
+      afterValidate : (user, options) => {
+        user.password = bcrypt.plainToHash(user.password)
+      }
+    }
   })
 
   User.associate = function(models) {

@@ -18,7 +18,15 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       defaultValue : `queued`
     },
-    due_date: DataTypes.DATE,
+    due_date: {
+      type : DataTypes.DATE,
+      validate : {
+        isAfter : {
+          args : new Date(),
+          msg : `due date cannot be in the past`
+        }
+      }
+    },
     UserId : DataTypes.INTEGER
   },
   {

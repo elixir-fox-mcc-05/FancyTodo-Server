@@ -55,7 +55,7 @@ none
 
 * **URL**
 
-/todo/id
+/todo/:id
 <!-- example /todo/7 -->
 * **Method:**
   
@@ -93,7 +93,7 @@ none
 <!-- ==================================================== -->
 * **URL**
 
-/todo/
+/todos
 * **Method:**
   
 POST
@@ -103,7 +103,7 @@ POST
 
 none
 * **Data Params**
-
+required :
 title : "cooding lagi"
 description : "belajar keras lagi"
 status : false
@@ -135,15 +135,16 @@ due_date : 2021-04-29
 
 * **URL**
 
-/delete/id
+/todos/:id
 * **Method:**
   
 DELETE
   <!-- `GET` | `POST` | `DELETE` | `PUT` -->
   
 *  **URL Params**
+required :
+id: INTEGER
 
-/delete/7
 * **Data Params**
 
 none
@@ -166,17 +167,17 @@ none
 
 * **URL**
 
-/todo/id
+/todos/:id
 * **Method:**
   
 PUT
   <!-- `GET` | `POST` | `DELETE` | `PUT` -->
   
 *  **URL Params**
-
-/todo/7
+required: 
+id:INTEGER
 * **Data Params**
-
+optional :
 title : "cooding"
 description : "belajar keras"
 status : false

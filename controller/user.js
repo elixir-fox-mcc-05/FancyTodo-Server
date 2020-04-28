@@ -1,6 +1,7 @@
 const Model = require('../models')
 const User = Model.User
 const {CheckPassword} = require('../helpers/bcrypt.js')
+const {generateToken} = require('../helpers/jwt.js')
 
 class UserController {
     static signUp (req, res) {
@@ -15,7 +16,7 @@ class UserController {
             })
     }
 
-    static signIn (req, res) {
+    static signIn (req, res, next) {
         const {  username, email , password } = req.body
 
         User.findOne({
@@ -25,19 +26,27 @@ class UserController {
             if(result){
                 let compare = CheckPassword( password, result.password )
                 if(compare){
-                    res.status(200).json({ result })
+                        let token = generateToken({
+                            id : result.id,
+                            email: result.email
+                        })
+                    res.status(200).json({ token })
                 }else {
-                    res.status(401).json({msg : 'email or password worng'})
+                    throw {
+                        msg : 'email or password wrong',
+                        code : 401
+                    }
                 }
             }else{
-                res.status(401).json({msg : 'email or password worng'})
+                res.status(401).json({msg : 'email or password wrong'})
             }
         })
         .catch(err => {
-            res.status(500).json({error : err.message})
+            next(err)
         })
     }
 
 }
+
 
 module.exports = UserController;

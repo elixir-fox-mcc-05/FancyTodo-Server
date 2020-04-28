@@ -3,8 +3,8 @@ const TodoRoutes = require('./todo.js')
 const UserRoutes = require('./user.js')
 
 // TODO
-router.use('/todo', TodoRoutes)
+router.use('/todos', TodoRoutes)
 // USER
-router.use('/user', UserRoutes)
+router.use('/users', UserRoutes)
 
 module.exports = router;

@@ -129,7 +129,7 @@ class TodoController {
             }
         })
         .then(result => {
-            return res.status(201).json({
+            return res.status(200).json({
                 msg: "Successfully deleted todo",
             })
         })

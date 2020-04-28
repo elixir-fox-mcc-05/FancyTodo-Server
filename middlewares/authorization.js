@@ -27,8 +27,7 @@ function authorization (req, res, next) {
     })
     .catch(err=> {
         return res.status(500).json({
-            name: "Internal Server",
-            errors: [{message: "Error"}]
+            errors: "Internal Server Error"
         })
     })
 

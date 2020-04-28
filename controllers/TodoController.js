@@ -1,7 +1,7 @@
 const { Todo } = require('../models');
 
 class TodoController {
-  static findAll(req, res) {
+  static findAll(req, res, next) {
     let UserId = req.UserId;
     let options = {
       where: {
@@ -16,12 +16,10 @@ class TodoController {
         });
       })
       .catch(err => {
-        res.status(500).json({
-          error: err
-        });
+        return next(err);
       });
   }
-  static createTodo(req, res) {
+  static createTodo(req, res, next) {
     let { title, description, status, due_date } = req.body;
     let UserId = req.UserId;
     Todo.create({
@@ -37,18 +35,10 @@ class TodoController {
         })
       })
       .catch(err => {
-        if(err.errors[0].type == "Validation error") {
-          res.status(400).json({
-            error: err
-          });
-        } else {
-          res.status(500).json({
-            error: err.message
-          });
-        }
+        return next(err);
       });
   }
-  static findOne(req, res) {
+  static findOne(req, res, next) {
     let { id } = req.params;
     Todo.findByPk(id)
       .then(data => {
@@ -57,20 +47,25 @@ class TodoController {
             data
           });
         } else {
-          res.status(404).json({
-            error: `Data Not Found`
+          return next({
+            code: 404,
+            name: "404NotFoundError",
+            msg: `Data Not Found`
           });
         }
       })
       .catch(err => {
-        res.status(500).json({
-          error: err.message
-        })
+        return next(err);
       });
   }
-  static updateTodo(req, res) {
+  static updateTodo(req, res, next) {
     let { title, description, status, due_date } = req.body;
     let { id } = req.params;
+    if(!title || !description) return next({
+      code: 400,
+      name: "Bad Request",
+      msg: `Title and/or Description is required`
+    });
     Todo.update({
       title,
       description,
@@ -88,25 +83,19 @@ class TodoController {
             data: data[1]
           });
         } else {
-          res.status(404).json({
-            error: `Data Not Found`
+          return next({
+            code: 404,
+            name: "404NotFoundError",
+            msg: `Data Not Found`
           });
         }
       })
       .catch(err => {
-        if(err.errors[0].type == "Validation error") {
-          res.status(400).json({
-            error: err
-          });
-        } else {
-          res.status(500).json({
-            error: err.message
-          });
-        }
+        return next(err);
       });
 
   }
-  static deleteTodo(req, res) {
+  static deleteTodo(req, res, next) {
     let { id } = req.params;
     let deletedData = {};
     Todo.findByPk(id)
@@ -124,15 +113,15 @@ class TodoController {
             deletedData
           });
         } else {
-          res.status(404).json({
-            error: `Data Not Found`
+          return next({
+            code: 404,
+            name: "404DataNotFoundError",
+            msg: `Data Not Found`
           });
         }
       })
       .catch(err => {
-        res.status(500).json({
-          error: err.message
-        });
+        return next(err);
       });
 
   }

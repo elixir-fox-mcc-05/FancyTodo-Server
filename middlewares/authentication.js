@@ -6,27 +6,24 @@ const authentication = (req, res, next) => {
   try {
     let decode = verifyToken(token);
     let { id } = decode;
-    console.log(id);
     User.findByPk(id)
       .then(result => {
         if(result) {
           req.UserId = id;
           next();
         } else {
-          res.status(401).json({
-            msg: `Not Authenticated, Please Login First!`
+          return next({
+            code: 401,
+            name: "NotAuthenticatedError",
+            msg: "Email and/or password did not match"
           });
         }
       })
       .catch(err => {
-        res.status(500).json({
-          error: `Server error`
-        });
+        return next(err);
       });
   } catch (error) {
-    res.status(500).json({
-      error: `Please Login First`
-    });
+    return next(error);
   }
 
 }

@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          args: true,
+          msg: `Title is required`
+        },
         notEmpty: {
           args: true,
           msg: "Title cannot be empty"
@@ -17,7 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          args: true,
+          msg: `Description is required`
+        },
         notEmpty: {
           args: true,
           msg: "Description cannot be empty"
@@ -35,12 +45,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     validate: {
       checkEmpty() {
-        if(!this.title) {
-          throw new Error('Title is required');
-        }
-        if(!this.description) {
-          throw new Error('Description is required');
-        }
         if(!this.status) {
           this.status = "pending";
         }
@@ -49,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
           let today = new Date();
           today.setHours(0,0,0,0);
           if(this.due_date <= today) {
-            throw new Error('Due Date cannot be less than today');
+            throw "Due Date Cannot Less than today";
           }
         }
       }

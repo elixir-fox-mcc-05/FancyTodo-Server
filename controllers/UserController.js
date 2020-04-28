@@ -3,7 +3,7 @@ const { compare } = require('../helpers/encrypt.js');
 const { userToken } = require('../helpers/jwt.js');
 
 class UserController {
-  static register(req, res) {
+  static register(req, res, next) {
     let { email, password } = req.body;
     User.create({
       email,
@@ -15,12 +15,10 @@ class UserController {
         });
       })
       .catch(err => {
-        res.status(400).json({
-          error: err.message
-        });
+        return next(err);
       });
   }
-  static login(req, res) {
+  static login(req, res, next) {
     let { email, password } = req.body;
     User.findOne({
       where: {
@@ -38,20 +36,22 @@ class UserController {
               token
             });
           } else {
-            res.status(400).json({
-              err: `Password Salah`
+            return next({
+              code: 400,
+              name: "Bad Request",
+              msg: `Password Salah`
             });
           }
         } else {
-          res.status(400).json({
-            err: `Email/Password Salah`
+          return next({
+            code: 400,
+            name: "Bad Request",
+            msg: `Email/Password Salah`
           });
         }
       })
       .catch(err => {
-        res.status(500).json({
-          error: err.message
-        })
+        return next(err);
       })
   }
 }

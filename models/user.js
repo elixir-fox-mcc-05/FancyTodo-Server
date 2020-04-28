@@ -38,12 +38,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         checkLength(value) {
           if(value.length < 6) {
-            throw new Error(`Password at least 6 characters`)
+            throw `Password at least 6 characters`
           }
         },
         hasNumber(value) {
           if(!/\d/.test(value)) {
-            throw new Error(`Password must contain at least 1 number`);
+            throw `Password must contain at least 1 number`;
           }
         }
       }
@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
           })
             .then(result => {
               if(result) {
-                const err = new Error(`Email Already Exists`);
+                const err = `Email Already Exists`;
                 reject(err);
               } else {
                 resolve(user);

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.DATE,
       validate : {
         isAfter : {
-          args : new Date(),
+          args : `${new Date()}`,
           msg : `due date cannot be in the past`
         }
       }

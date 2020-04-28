@@ -1,8 +1,9 @@
 'use strict'
 
 const { User } = require(`../models`)
-const bcrypt = require(`../helpers/bcrypt`)
-const jwt = require(`../helpers/jwt`)
+const { compare } = require(`../helpers/bcrypt`)
+const { generateToken } = require(`../helpers/jwt`)
+const mailer = require(`../helpers/mailer`)
 
 class UserController {
 
@@ -16,6 +17,15 @@ class UserController {
         
         User.create(newUser)
             .then(result => {
+                let maskedpassword = `XX`+ (password.substr(2, password.length));
+                let mail = {
+                    subject : `Your registration detail`,
+                    message : `Included here is your login credential to the todo app, try to keep it safe<br>
+                    nicname : ${nickname}<br>
+                    email : ${email}<br>
+                    password : ${maskedpassword}`
+                }
+                mailer(email, mail.subject, mail.message)
                 res.status(201).json({
                     User : result
                 })
@@ -54,7 +64,7 @@ class UserController {
                     Users : result
                 })
             } else {
-                throw res.status(400).json({
+                res.status(400).json({
                     Error :{
                         message : `ID not found`
                     } 
@@ -71,22 +81,22 @@ class UserController {
     static login ( req, res) {
         const { email, password} = req.body
         User.findOne({
-            where : {
-                email : email
-            }
+                where : {
+                    email : email
+                }
             })
 
             .then(result => {
                 if(result){
-                    if(bcrypt.compare(password, result.password)){
+                    if(compare(password, result.password)){
                         let newToken = {
                             UserId : result.id
                         }
                         res.status(200).json({
-                            token : jwt.generateToken(newToken)
+                            token : generateToken(newToken)
                         })
                     } else {
-                        throw res.status(401).json({
+                        res.status(401).json({
                             Error : {
                                 message : `Email & password combination is invalid`
                             }

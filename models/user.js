@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
 
-  const bcrypt = require(`../helpers/bcrypt`)
+  const { plainToHash } = require(`../helpers/bcrypt`)
   const Model = sequelize.Sequelize.Model;
 
   class User extends Model {}
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName : `User`,
     hooks : {
       afterValidate : (user, options) => {
-        user.password = bcrypt.plainToHash(user.password)
+        user.password = plainToHash(user.password)
       }
     }
   })

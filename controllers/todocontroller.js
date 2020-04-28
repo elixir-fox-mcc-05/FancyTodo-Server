@@ -6,7 +6,7 @@ class TodoController {
 
     static create( req, res) {
         const { title, description, status, due_date } = req.body
-        let newTodo = { title, description, status, due_date, UserId : 1 }
+        let newTodo = { title, description, status, due_date, UserId : req.UserId }
         Todo.create(newTodo)
             .then (result => {
                 res.status(201).json({
@@ -15,13 +15,17 @@ class TodoController {
             })
             .catch ( err => {
                 res.status(500).json({
-                    Error : err
+                    Error : err.message
                 });
             })
     }
 
     static getTodos ( req, res) {
-        Todo.findAll({})
+        Todo.findAll({
+            where : {
+                UserId : req.UserId
+            }
+        })
         .then (result => {
             res.status(200).json({
                 Todo : result
@@ -37,7 +41,8 @@ class TodoController {
     static getOneTodo ( req, res) {
         Todo.findOne({
             where : {
-                id : Number(req.params.id)
+                id : Number(req.params.id),
+                UserId : req.UserId
             }
         })
         .then (result => {
@@ -60,17 +65,22 @@ class TodoController {
             status
         }, {
             where : {
-                id : Number(req.params.id)
+                id : Number(req.params.id),
+                UserId : req.UserId
             }
         })
         .then (result => {
-            res.status(200).json({
-                Todo : result
-            });
+            if(result){
+                res.status(200).json({
+                    result
+                });
+            } else {
+                throw Error = `invalid UserId`
+            }
         })
         .catch ( err => {
-            res.status(500).json({
-                Error : err
+            res.status(501).json({
+                err
             });
         })
     }
@@ -78,7 +88,8 @@ class TodoController {
     static  deleteTodo ( req, res) {
         Todo.destroy({
             where : {
-                id : Number(req.params.id)
+                id : Number(req.params.id),
+                UserId : req.UserId
             }
         })
         .then (result => {

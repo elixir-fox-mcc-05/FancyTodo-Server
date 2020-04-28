@@ -86,8 +86,10 @@ Login using user data that already create (register)
   * **Code:** 201 <br />
     **Content:** 
 
-        ---under development---
-        
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJleGFtcGxlQGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4NDM2Mn0.bfY1TuKACZlJgdCJ_Po-0ysmIE0I5lVJZmiZAmhq68I"
+        }        
+
 * **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
@@ -115,7 +117,7 @@ Create Todo list data
 
    **Required:**
  
-    none
+    UserId = [integer]
 
 * **Data Params**
 
@@ -139,7 +141,7 @@ Create Todo list data
                 "due_date": "2020-04-29",
                 "updatedAt": "2020-04-28T06:21:14.564Z",
                 "createdAt": "2020-04-28T06:21:14.564Z",
-                "UserId": null
+                "UserId": 1
            }
         }
  
@@ -170,7 +172,7 @@ Show all Todo list
 
    **Required:**
  
-    none
+    UserId = [integer]
 
 * **Data Params**
 
@@ -189,7 +191,7 @@ Show all Todo list
                 "description": "example describe",
                 "status": false,
                 "due_date": "2020-04-28",
-                "UserId": null,
+                "UserId": 1,
                 "createdAt": "2020-04-28T06:16:59.518Z",
                 "updatedAt": "2020-04-28T06:16:59.518Z"
                 },
@@ -199,7 +201,7 @@ Show all Todo list
                 "description": "example describe 2",
                 "status": false,
                 "due_date": "2020-05-01",
-                "UserId": null,
+                "UserId": 1,
                 "createdAt": "2020-04-28T06:16:59.518Z",
                 "updatedAt": "2020-04-28T06:16:59.518Z"
                 }
@@ -226,7 +228,8 @@ Show Todo by Todo Id
 
    **Required:**
  
-    id = [integer]
+    id = [integer] <br />
+    UserId = [integer]
 
 * **Data Params**
 
@@ -244,7 +247,7 @@ Show Todo by Todo Id
             "description": "example describe",
             "status": false,
             "due_date": "2020-04-28",
-            "UserId": null,
+            "UserId": 1,
             "createdAt": "2020-04-28T06:16:59.518Z",
             "updatedAt": "2020-04-28T06:16:59.518Z"
           }
@@ -279,7 +282,8 @@ Update Todo list data by Todo Id
 
    **Required:**
  
-    id = [integer]
+  id = [integer] <br />
+  UserId = [integer]
 
 * **Data Params**
 
@@ -302,13 +306,30 @@ Update Todo list data by Todo Id
             "description": "update describe",
             "status": true,
             "due_date": "2020-04-28",
-            "UserId": null,
+            "UserId": 1,
             "createdAt": "2020-04-28T06:16:59.518Z",
             "updatedAt": "2020-04-28T06:16:59.518Z"
-          }
+          },
+            "msg": "todo with id 1 update"
         }
  
 * **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+  **Content:**
+
+        ---under development---
+
+  OR
+
+  * **Code:** 401 Unauthorized<br />
+  **Content:**
+
+        {
+          "msg": "Unauthorized"
+        }
+
+  OR
 
   * **Code:** 404 Not Found <br />
   **Content:**
@@ -316,13 +337,6 @@ Update Todo list data by Todo Id
         {
           "msg": "todo with id 1 NOT FOUND"
         }       
-
-  OR
-
-  * **Code:** 400 Bad Request <br />
-  **Content:**
-
-        ---under development---
 
   OR
 
@@ -344,7 +358,8 @@ Delete Todo list data by Todo Id
 
    **Required:**
  
-    id = [integer]
+    id = [integer] <br />
+    UserId = [integer]
 
 * **Data Params**
 
@@ -362,12 +377,12 @@ Delete Todo list data by Todo Id
 
         {
           "todo": {
-            "id": 51,
+            "id": 1,
             "title": "delete example title",
             "description": "delte example description",
             "status": false,
             "due_date": "2020-06-02",
-            "UserId": null,
+            "UserId": 1,
             "createdAt": "2020-04-28T11:15:37.875Z",
             "updatedAt": "2020-04-28T11:15:37.875Z"
           },
@@ -375,6 +390,15 @@ Delete Todo list data by Todo Id
         }
  
 * **Error Response:**
+
+  * **Code:** 401 Unauthorized<br />
+  **Content:**
+
+        {
+          "msg": "Unauthorized"
+        }
+
+  OR
 
   * **Code:** 404 Not Found <br />
   **Content:**
@@ -386,6 +410,7 @@ Delete Todo list data by Todo Id
   OR
 
   * **Code:** 500 Internal Server Error <br />  
+
 
 
 

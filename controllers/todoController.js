@@ -3,8 +3,12 @@ const { Todo } = require('../models/index.js');
 class TodoController {
     // router.get('/', TodoController.readAllTodo);
     static readAllTodo(req, res){
+        let UserId = req.currentUserId; // dari middleware authentication
         let options = {
-            order: [['createdAt', 'ASC']]
+            order: [['createdAt', 'ASC']],
+            where: {
+                UserId:Number(UserId)
+            }
         }
         Todo.findAll(options)
             .then(data => {
@@ -18,10 +22,17 @@ class TodoController {
     // router.get('/:id', TodoController.searchTodo);
     static searchTodo(req, res){
         let { id } = req.params;
-        Todo.findByPk(Number(id))
+        let UserId = req.currentUserId; // dari middleware authentication
+        let options = {
+            where: {
+                UserId:Number(UserId),
+                id: Number(id)
+            }
+        }
+        Todo.findOne(options)
             .then(data => {
                 if (!data){
-                    res.status(404).json({msg: `todo with id ${id} NOT FOUND`});
+                    res.status(404).json({msg: `Todo with id ${id} NOT FOUND`});
                 }
                 else {
                     res.status(200).json({todo: data})
@@ -35,10 +46,12 @@ class TodoController {
     // router.post('/', TodoController.createTodo);
     static createTodo(req,res){
         let { title, description, due_date } = req.body;
+        let UserId = req.currentUserId; // dari middleware authentication
         let input = {
             title:title,
             description:description,
-            due_date:due_date
+            due_date:due_date,
+            UserId:Number(UserId)
         }
         Todo.create(input)
             .then(data => {
@@ -52,8 +65,13 @@ class TodoController {
     // router.put('/:id', TodoController.updateTodo);
     static updateTodo(req, res){
         let { id } = req.params;
+        let UserId = req.currentUserId; // dari middleware authentication
         let options = {
-            where: {id:Number(id)}
+            where: {
+                UserId:Number(UserId),
+                id: Number(id)
+            },
+            returning: true
         }
         let { title, description, status, due_date } = req.body;
         let input = {
@@ -62,22 +80,9 @@ class TodoController {
             status,
             due_date
         }
-        let todoUpdate = null;
-        Todo.findByPk(Number(id))
-            .then(data => {
-                todoUpdate = data;
-                return Todo.update(input, options)
-            })
-            .then (_ => {
-                if (!todoUpdate){
-                    res.status(404).json({msg: `todo with id ${id} NOT FOUND`});
-                }
-                else {
-                    Todo.findByPk(Number(id))
-                    .then(data => {
-                        res.status(200).json({todo: data, msg: `todo with id ${id} update`});
-                    })
-                }
+        Todo.update(input, options)
+            .then (data => {
+                res.status(200).json({todo: data[1][0], msg: `todo with id ${id} update`});
             })
             .catch(err => {
                 res.status(500).json({error: err.message});
@@ -88,13 +93,15 @@ class TodoController {
     // router.delete('/:id', TodoController.deleteTodo);
     static deleteTodo(req,res){
         let { id } = req.params;
+         let UserId = req.currentUserId; // dari middleware authentication
         let options = {
             where: {
-                id:Number(id)
+                UserId:Number(UserId),
+                id: Number(id)
             }
         }
         let todoDelete = null;
-        Todo.findByPk(Number(id))
+        Todo.findOne(options)
             .then(data => {
                 todoDelete = data;
                 return Todo.destroy(options)
@@ -111,8 +118,6 @@ class TodoController {
                 res.status(500).json({error: err.message});
             })
     }
-
-
 
 }
 

@@ -5,4 +5,11 @@ function generateToken(payload){ //payload = object yg berisi id dan email user
     return token;
 }
 
-module.exports = { generateToken };
+function verifyToken(token){
+    return jwt.verify(token, process.env.SECRET);// sama dengan atas
+}
+
+module.exports = { 
+    generateToken,
+    verifyToken
+};

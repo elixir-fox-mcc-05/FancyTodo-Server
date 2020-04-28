@@ -1,3 +1,5 @@
+# FancyTodo-Server
+
 Create Todos
 Returns json data with last created todos.
 
@@ -22,7 +24,7 @@ Data Params
 Success Response:
 
 Code: 201 CREATED
-Content:  "todos": {
+Content:  "todo": {
         "id": 10,
         "title": "beli sayur",
         "description": "kepasar untuk beli sayur",
@@ -36,10 +38,10 @@ Content:  "todos": {
 Error Response:
 
 Code: 400 BAD REQUEST
-Content: { error : "Data Not Found" }
+Content: { error : "unable to create todo" }
 
 code: 500 INTERNAL SERVER ERROR
-Content: { error : "Server Timeout : 500"}
+content : {error : "Internal Server Error"}
 
 
 Show Todos
@@ -85,19 +87,7 @@ Content: {
 Error Response:
 
 code: 500 INTERNAL SERVER ERROR
-Content: { error : "Server Timeout : 500"}
-
-
-Sample Call:
-
-  $.ajax({
-    url: "/users/1",
-    dataType: "json",
-    type : "GET",
-    success : function(r) {
-      console.log(r);
-    }
-  });
+content : {error : "Internal Server Error"}
 
 
 
@@ -127,7 +117,7 @@ Success Response:
 
 Code: 200 OK
 Content: [{
-    "todos": {
+    "todo": {
         "id": 2,
         "title": null,
         "description": "perjalanan ke pasa",
@@ -142,19 +132,7 @@ Content: [{
 Error Response:
 
 code: 404 NOT FOUND
-Content: { error : "error not found"}
-
-
-Sample Call:
-
-  $.ajax({
-    url: "/users/1",
-    dataType: "json",
-    type : "GET",
-    success : function(r) {
-      console.log(r);
-    }
-  });
+Content: { error : "id not found"}
 
 
 
@@ -183,7 +161,18 @@ Data Params
 Success Response:
 
 Code: 200 OK
-Content: [{ "title" : "beli sayur" , "description" : "kepasar untuk beli sayur:, "status" : false, due_date : "march 29 2020 19:00:12" }]
+Content: [{
+    "todo": {
+        "id": 2,
+        "title": null,
+        "description": "perjalanan ke pasa",
+        "status": false,
+        "due_date": "2020-04-27T09:24:04.369Z",
+        "createdAt": "2020-04-27T09:24:04.320Z",
+        "updatedAt": "2020-04-27T09:24:04.320Z",
+        "UserId": null
+    }
+}]
 
 Error Response:
 
@@ -191,22 +180,10 @@ code: 400 BAD REQUEST
 Content: { error : "title invalid"}
 
 code : 404 NOT FOUND
-content : {error : "not found}
+content : {error : "id not found}
 
 code : 500 INTERNAL SERVER ERROR
-content : 500: not found
-
-
-Sample Call:
-
-  $.ajax({
-    url: "/users/1",
-    dataType: "json",
-    type : "GET",
-    success : function(r) {
-      console.log(r);
-    }
-  });
+content : {error : "Internal Server Error"}
 
 
 
@@ -219,7 +196,7 @@ URL
 
 Method:
 
-PUT
+DELETE
 
 URL Params
 
@@ -235,25 +212,27 @@ Data Params
 Success Response:
 
 Code: 200 OK
-Content: [{ "title" : "beli sayur" , "description" : "kepasar untuk beli sayur:, "status" : false, due_date : "march 29 2020 19:00:12" }]
+Content:[{
+    "todo": {
+        "id": 2,
+        "title": null,
+        "description": "perjalanan ke pasa",
+        "status": false,
+        "due_date": "2020-04-27T09:24:04.369Z",
+        "createdAt": "2020-04-27T09:24:04.320Z",
+        "updatedAt": "2020-04-27T09:24:04.320Z",
+        "UserId": null
+    }
+}]
 
 Error Response:
 
 code : 404 NOT FOUND
-content : {error : "error not found"}
+content : {error : "id not found"}
 
 code : 500 INTERNAL SERVER ERROR
-content : 500: not found
+content : {error : "Internal Server Error"}
 
 
-Sample Call:
 
-  $.ajax({
-    url: "/users/1",
-    dataType: "json",
-    type : "GET",
-    success : function(r) {
-      console.log(r);
-    }
-  });
 

@@ -1,4 +1,6 @@
 const {User,Todo} = require('../models')
+const {compare} = require('../helpers/bcrypt')
+const generateToken = require('../helpers/jwt')
 
 class ToDoController{
 
@@ -10,7 +12,7 @@ class ToDoController{
                 res.status(200).json({todos : data})
             })
             .catch(err => {
-                res.status(400).json({error : err})
+                res.status(500).json({error : err})
             })
     }
 
@@ -20,7 +22,7 @@ class ToDoController{
 
         Todo    
             .create({title,description, due_date})
-            .then(data => res.status(201).json({todos : data}))
+            .then(data => res.status(201).json({todo : data}))
             .catch(err => {
                 if(err.message){
                     res.status(400).json({err : err.message})
@@ -45,9 +47,9 @@ class ToDoController{
             })
             .then(data => {
                 if (data == null){
-                    res.status(404).json({err : "data not found"})
+                    res.status(404).json({err : "id not found"})
                 }else {
-                    res.status(200).json({todos : data})
+                    res.status(200).json({todo : data})
                 }    
             })
             .catch(err => {
@@ -61,9 +63,9 @@ class ToDoController{
             .findByPk(req.params.id)
             .then(data => {
                 if (data == null){
-                    res.status(404).json({error : "not found"})
+                    res.status(404).json({error : "id not found"})
                 }else {
-                    res.status(200).json({todos : data})
+                    res.status(200).json({todo : data})
                 }
 
             })
@@ -89,53 +91,13 @@ class ToDoController{
 
 
         Promise.all([p1,p2]).then(data => {
-                                    res.status(200).json({todos : data[0]})
+                                    res.status(200).json({todo : data[0]})
                              })
                             .catch(err => res.status(404).json({error : err}))
-        // Todo
-        //     .findByPk(req.params.id)
-        //     .then(data1 => {
-        //         let results = Object.assign(data1)
-        //         return [Todo.destroy({where : {id : req.params.id},returning : true}), results]
-        //     })
-        //     .then(data => {
-        //             res.status(200).json({todos : data[1]})
-        //     })
-        //     .catch(err => {
-        //         res.status(404).json({error : err})
-        //     })
 
 
     }
 
-
-    // static register(req,res){
-
-    //     let {first_name, last_name, username, password, email} = req.body
-    //     let newUser = {first_name, last_name, username, password, email}
-
-    //     User
-    //         .create(newUser)
-    //         .then(data => res.status(201).json({id :data.id,
-    //                                             email : data.email,
-    //                                             password : data.password
-    //                                             }))
-        
-
-    // }
-
-    // static login(req,res){
-
-
-    //     User
-    //         .findOne({where:{username : req.body.username}})
-    //         .then(data => {return data})
-    //         .catch(err => {
-    //         req.session.error = err.message
-    //         res.redirect("/login")
-    //     })
-
-    // }
 }
 
 module.exports = ToDoController

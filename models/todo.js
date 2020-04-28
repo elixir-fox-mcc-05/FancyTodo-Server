@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type : DataTypes.BOOLEAN,
-      unique : true,
       validate : {
         notEmpty : true
       }

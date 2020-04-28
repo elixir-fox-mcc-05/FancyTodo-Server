@@ -5,8 +5,11 @@ const { Todo } = require('../models')
 class TodoController {
 
     static read(req, res) {
+        const UserId = req.UserId;
+
         Todo.findAll({
-            order : [['id', 'ASC']]
+            where: { UserId },
+            order: [['id', 'ASC']]
         })
             .then(todos => {
                 res.status(200).json({ todos })
@@ -39,11 +42,14 @@ class TodoController {
 
     static create(req, res) {
         const { title, description, status, due_date } = req.body;
+        const UserId = req.UserId;
+
         Todo.create({
             title,
             description,
             status,
-            due_date
+            due_date,
+            UserId
         })
             .then(todo => {
                 res.status(201).json({ todo })
@@ -55,7 +61,7 @@ class TodoController {
                     })
                 } else {
                     res.status(500).json({
-                        error: err
+                        error: 'internal server error'
                     })
                 }
             })
@@ -94,11 +100,14 @@ class TodoController {
             status: status,
             due_date: due_date
         }, {
-            where: { id }
+            where: { id },
+            returning: true
         })
             .then(todo => {
                 if (todo != 0) {
-                    res.status(200).json({ todo })
+                    res.status(200).json({ 
+                        msg: `Task updated!`,
+                        todo: todo[1][0] })
                 } else {
                     res.status(404).json({
                         msg: `todo with id ${id} not found`

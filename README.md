@@ -11,6 +11,7 @@
 | /todos/:id        | GET           |
 | /todos/:id        | PUT           |
 | /todos/:id        | DELETE        |
+| /public-holidays  | GET           |
 <br><br>
 
 -----
@@ -401,6 +402,70 @@
         ```
 
     OR
+    * code: 500 <br>
+    * content: <br>
+        ```javascript
+        {
+            "msg": "internal server error"
+        }
+        ```
+<br><br>
+
+-----
+## /public-holidays
+-----
+* method: GET
+* purpose: Get all public holidays in Indonesia
+* request params: CurrentYear and Country Code<br>
+    ```javascript
+        {
+            "year": 2020,
+            "countyCode": 'ID'
+        }
+    ```
+* success response: <br>
+    * code: 200 <br>
+    * content: <br>
+        ```javascript
+        {
+            "public_holidays": [
+                {
+                "date": "2020-01-01",
+                "localName": "Tahun Baru Masehi",
+                "name": "New Year's Day",
+                "countryCode": "ID",
+                "fixed": true,
+                "global": true,
+                "counties": null,
+                "launchYear": null,
+                "type": "Public"
+                },
+                {
+                "date": "2020-04-10",
+                "localName": "Wafat Isa Almasih",
+                "name": "Good Friday",
+                "countryCode": "ID",
+                "fixed": false,
+                "global": true,
+                "counties": null,
+                "launchYear": null,
+                "type": "Public"
+                },
+                {
+                "date": "2020-04-12",
+                "localName": "Paskah",
+                "name": "Easter Sunday",
+                "countryCode": "ID",
+                "fixed": false,
+                "global": true,
+                "counties": null,
+                "launchYear": null,
+                "type": "Public"
+                }
+            ]
+        }
+        ```
+* error response: <br>
     * code: 500 <br>
     * content: <br>
         ```javascript

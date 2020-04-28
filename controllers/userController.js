@@ -18,7 +18,7 @@ class UserController {
                 res.status(201).json(data);
             })
             .catch(err => {
-                res.status(400).json({error: err.message});
+                next(err);
             });
     }
 
@@ -40,15 +40,21 @@ class UserController {
                         res.status(200).json({token})
                     }
                     else {
-                        res.status(401).json({error: err.message});
+                        throw {
+                            msg: `Email or Password is wrong`,
+                            code: 401
+                        };
                     }
                 }
                 else {
-                    res.status(401).json({error: err.message})
+                    throw {
+                        msg: `Email or Password is wrong`,
+                        code: 401
+                    }
                 }
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                next(err);
             })
     }
 

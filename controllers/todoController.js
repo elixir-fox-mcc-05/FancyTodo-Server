@@ -5,13 +5,13 @@ const Todo = Model.Todo;
 
 class TodoController {
     
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         Todo.findAll()
             .then(data => {
                 res.status(200).json(data);
             })
             .catch(err => {
-                res.status(500).json(err.message);
+                next(err);
             });
     }
 
@@ -22,7 +22,7 @@ class TodoController {
                 res.status(200).json(data);
             })
             .catch(err => {
-                res.status(404).json(`Not Found`);
+                next(err);
             });
     }
 
@@ -40,7 +40,7 @@ class TodoController {
                 res.status(201).json(data);
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                next(err);
             });
     }
 
@@ -62,7 +62,7 @@ class TodoController {
                 res.status(200).json(data);
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                next(err);
             })
     }
 
@@ -83,11 +83,14 @@ class TodoController {
                     res.status(200).json(`Succesfully delete Todo ${id}`);
                 }
                 else {
-                    res.status(404).json({error: `Not Found`});
+                    throw {
+                        msg: `Not found`,
+                        code: 404
+                    };
                 }
             })
             .catch(err => {
-                res.status(500).json({error: err});
+                next(err);
             })
     }
 }

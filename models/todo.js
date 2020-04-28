@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    status : {
+      type : DataTypes.BOOLEAN
+    },
     UserId : {
       type : DataTypes.INTEGER
     }

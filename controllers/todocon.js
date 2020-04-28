@@ -28,6 +28,7 @@ class TodoCon {
             title,
             description,
             due_date,
+            status : false,
             UserId : id
         })
         .then(data=>{
@@ -44,11 +45,14 @@ class TodoCon {
     }
 
     static edit (req,res) {
-        let { title , description , due_date } = req.body
+        let { id } = req.currentUser
+        let { title , description , due_date , status } = req.body
         Todo.update({
             title,
             description,
-            due_date
+            due_date,
+            status,
+            UserId : id
         }, {
             where : {
                 id : req.params.id

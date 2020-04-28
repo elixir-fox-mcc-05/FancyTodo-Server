@@ -18,6 +18,10 @@ module.exports = {
       due_date: {
         type: Sequelize.STRING
       },
+      status : {
+        allowNull : false,
+        type : Sequelize.BOOLEAN
+      },
       UserId : {
         allowNull : false,
         type : Sequelize.INTEGER

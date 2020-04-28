@@ -16,7 +16,8 @@ class UserController {
         })
         .then(newUser => {
             res.status(201).json({
-                User: newUser
+                id: newUser.id,
+                email: newUser.email
             })
         })
         .catch(err => {
@@ -53,7 +54,7 @@ class UserController {
                 }
             } else {
                 res.status(401).json({
-                    msg: "wrong email"
+                    msg: "email not registered"
                 })
             }
         })

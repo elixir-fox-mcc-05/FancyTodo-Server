@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: "username cant be left empty"
+        },
+        is: {
+          args: /^[\w]+$/gi,
+          msg: "username can only contain alphanumeric and underscore"
         }
       }
     },
@@ -54,12 +58,8 @@ module.exports = (sequelize, DataTypes) => {
           args: [8,],
           msg: "password must contain at least 8 character"
         },
-        is: {
-          args: /^[\w]+$/gi,
-          msg: "invalid password format"
-        },
         notEmpty: {
-          msg: "password cant beleft empty"
+          msg: "password cant be left empty"
         }
       }
     }

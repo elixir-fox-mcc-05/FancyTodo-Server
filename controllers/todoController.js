@@ -55,7 +55,7 @@ class TodoController {
         })
     }
 
-    static UpdateTodo(req,res) {
+    static updateTodo(req,res) {
         const { id } = req.params;
         const { title, description, due_date } = req.body;
 

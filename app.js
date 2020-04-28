@@ -1,7 +1,6 @@
-if(process.env.NODE_ENV === "development") {
+if(process.env.NODE_ENV.trim() === "development") {
     require('dotenv').config();
 }
-console.log(process.env.NODE_ENV);
 
 const express = require('express');
 const app = express();

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         msg: "due_date cant be empty"
       },
       isDate: {
-        msg: "due_date must be input in date format"
+        msg: "due_date input must be in date format"
       },
       isFuture(date) {
         let today = new Date;

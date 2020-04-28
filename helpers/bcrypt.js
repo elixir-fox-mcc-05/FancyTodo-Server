@@ -5,6 +5,6 @@ module.exports = {
         return bcrypt.hashSync(password, 10);
     },
     compareHash: (password, hash) => {
-        return bcrypt.compare(password, hash);
+        return bcrypt.compareSync(password, hash);
     }
 }

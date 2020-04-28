@@ -3,12 +3,14 @@ const { Todo } = require('../models')
 class TodoController {
     static create(req, res) {
         let { title, description, due_date } = req.body
+        const { currentUserId } = req
         due_date = new Date(due_date)
 
         Todo.create({
             title,
             description,
-            due_date
+            due_date,
+            UserId: currentUserId
         })
         .then(result => {
             res.status(201).json({

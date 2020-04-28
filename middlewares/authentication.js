@@ -10,15 +10,24 @@ const authentication = (req, res, next) => {
         User.findByPk(id)
             .then(result => {
                 if (result) {
-                    req.currentUserId = id
+                    req.currentUserId = result.id
                     next()
                 } else {
                     res.status(401).json({
                         msg: 'User is not logged in'
                     })
                 }
+            })
+            .catch(error => { 
+                res.status(500).json({ 
+                    error 
+                }) 
             })            
     } catch (error) {
-
+        res.status(500).json({
+            error
+        })
     }
 }
+
+module.exports = authentication

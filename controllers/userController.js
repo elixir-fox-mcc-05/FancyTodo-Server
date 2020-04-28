@@ -40,8 +40,10 @@ class UserController {
                     email: result.email
                 })
                 res.status(200).json({ token })
-            } else {
-                next()
+            } else {                
+                res.status(401).json({
+                    msg: "Wrong email or password"
+                })
             }
         })
         .catch(err => {

@@ -54,7 +54,7 @@ class TodoController {
                 })
             })
             .catch(error => {
-                res.status(500).json({
+                res.status(404).json({
                     error,
                     msg: `Todo dengan id ${id} tidak ditemukan`
                 })
@@ -92,7 +92,7 @@ class TodoController {
             })
         })
         .catch(error => {
-            res.status(500).json({
+            res.status(404).json({
                 error,
                 msg: `Todo dengan id ${id} tidak ditemukan`
             })
@@ -111,7 +111,7 @@ class TodoController {
             })
         })
         .catch(error => {
-            res.status(500).json({
+            res.status(404).json({
                 error,
                 msg: `Todo dengan id ${id} tidak ditemukan`
             })

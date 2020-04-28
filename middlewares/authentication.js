@@ -2,7 +2,7 @@ const { verifyToken } = require('../helpers/jwt')
 const { User } = require('../models')
 
 const authentication = (req, res, next) => {
-    let token = req.headers.token
+    let { token } = req.headers
 
     try {
         let decoded = verifyToken(token)
@@ -24,7 +24,7 @@ const authentication = (req, res, next) => {
                 }) 
             })            
     } catch (error) {
-        res.status(500).json({
+        res.status(401).json({
             error
         })
     }

@@ -73,8 +73,8 @@ This will create a new Todo instance based on form-URL-encoded request body.
 
 Request header:
 ```javascript
-{ 
-  Content-Type: "application/json", 
+{
+  Content-Type: "application/json",
   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhZGFkZWhhamFAbWFpbC5ydSIsImlhdCI6MTU4ODA0ODg0MH0.xwCKLdoiniQYBSqRQDBt50gAlfEB0blhXqDmHNoWWL0"
 }
 ```
@@ -88,7 +88,7 @@ Request body:
 }
 ```
 
-Success Response: 
+Success Response:
 ```javascript
 {
       "id": 2,
@@ -114,7 +114,7 @@ Error Response:
 
 This will return all Todo instances saved in the server as array of objects. If no Todo instances is saved in the server, then an empty array will be returned.
 
-Success Response: 
+Success Response:
 ```javascript
 {
   "Todos": [
@@ -144,7 +144,7 @@ Error Response:
 
 This will return a Todo instance based on its id (PK).
 
-Request params: 
+Request params:
 ```javascript
 { id: "integer" }
 ```
@@ -168,7 +168,7 @@ Error Response:
 ```javascript
 {
   error,
-  msg: `Todo dengan id ${id} tidak ditemukan`
+  msg: `Todo dengan id 5 tidak ditemukan`
 }
 ```
 
@@ -178,8 +178,8 @@ This will update an instance of Todo based on based on form-URL-encoded request 
 
 Request header:
 ```javascript
-{ 
-  Content-Type: "application/json", 
+{
+  Content-Type: "application/json",
   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhZGFkZWhhamFAbWFpbC5ydSIsImlhdCI6MTU4ODA0ODg0MH0.xwCKLdoiniQYBSqRQDBt50gAlfEB0blhXqDmHNoWWL0"
 }
 ```
@@ -195,12 +195,12 @@ Request body:
 
 Success Response:
 ```javascript
-{ msg: `Task dengan id ${id} telah berhasil diubah` }
+{ msg: `Task dengan id 5 telah berhasil diubah` }
 ```
 
 Error Response:
 ```javascript
-{ msg: `Todo dengan id ${id} tidak ditemukan` }
+{ msg: `Todo dengan id 5 tidak ditemukan` }
 ```
 
 ### DELETE /todos/:id
@@ -209,25 +209,170 @@ This will destroy an instance of Todo based on id in request params.
 
 Request header:
 ```javascript
-{ 
-  Content-Type: "application/json", 
+{
+  Content-Type: "application/json",
   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhZGFkZWhhamFAbWFpbC5ydSIsImlhdCI6MTU4ODA0ODg0MH0.xwCKLdoiniQYBSqRQDBt50gAlfEB0blhXqDmHNoWWL0"
 }
 ```
 
-Request params: 
+Request params:
 ```javascript
 { id: <integer> }
 ```
 
 Success Response:
 ```javascript
-{ msg: `Task dengan id ${id} telah berhasil diubah` }
+{ msg: `Task dengan id 5 telah berhasil diubah` }
 ```
 
 Error Response:
 ```javascript
-{ msg: `Task dengan id ${id} tidak ditemukan` }
+{ msg: `Task dengan id 5 tidak ditemukan` }
 ```
 
+## 3rd-Party APIs
+
+Access national holidays (Indonesia) and local weather (Jakarta) data. Requires jsonwebtoken from users who succesfully registered and signed in.
+
+### [Nager][2] (Indonesian Holiday)
+
+Request header:
+```javascript
+{
+  Content-Type: "application/json",
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhZGFkZWhhamFAbWFpbC5ydSIsImlhdCI6MTU4ODA0ODg0MH0.xwCKLdoiniQYBSqRQDBt50gAlfEB0blhXqDmHNoWWL0"
+}
+```
+
+Success Response:
+```javascript
+{
+  "Indonesian_Holidays": [
+    {
+      "date": "2020-05-01",
+      "localName": "Hari Buruh Internasional",
+      "name": "Labour Day",
+      "countryCode": "ID",
+      "fixed": true,
+      "global": true,
+      "counties": null,
+      "launchYear": null,
+      "type": "Public"
+    },
+    {
+      "date": "2020-08-17",
+      "localName": "Hari Ulang Tahun Kemerdekaan Republik Indonesia",
+      "name": "Independence Day",
+      "countryCode": "ID",
+      "fixed": true,
+      "global": true,
+      "counties": null,
+      "launchYear": null,
+      "type": "Public"
+    }
+  ]
+}
+```
+
+Error Response:
+```javascript
+{
+  "error": {
+    "name": "JsonWebTokenError",
+    "message": "jwt must be provided"
+  }
+}
+```
+OR
+```javascript
+{
+  "error": {
+    "name": "JsonWebTokenError",
+    "message": "invalid token"
+  }
+}
+```
+
+### [Metaweather][3] (Jakarta Weather)
+
+Request header:
+```javascript
+{
+  Content-Type: "application/json",
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhZGFkZWhhamFAbWFpbC5ydSIsImlhdCI6MTU4ODA0ODg0MH0.xwCKLdoiniQYBSqRQDBt50gAlfEB0blhXqDmHNoWWL0"
+}
+```
+
+Success Response:
+```javascript
+{
+  "Jakarta_Weather": {
+    "consolidated_weather": [
+      {
+        "id": 6334090846404608,
+        "weather_state_name": "Heavy Rain",
+        "weather_state_abbr": "hr",
+        "wind_direction_compass": "NNE",
+        "created": "2020-04-28T12:26:11.396954Z",
+        "applicable_date": "2020-04-28",
+        "min_temp": 27.58,
+        "max_temp": 31.22,
+        "the_temp": 31.775000000000002,
+        "wind_speed": 5.231828312847637,
+        "wind_direction": 23.816796367189962,
+        "air_pressure": 1009.5,
+        "humidity": 70,
+        "visibility": 13.074581941461862,
+        "predictability": 77
+      }
+    ],
+    "time": "2020-04-28T20:03:30.630358+07:00",
+    "sun_rise": "2020-04-28T05:53:00.674192+07:00",
+    "sun_set": "2020-04-28T17:47:13.903960+07:00",
+    "timezone_name": "LMT",
+    "parent": {
+      "title": "Indonesia",
+      "location_type": "Country",
+      "woeid": 23424846,
+      "latt_long": "0.109740,113.917397"
+    },
+    "sources": [
+      {
+        "title": "BBC",
+        "slug": "bbc",
+        "url": "http://www.bbc.co.uk/weather/",
+        "crawl_rate": 360
+      }
+    ],
+    "title": "Jakarta",
+    "location_type": "City",
+    "woeid": 1047378,
+    "latt_long": "-6.171440,106.827820",
+    "timezone": "Asia/Jakarta"
+  }
+}
+```
+
+Error Response:
+```javascript
+{
+  "error": {
+    "name": "JsonWebTokenError",
+    "message": "jwt must be provided"
+  }
+}
+```
+OR
+```javascript
+{
+  "error": {
+    "name": "JsonWebTokenError",
+    "message": "invalid token"
+  }
+}
+```
+
+
 [1]: https://en.wikipedia.org/wiki/Representational_state_transfer
+[2]: https://date.nager.at/Api
+[3]: https://www.metaweather.com/api/

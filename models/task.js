@@ -62,6 +62,10 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'UserId not defined'
         }
       }
+    },
+    ProjectId: {
+      type: DataTypes.INTEGER,
+      defaultValue: null
     }
   }, {
     // Other model options go here
@@ -71,8 +75,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Task.associate = function(models) {
     // associations can be defined
+    Task.belongsTo(models.Project) 
     Task.belongsTo(models.User)
-    Task.belongsToMany(models.User , {through: models.Project})
   };
   return Task;
 };

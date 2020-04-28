@@ -1,9 +1,10 @@
-const {Task, User} = require("../models/index.js")
+const {Task, User, Project} = require("../models/index.js")
 
 class taskController {
     static findAll(req,res,next) {
         Task.findAll({
-          include: [ User ]
+          where: { UserId : req.currentUserId },
+          include: [ User, Project ]
         })
           .then(result =>{
             res.status(200).json({
@@ -43,7 +44,8 @@ class taskController {
           description : req.body.description, 
           due_date: req.body.due_date,
           // status: req.body.status, //Status dibuat undefined karena defaultValue adalah false
-          UserId: req.currentUserId
+          UserId: req.currentUserId,
+          ProjectId: req.body.ProjectId
         }
         Task.create(taskPayload)
           .then(result => {
@@ -63,11 +65,12 @@ class taskController {
     static updateTaskDetails ( req, res, next ){
         let selectedId = req.params.id
         let updatedTaskPayload = { 
-            title: req.body.title, 
-            description : req.body.description, 
-            due_date: req.body.due_date,
-            status: req.body.status,
-            userId: req.currentUserId
+          title: req.body.title, 
+          description : req.body.description, 
+          due_date: req.body.due_date,
+          status: req.body.status,
+          userId: req.currentUserId,
+          ProjectId: req.body.ProjectId
         }
         Task.update(updatedTaskPayload, {
             where:{
@@ -99,7 +102,8 @@ class taskController {
                 description : result.description, 
                 status: true, 
                 due_date: result.due_date,
-                UserId: req.currentUserId
+                UserId: req.currentUserId,
+                ProjectId: result.ProjectId
             }
             return Task.update(completedTaskPayload, {
                 where:{
@@ -137,7 +141,8 @@ class taskController {
                 description : result.description, 
                 status: false, 
                 due_date: result.due_date,
-                UserId: req.currentUserId
+                UserId: req.currentUserId,
+                ProjectId: result.ProjectId
             }
             return Task.update(completedTaskPayload, {
                 where:{

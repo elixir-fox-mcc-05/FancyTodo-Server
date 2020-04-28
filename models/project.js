@@ -5,45 +5,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Project.init({
     // Model attributes are defined here
-    projectTitle: {
+    projectName: {
       type: DataTypes.STRING,
-      allowNull:false,
-      validate:{
-        allowNull:{
-          arg: false,
-          msg: 'Please specify a proper project title'
-        }
-      }
-    },
-    projectDescription: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      validate:{
-        allowNull:{
-          arg: false,
-          msg: 'Please specify a proper project description'
-        }
-      }
-    },
-    UserId: {
-      type: DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        allowNull:{
-          arg: false,
-          msg: 'UserId not properly set'
-        }
-      }
-    },
-    TaskId: {
-      type: DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        allowNull:{
-          arg: false,
-          msg: 'TaskId not properly set'
-        }
-      }
     }
   }, {
     // Other model options go here
@@ -53,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Project.associate = function(models) {
     // associations can be defined here
-    Project.belongsTo(models.User, {foreignKey: 'UserId'})
-    Project.belongsTo(models.Task, {foreignKey: 'TaskId'})
+    Project.hasMany(models.Task) 
+    Project.belongsToMany(models.User, {through: models.Project_User})
   };
   return Project;
 };

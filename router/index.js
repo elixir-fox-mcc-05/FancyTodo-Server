@@ -12,7 +12,7 @@ router.get('/', (req,res)=>{
 //  users routes 
 router.use ('/users', users )
 //  todos routes 
-router.get('/todos', todos )
+router.use('/todos', todos )
 
 
 

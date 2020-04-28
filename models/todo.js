@@ -23,14 +23,15 @@ module.exports = (sequelize, DataTypes) => {
       validate:{
         notEmpty:true
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo'
   })
 
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };

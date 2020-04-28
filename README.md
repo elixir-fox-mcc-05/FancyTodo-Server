@@ -140,7 +140,7 @@ id
 
 ----------------------------------------------------------------------------------------------------
 
-  * **URL:**
+* **URL:**
 /todos/:id
 
 * **Method:**
@@ -163,3 +163,52 @@ example with id = 10
   * **Content:** {error: data not found}<br />
   * **code:** 500 <br />
   * **Content:** {error: Internal Server Error}
+
+----------------------------------------------------------------------------------------------------
+
+* **URL:**
+/users/sigin
+
+* **Method:**
+POST
+
+* **URL Params:**
+none
+
+* **Data Params:**
+none
+
+* **Success Response:**
+{
+  "id": 6,
+  "email": "lockdown@test.com",
+  "password": "$2a$10$K4YLd3Y8TbYkVaGopVFZoucdtUlTcbixcL4G5hOdMIKUbGt4.62Li"
+}
+
+* **Error Response:**
+  * **code:** 400 <br />
+  * **Content:** {"error": "Validation error: Validation isEmail on email failed"}
+
+  ----------------------------------------------------------------------------------------------------
+
+* **URL:**
+/users/signup
+
+* **Method:**
+POST
+
+* **URL Params:**
+none
+
+* **Data Params:**
+none
+
+* **Success Response:**
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJsb2NrZG93bkB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJEs0WUxkM1k4VGJZa1ZhR29wVkZab3VjZHRVbFRjYml4Y0w0RzVoT2RNSUtVYkd0NC42MkxpIiwiaWF0IjoxNTg4MDA1NzQzfQ.XwHm238w633qa09LZiyU78_Zm52JvCYouXfNUa8BLVc"
+}
+
+* **Error Response:**
+  * **code:** 400 <br />
+  * **Content 1:** {"error": "password not match"}<br />
+  * **Content 2:** {"error": "Invalid email or password"}

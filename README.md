@@ -2,27 +2,27 @@
 
 ### Return json data for all Todos
 
-    Url
+*    Url
 
         /todos
 
-    Method:
+*    Method:
 
         GET
 
-    URL PARAMS
+*    URL PARAMS
 
         UserId = Integer
 
-    Data PARAMS
+*    Data PARAMS
 
         NONE
 
-    Succes Response
+*    Succes Response
 
-        Code : 200
+    *    Code : 200
 
-         Content : {
+        Content : {
                         "Todos": [
                             {
                             "id": 7,
@@ -35,13 +35,31 @@
                             "updatedAt": "2020-04-27T05:44:45.150Z"
                             },
                         ]
-                    }
+                        Weather": {
+                            "product": "civil",
+                            "init": "2020042806",
+                            "dataseries": [
+                            {
+                                "timepoint": 3,
+                                "cloudcover": 6,
+                                "lifted_index": 6,
+                                "prec_type": "none",
+                                "prec_amount": 0,
+                                "temp2m": 32,
+                                "rh2m": "22%",
+                                "wind10m": {
+                                "direction": "E",
+                                "speed": 2
+                                },
+                                "weather": "mcloudyday"
+                            },
+                        }
 
-    Error Response :
-        Code :  500
+*    Error Response :
+    *    Code :  500
         Content : "Error Acces Server"
     
-    Sample Call :
+*    Sample Call :
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -55,19 +73,19 @@
 
 ### Return json data with create feature
 
-    Url
+*    Url
 
         /todos
 
-    Method:
+*    Method:
 
         POST
 
-    URL PARAMS
+*    URL PARAMS
 
         UserId : Integer
 
-    Data PARAMS
+*    Data PARAMS
 
         title : String
         description : String
@@ -75,11 +93,11 @@
         due_date : DateOnly
         UserId : Integer
 
-    Succes Response
+*    Succes Response
 
-        Code : 201
+    *    Code : 201
 
-         Content : {
+        Content : {
                     "Todos": {
                         "id": 7,
                         "title": "Sport",
@@ -92,11 +110,11 @@
                         }
                     }
 
-    Error Response :
-        Code :  500
+*    Error Response :
+    *    Code :  500
         Content : "Error Acces Server"
     
-    Sample Call :
+*    Sample Call :
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -110,30 +128,29 @@
 
 ### Return json data for a single Todo
 
-    Url
+*    Url
 
         /todos/:id
 
-    Method:
+*    Method:
 
         GET
 
-    URL PARAMS
+*    URL PARAMS
 
         id = integer
         UserId = Integer
 
-    Data PARAMS
+*    Data PARAMS
 
         None
 
-    Succes Response
+*    Succes Response
 
-        Code : 200
+    *    Code : 200
 
-        Content : {
-                        "Todos": [
-                            {
+        Content :   {
+                        "Todos": {
                             "id": 7,
                             "title": "Sport",
                             "description": "Go Swimming",
@@ -142,15 +159,32 @@
                             "UserId": 1,
                             "createdAt": "2020-04-27T05:44:45.150Z",
                             "updatedAt": "2020-04-27T05:44:45.150Z"
+                        },
+                        Weather": {
+                            "product": "civil",
+                            "init": "2020042806",
+                            "dataseries": [
+                            {
+                                "timepoint": 3,
+                                "cloudcover": 6,
+                                "lifted_index": 6,
+                                "prec_type": "none",
+                                "prec_amount": 0,
+                                "temp2m": 32,
+                                "rh2m": "22%",
+                                "wind10m": {
+                                "direction": "E",
+                                "speed": 2
+                                },
+                                "weather": "mcloudyday"
                             },
-                        ]
                     }
 
-    Error Response :
-        Code :  500
+*    Error Response :
+    *    Code :  500
         Content : "Not Found"
     
-    Sample Call :
+*    Sample Call :
         $.ajax({
             url: "/todos/7",
             dataType: "json",
@@ -164,33 +198,32 @@
 
 ### Return json data after edit
 
-    Url
+*    Url
 
         /todos/:id
 
-    Method:
+*    Method:
 
         PUT
 
-    URL PARAMS
+*    URL PARAMS
 
         id = [integer]
         UserId : Integer
 
-    Data PARAMS
+*    Data PARAMS
 
         title : String
         description : String
         status : Boolean
         due_date : DateOnly
 
-    Succes Response
+*    Succes Response
 
-        Code : 201
+    *    Code : 201
 
         Content :   {
-                        "Todos": [
-                            {
+                        "Todos": {
                             "id": 7,
                             "title": "Sport",
                             "description": "Go Swimming",
@@ -199,15 +232,14 @@
                             "UserId": 1,
                             "createdAt": "2020-04-27T05:44:45.150Z",
                             "updatedAt": "2020-04-27T05:44:45.150Z"
-                            },
-                        ]
+                        },
                     }
 
-    Error Response :
-        Code :  304
+*    Error Response :
+    *    Code :  304
         Content : "Not Modified"
     
-    Sample Call :
+*    Sample Call :
         $.ajax({
             url: "/todos/7",
             dataType: "json",
@@ -221,34 +253,33 @@
 
 ### Return json data after delete
 
-    Url
+*    Url
 
         /todos/:id
 
-    Method:
+*    Method:
 
         DELETE
 
-    URL PARAMS
+*    URL PARAMS
 
         id : INTEGER
         UserId : INTEGER
 
-    Data PARAMS
+*    Data PARAMS
 
         NONE
 
-    Succes Response
+*    Succes Response
 
-        Code : 202
-
+    *    Code : 202
         Content : { msg : "Succes Destroy Todo with ${Id} " }
 
-    Error Response :
-        Code :  501
+*    Error Response :
+    *    Code :  501
         Content : "Not Implemented"
     
-    Sample Call :
+*    Sample Call :
         $.ajax({
             url: "/todos/3",
             dataType: "json",
@@ -262,42 +293,41 @@
 
 ### Return json data after create user
 
-    Url
+*    Url
 
         /user/register
 
-    Method:
+*    Method:
 
         POST
 
-    URL PARAMS
+*    URL PARAMS
 
         NONE
 
-    Data PARAMS
+*    Data PARAMS
 
         email : String
         password : String
 
-    Succes Response
+*    Succes Response
 
-        Code : 201
-
-        Content : {
+    *    Code : 201
+        Content :   {
                     "User": {
                         "id": 1,
-                        "email": "yodji09@gmail.com",
+                        "email": "your email",
                         "password": "$2a$15$34DMinzpBLJtoq/JsjNc2.C0kZ9ngiUzPUsEclcnoKlBgX.Aeurra",
                         "updatedAt": "2020-04-27T09:11:48.226Z",
                         "createdAt": "2020-04-27T09:11:48.226Z"
                         }
                     }
 
-    Error Response :
-        Code :  501
+*    Error Response :
+    *    Code :  501
         Content : "Cannot Implemented"
     
-    Sample Call :
+*    Sample Call :
         $.ajax({
             url: "/user/register",
             dataType: "json",
@@ -305,6 +335,47 @@
             success : function(result) {
                 res.status(200).json({
                     User : result
+                })
+            }
+        });
+
+### Return json data after login user
+*    Url
+
+        /user/login
+
+*    Method:
+
+        POST
+
+*    URL PARAMS
+
+        NONE
+
+*    Data PARAMS
+
+        email : String
+        password : String
+
+*    Succes Response
+
+    *    Code : 200
+        Content :   {
+                        "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
+                    }
+
+*    Error Response :
+    *    Code :  404
+        Content : "wrong email/password"
+    
+*    Sample Call :
+        $.ajax({
+            url: "/user/login",
+            dataType: "json",
+            type : "Post",
+            success : function(result) {
+                res.status(200).json({
+                    Token : result
                 })
             }
         });

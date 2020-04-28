@@ -12,7 +12,7 @@ const authorization = (req, res, next) => {
           return next({
             code: 401,
             name: "Unauthorized Error",
-            msg: `You cannot edit/delete this Todo`
+            msg: `You cannot access this service`
           });
         }
       } else {

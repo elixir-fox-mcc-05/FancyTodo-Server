@@ -15,7 +15,7 @@ const authentication = (req, res, next) => {
           return next({
             code: 401,
             name: "NotAuthenticatedError",
-            msg: "Email and/or password did not match"
+            msg: "Invalid Access Token"
           });
         }
       })

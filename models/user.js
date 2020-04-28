@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         len: {
-          args: [8,],
+          args: [8],
           msg: "password must contain at least 8 character"
         },
         notEmpty: {

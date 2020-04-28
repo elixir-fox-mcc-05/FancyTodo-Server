@@ -5,21 +5,26 @@ module.exports = {
         const { id } = req.params;
 
         Todo
-        .findByPk(id)
-        .then(result => {
-            if(result) {
-                if(result.UserId === req.userId) {
-                    next();
+            .findByPk(id)
+            .then(result => {
+                if(result) {
+                    if(result.UserId === req.userId) {
+                        next();
+                    } else {
+                        throw {
+                            msg: "Unauthorized User",
+                            code: 401
+                        }
+                    }
                 } else {
-                    res.status(401).json({
-                        msg: "unauthorized user"
-                    })
+                    throw {
+                        msg: `no task with id ${id} found`,
+                        code: 404
+                    }
                 }
-            } else {
-                res.status(404).json({
-                    msg: `task with id ${id} is not found`
-                })
-            }
-        })
+            })
+            .catch(err => {
+                next(err);
+            })
     }
 }

@@ -14,6 +14,13 @@
 * **Method:**
   
   `POST`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | Content-Type | application/x-www-form-urlencoded | true |
+  | token | <YOUR_TOKEN_HERE> | true |
   
 *  **URL Params**
 
@@ -21,12 +28,16 @@
 
 * **Data Params**
 
-  none
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | title | learn jquery | true |
+  | description | learn jquery from youtube | true |
+  | due_date | 2020/05/01 | true |
 
 * **Success Response:**
   
   
-  * **Code:** 201 <br />
+  * **Code:** 201 CREATED <br />
     **Content:** 
     ```json
     {
@@ -44,6 +55,21 @@
     ```
  
 * **Error Response:**
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "unauthorized user" }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "you need to login to access this page" }
+    ```
+  
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -63,6 +89,12 @@
 * **Method:**
   
   `GET`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | token | <YOUR_TOKEN_HERE> | true |
   
 *  **URL Params**
 
@@ -75,7 +107,7 @@
 * **Success Response:**
   
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** 
     ```json
     {
@@ -93,7 +125,7 @@
             {
                 "id": 2,
                 "title": "Explore Sequelize",
-                "description": "Explore sequelize documentation",
+                "description": "Explore sequelize via documentation",
                 "status": false,
                 "due_date": "2020-05-01T00:00:00.000Z",
                 "UserId": 2,
@@ -106,11 +138,28 @@
  
 * **Error Response:**
 
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "unauthorized user" }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "you need to login to access this page" }
+    ```
+  
+  OR
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
     ```json
     { "error" : "internal server error" }
     ```
+
 
 ----
   **Show Todo by Id**
@@ -124,6 +173,12 @@
 * **Method:**
   
   `GET`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | token | <YOUR_TOKEN_HERE> | true |
   
 *  **URL Params**
 
@@ -138,7 +193,7 @@
 * **Success Response:**
   
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** 
     ```json
     {
@@ -156,6 +211,30 @@
     ```
  
 * **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "unauthorized user" }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "you need to login to access this page" }
+    ```
+  
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    { "error" : "no task with id <id> found" }
+    ```
+  
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -175,6 +254,13 @@
 * **Method:**
   
   `PUT`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | Content-Type | application/x-www-form-urlencoded | true |
+  | token | <YOUR_TOKEN_HERE> | true |
   
 *  **URL Params**
 
@@ -184,12 +270,16 @@
 
 * **Data Params**
 
-  none
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | title | learn jquery | true |
+  | description | learn jquery from youtube | true |
+  | due_date | 2020/05/01 | true |
 
 * **Success Response:**
   
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** 
     ```json
     {
@@ -208,11 +298,35 @@
  
 * **Error Response:**
 
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "unauthorized user" }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "you need to login to access this page" }
+    ```
+  
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    { "error" : "no task with id <id> found" }
+    ```
+  
+  OR
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
     ```json
     { "error" : "internal server error" }
-    ```
+    ````
 
 ----
   **Delete Todo**
@@ -227,6 +341,12 @@
   
   `DELETE`
   
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | token | <YOUR_TOKEN_HERE> | true |
+  
 *  **URL Params**
 
    **Required:**
@@ -240,13 +360,37 @@
 * **Success Response:**
   
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** 
     ```json
     { "msg": "Success delete task with id 2" }
     ```
  
 * **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "unauthorized user" }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    { "error" : "you need to login to access this page" }
+    ```
+  
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    { "error" : "no task with id <id> found" }
+    ```
+  
+  OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
@@ -266,6 +410,12 @@
 * **Method:**
   
   `POST`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | Content-Type | application/x-www-form-urlencoded | true |
   
 * **URL Params**
 
@@ -273,12 +423,17 @@
 
 * **Data Params**
 
-  none
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | name | Huey McMeow | true |
+  | username | hueyguey | true |
+  | email | hueyguey@mail.com | true |
+  | password | <YOUR_PASSWORD_HERE> | true |
 
 * **Success Response:**
   
   
-  * **Code:** 201 <br />
+  * **Code:** 201 CREATED <br />
     **Content:** 
     ```json
     {
@@ -307,6 +462,12 @@
 * **Method:**
   
   `POST`
+
+* **Request Headers**
+
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | Content-Type | application/x-www-form-urlencoded | true |
   
 * **URL Params**
 
@@ -314,16 +475,19 @@
 
 * **Data Params**
 
-  none
+  | key | value | required |
+  | :---: | :---: | :---: |
+  | email | hueyguey@mail.com | true |
+  | password | <YOUR_PASSWORD_HERE> | true |
 
 * **Success Response:**
   
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** 
     ```json
     {
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ6ZXJvQGdtYWlsLmNvbSIsImlhdCI6MTU4ODAzMzMyNH0.j5D2mSA894MZPCwUhzHRQ7EbJDcr0DCJGMraO79OCag"
+    "accessToken": "<YOUR_TOKEN_HERE>"
     }
     ```
  

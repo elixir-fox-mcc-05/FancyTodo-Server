@@ -9,26 +9,23 @@ module.exports = {
             let decoded = verifyToken(token);
             let { id } = decoded;
             User
-            .findByPk(id)
-            .then(result => {
-                if(result) {
-                    req.userId = id;
-                    next();
-                } else {
-                    res.status(401).json({
-                        msg: 'Unauthorized user'
-                    })
-                }
-            })
-            .catch(err => {
-                res.status(500).json({
-                    error: err.message
-                })    
-            })
+                .findByPk(id)
+                .then(result => {
+                    if(result) {
+                        req.userId = id;
+                        next();
+                    } else {
+                        throw {
+                            msg: "Unauthorized User",
+                            code: 401
+                        }
+                    }
+                })
+                .catch(err => {
+                    next(err);    
+                })
         } catch(err) {
-            res.status(500).json({
-                error: err
-            })
+            next(err);
         }
     }
 }

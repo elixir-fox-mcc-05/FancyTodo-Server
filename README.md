@@ -21,7 +21,7 @@
 *    Succes Response
 
         Code : 200
-
+        ```
         Content : {
                         "Todos": [
                             {
@@ -54,14 +54,14 @@
                                 "weather": "mcloudyday"
                             },
                         }
-
+        ```
 *    Error Response :
-
+        ```
         Code :  500
         Content : "Error Acces Server"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -72,7 +72,7 @@
                 })
             }
         });
-
+        ```
 ### Return json data with create feature
 
 *    Url
@@ -96,9 +96,9 @@
         UserId : Integer
 
 *    Succes Response
-
+        ```
         Code : 201
-
+        
         Content : {
                     "Todos": {
                         "id": 7,
@@ -111,14 +111,14 @@
                         "updatedAt": "2020-04-27T05:57:48.461Z"
                         }
                     }
-
+        ```
 *    Error Response :
-
+        ```
         Code :  500
         Content : "Error Acces Server"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -129,7 +129,7 @@
                 })
             }
         });
-
+        ```
 ### Return json data for a single Todo
 
 *    Url
@@ -150,7 +150,7 @@
         None
 
 *    Succes Response
-
+        ```
     *    Code : 200
 
         Content :   {
@@ -183,14 +183,14 @@
                                 "weather": "mcloudyday"
                             },
                     }
-
+        ```
 *    Error Response :
-
+        ```
     *    Code :  500
         Content : "Not Found"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/todos/7",
             dataType: "json",
@@ -201,7 +201,7 @@
                 })
             }
         });
-
+        ```
 ### Return json data after edit
 
 *    Url
@@ -225,7 +225,7 @@
         due_date : DateOnly
 
 *    Succes Response
-
+        ```
         Code : 201
 
         Content :   {
@@ -240,14 +240,14 @@
                             "updatedAt": "2020-04-27T05:44:45.150Z"
                         },
                     }
-
+        ```
 *    Error Response :
-
+        ```
         Code :  304
         Content : "Not Modified"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/todos/7",
             dataType: "json",
@@ -258,7 +258,7 @@
                 })
             }
         });
-
+        ```
 ### Return json data after delete
 
 *    Url
@@ -279,17 +279,17 @@
         NONE
 
 *    Succes Response
-
+        ```
         Code : 202
         Content : { msg : "Succes Destroy Todo with ${Id} " }
-
+        ```
 *    Error Response :
-
+        ```
         Code :  501
         Content : "Not Implemented"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/todos/3",
             dataType: "json",
@@ -300,7 +300,7 @@
                 })
             }
         });
-
+        ```
 ### Return json data after create user
 
 *    Url
@@ -321,7 +321,7 @@
         password : String
 
 *    Succes Response
-
+        ```
         Code : 201
         Content :   {
                     "User": {
@@ -332,14 +332,14 @@
                         "createdAt": "2020-04-27T09:11:48.226Z"
                         }
                     }
-
+        ```
 *    Error Response :
-
+        ```
         Code :  501
         Content : "Cannot Implemented"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/user/register",
             dataType: "json",
@@ -350,7 +350,7 @@
                 })
             }
         });
-
+        ```
 ### Return json data after login user
 *    Url
 
@@ -370,19 +370,19 @@
         password : String
 
 *    Succes Response
-
+        ```
         Code : 200
         Content :   {
                         "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
                     }
-
+        ```
 *    Error Response :
-
+        ```
         Code :  404
         Content : "wrong email/password"
-    
+        ```
 *    Sample Call :
-
+        ```
         $.ajax({
             url: "/user/login",
             dataType: "json",
@@ -393,3 +393,4 @@
                 })
             }
         });
+        ```

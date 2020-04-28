@@ -1,4 +1,8 @@
-require('dotenv').config()
+if (process.env.NODE_ENV == 'development') {
+    console.log('jalan');
+    require('dotenv').config()
+}
+
 const express = require('express')
 const app = express()
 const cors = require('cors')

@@ -7,13 +7,13 @@ function authentication(req, res, next) {
         if (req.headers.access_token) {
             let verify = verifyToken(req.headers.access_token)
             console.log(verify)
-            req.currentUserId = verify.id
             User.findOne({
                     where: {
-                        id: req.currentUserId
+                        id: verify.id
                     }
                 })
                 .then((result) => {
+                    req.currentUserId = result.id
                     console.log('success auth');
                     next()
                 })

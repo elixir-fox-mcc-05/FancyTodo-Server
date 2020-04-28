@@ -1,163 +1,267 @@
-# FancyTodo-Server <br>
+# FancyTodo-Server 
 
 ## GET ALL TODOS 
-<br>
 
-* URL <br>
+#### URL 
 /todos
-<br>
 
-* Method <br>
-> GET
-<br>
 
-* URL Parameter <br>
+#### Method 
+    > GET
+
+
+#### URL Parameter 
 None
-<br>
 
-* Data Parameter <br>
+
+#### Data Parameter 
 None
+
+
+#### Success Response 
+- Code: 200 
+- Content: 
+    ```
+    {
+    "msg":{
+        "id":3,
+        "title":"Masak",
+        "description":"Step memasak",
+        "status":true,
+        "due_date":"2020-05-27T17:00:00.000Z",
+        "updatedAt":"2020-04-27T14:34:37.552Z",
+        "createdAt":"2020-04-27T14:34:37.552Z",
+        "UserId":null
+        }
+    }
+    ```
+
+#### Error Response 
+- Code: 500 
+- Content: 
+    ```
+    {
+        "error": 
+        "Error Access"
+    } 
+    ```
+
+#### Sample Call 
+- http://localhost:3000/todos 
+
 <br>
-
-* Success Response <br>
-- Code: 200 <br>
-- Content: {"msg": {"id": 3, "title": "Masak", "description": "Step memasak", "status": true, "due_date": "2020-05-27T17:00:00.000Z" "updatedAt": "2020-04-27T14:34:37.552Z", "createdAt": "2020-04-27T14:34:37.552Z", "UserId": null}} <br>
-
-* Error Response <br>
-- Code: 500 <br>
-- Content: {"error": "Error Access"} <br>
-
-* Sample Call <br>
-- http://localhost:3000/todos <br>
 
 ## GET TODOS BY ID
-<br>
 
-* URL <br>
+#### URL 
 /todos/:id
-<br>
 
-* Method <br>
-> GET
-<br>
 
-* URL Parameter <br>
-- id = [integer]
-<br>
+#### Method 
+    > GET
 
-* Data Parameter <br>
+
+#### URL Parameter 
+- id = [integer] [Required]
+
+
+#### Data Parameter 
 None
 
-* Succes Response <br>
-- Code: 200 <br>
+#### Succes Response 
+- Code: 200 
 - Content: 
+    ```
+    {
+        "msg": {
+            "id": 2,
+            "title": "Masak",
+            "description": "Step memasak",
+            "status": true,
+            "due_date": "2020-05-27T17:00:00.000Z",
+            "UserId": null,
+            "createdAt": "2020-04-27T14:34:33.187Z",
+            "updatedAt": "2020-04-27T14:34:33.187Z"
+        }
+    }
+    ```
 
-* Error Response <br>
-- Code: 404 <br>
-- Content: {"error": "Not Found"} <br>
+#### Error Response 
+- Code: 404 
+- Content: 
+    ```
+    {
+        "error": 
+        "Not Found"
+    } 
+    ```
 
-* Sample Call <br>
-- http://localhost:3000/todos/3 <br>
+#### Sample Call 
+- http://localhost:3000/todos/2
+
+<br>
 
 ## CREATE NEW TODOS 
-<br>
 
-* URL <br>
+#### URL 
 /todos
+
+
+#### Method 
+    > POST
+
+
+#### URL Parameter 
+None 
+
+#### Data Parameter 
+- title: [string] [Required]
+- description: [string] [Required]
+- status: [boolean] [Optional]
+- due_date: [date] [Required]
+
+#### Succes Response 
+- Code: 200 
+- Content: 
+    ```
+    {
+        "msg":{
+            "id":3,
+            "title":"Masak",
+            "description":"Step memasak",
+            "status":true,
+            "due_date":"2020-05-27T17:00:00.000Z",
+            "updatedAt":"2020-04-27T14:34:37.552Z",
+            "createdAt":"2020-04-27T14:34:37.552Z",
+            "UserId":null
+        }
+    }
+    ```
+
+#### Error Response 
+- Code: 500 
+- Content: 
+    ```
+    {
+        "error": 
+        "Error Access"
+    }
+    ``` 
+
+#### Sample Call 
+- http://localhost:3000/todos 
+
 <br>
-
-* Method <br>
-> POST
-<br>
-
-* URL Parameter <br>
-None
-
-* Data Parameter <br>
-- title: [string]
-- description: [string]
-- status: [boolean] (optional)
-- due_date: [date]
-
-* Succes Response <br>
-- Code: 200 <br>
-- Content: {"msg":{"id":3,"title":"Masak","description":"Step memasak","status":true,"due_date":"2020-05-27T17:00:00.000Z","updatedAt":"2020-04-27T14:34:37.552Z","createdAt":"2020-04-27T14:34:37.552Z","UserId":null}}
-
-* Error Response <br>
-- Code: 500 <br>
-- Content: {"error": "Error Access"} <br>
-
-* Sample Call <br>
-- http://localhost:3000/todos <br>
-
 
 ## UPDATE TODOS 
-<br>
 
-* URL <br>
+#### URL 
 /todos/:id
-<br>
 
-* Method <br>
-> PUT
-<br>
+#### Method 
+    > PUT
 
-* URL Parameter <br>
-- id = [integer]
-<br>
+#### URL Parameter 
+- id = [integer] [Required]
 
-* Data Parameter <br>
-- title: [string]
-- description: [string]
-- status: [boolean] (optional)
-- due_date: [date]
+#### Data Parameter 
+- title: [string] [Optional]
+- description: [string] [Optional]
+- status: [boolean] [Optional]
+- due_date: [date] [Optional]
 
-* Succes Response <br>
-- Code: 200 <br>
-- Content: {"msg":[1,[{"id":3,"title":"Ngoding","description":"Belajar API","status":true,"due_date":"2020-05-28T17:00:00.000Z","createdAt":"2020-04-27T14:34:37.552Z","updatedAt":"2020-04-27T16:02:16.588Z","UserId":null}]]}
+#### Succes Response 
+- Code: 200 
+- Content: 
+    ```
+    {
+        "msg":[
+            1,
+            [
+                {
+                    "id":3,
+                    "title":"Ngoding",
+                    "description":"Belajar API",
+                    "status":true,
+                    "due_date":"2020-05-28T17:00:00.000Z",
+                    "createdAt":"2020-04-27T14:34:37.552Z",
+                    "updatedAt":"2020-04-27T16:02:16.588Z",
+                    "UserId":null
+                }
+            ]
+        ]
+    }
+    ```
 
-* Error Response <br>
-- Code : 404 <br>
-- Content: {"error": "Not Found"}
+#### Error Response 
+- Code : 404 
+- Content: 
+    ```
+    {
+        "error": 
+        "Not Found"
+    }
+    ```
 
 > OR
 
-- Code: 500 <br>
-- Content: {"error": "Error Access"} <br>
+- Code: 500 
+- Content: 
+    ```
+    {
+        "error": 
+        "Error Access"
+    }
+    ``` 
 
-* Sample Call <br>
-- http://localhost:3000/todos/3 <br>
+#### Sample Call 
+- http://localhost:3000/todos/3 
+
+<br>
 
 ## DELETE TODOS 
-<br>
 
-* URL <br>
+#### URL 
 /todos/:id
-<br>
 
-* Method <br>
-> DELETE
-<br>
+#### Method 
+    > DELETE
 
-* URL Parameter <br>
-- id = [integer]
-<br>
+#### URL Parameter 
+- id = [integer] [Required]
 
-* Data Parameter <br>
+#### Data Parameter 
 None
 
-* Succes Response <br>
-- Code: 200 <br>
-- Content: {"deleteTodo":{"id":1,"title":"Masak","description":"Step memasak","status":true,"due_date":"2020-05-27T17:00:00.000Z","UserId":null,"createdAt":"2020-04-27T14:34:05.315Z","updatedAt":"2020-04-27T14:34:05.315Z"}}
+#### Succes Response 
+- Code: 200 
+- Content: 
+    ```
+    {
+        Successfully delete Todo 1
+    }
+    ```
 
-* Error Response <br>
-- Code : 404 <br>
-- Content: {"error": "Not Found"}
+#### Error Response 
+- Code : 404 
+- Content: 
+    ``` 
+    {
+        "error": 
+        "Not Found"
+    }
+    ```
 
 > OR
 
-- Code: 500 <br>
-- Content: {"error": "Error Access"} <br>
+- Code: 500 
+- Content: 
+    ```
+    {
+        "error": 
+        "Error Access"
+    }
+    ``` 
 
-* Sample Call <br>
-- http://localhost:3000/todos/3 <br>
+#### Sample Call 
+- http://localhost:3000/todos/1

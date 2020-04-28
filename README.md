@@ -20,7 +20,7 @@ Request body:
 }
 ```
 
-Response: 
+Success Response: 
 ```javascript
 {
       "id": 2,
@@ -34,11 +34,19 @@ Response:
 }    
 ```
 
+Error Response:
+```javascript
+{
+  error,
+  msg: 'Mohon maaf, untuk saat ini layanan sedang tidak tersedia'
+}
+```
+
 ## GET /todos
 
 This will return all Todo instances saved in the server as array of objects. If no Todo instances is saved in the server, then an empty array will be returned.
 
-Response: 
+Success Response: 
 ```javascript
 {
   "Todos": [
@@ -53,6 +61,14 @@ Response:
       "updatedAt": "2020-04-27T15:58:39.755Z"
     }
   ]
+}
+```
+
+Error Response:
+```javascript
+{
+  error,
+  msg: 'Mohon maaf, untuk saat ini layanan sedang tidak tersedia'
 }
 ```
 
@@ -80,6 +96,14 @@ Response:
 }
 ```
 
+Error Response:
+```javascript
+{
+  error,
+  msg: `Todo dengan id ${id} tidak ditemukan`
+}
+```
+
 ## PUT /todos/:id
 
 This will update an instance of Todo based on based on form-URL-encoded request body. If any of the value is empty then that particular value will not be updated. If successful then this will return the number of updated Todo instances.
@@ -87,17 +111,20 @@ This will update an instance of Todo based on based on form-URL-encoded request 
 Request body:
 ```javascript
 {
-      "title": "PR Tugas",
-      "description": "PR Tugas hari Senin",
-      "due_date": "2020-05-01
+  "title": "PR Tugas",
+  "description": "PR Tugas hari Senin",
+  "due_date": "2020-05-01
 }
 ```
 
-Response:
+Success Response:
 ```javascript
-{
-  { msg: `Task dengan id ${id} telah berhasil diubah` }
-}
+{ msg: `Task dengan id ${id} telah berhasil diubah` }
+```
+
+Error Response:
+```javascript
+{ msg: `Todo dengan id ${id} tidak ditemukan` }
 ```
 
 ## DELETE /todos/:id
@@ -109,11 +136,15 @@ Request params:
 { id: <integer> }
 ```
 
-Response:
+Success Response:
 ```javascript
-{ msg: `Task dengan id ${id} telah berhasil dihapus` }
+{ msg: `Task dengan id ${id} telah berhasil diubah` }
 ```
 
+Error Response:
+```javascript
+{ msg: `Task dengan id ${id} tidak ditemukan` }
+```
 
 ## POST /users/signup
 
@@ -127,8 +158,8 @@ Request header:
 Request body:
 ```javascript
 {
-      "email": "emaildemo@mail.ru",
-      "password": "emailada"
+  "email": "emaildemo@mail.ru",
+  "password": "emailada"
 }
 ```
 
@@ -157,8 +188,8 @@ This will return a string of jsonwebtoken based on input of user (email and pass
 Request body:
 ```javascript
 {
-      "email": "emaildemo@mail.ru",
-      "password": "emailada"
+  "email": "emaildemo@mail.ru",
+  "password": "emailada"
 }
 ```
 
@@ -171,9 +202,7 @@ Success Response:
 
 Error Response:
 ```javascript
-{
-  "msg": "Wrong email or password"
-}
+{ "msg": "Wrong email or password" }
 ```
 
 

@@ -86,7 +86,7 @@ class TodoController {
         })
         .then(updated => {
             res.status(200).json({
-                msg: `Todo dengan id ${id} telah berhasil dihapus`
+                msg: `Todo dengan id ${id} telah berhasil diubah`
             })
         })
         .catch(error => {

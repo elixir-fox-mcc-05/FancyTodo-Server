@@ -9,17 +9,17 @@ const CALENDARIFIC = process.env.CALENDARIFIC
 
 // console.log(CALENDARIFIC) 
 
-router.get('/test', (req,res) => {
+router.get('/holidays', (req,res) => {
     Axios.get ('https://calendarific.com/api/v2/holidays', {
         params : {
                     'api_key' : CALENDARIFIC,
                     'country' : 'ID',
-                    'year' : 2020
+                    'year' : new Date().getFullYear()
                     }
     })
         .then( response => {
             res.json({
-                data : response.data.response.holidays[0].date.datetime
+                data : response.data.response.holidays
             })
         })
         .catch(error => {
@@ -29,6 +29,7 @@ router.get('/test', (req,res) => {
             console.log(error);
         })
 })
+
 router.use('/todos', todos)
 // router.get('/todos', ToDoController.list)
 // router.post('/todos', ToDoController.createToDo)

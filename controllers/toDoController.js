@@ -23,6 +23,26 @@ class ToDoController{
         let {title , description, due_date} = req.body
         let UserId = req.LoginId
 
+        // const p1 = Axios.get ('https://calendarific.com/api/v2/holidays', {
+        //                 params : {
+        //                             'api_key' : CALENDARIFIC,
+        //                             'country' : 'ID',
+        //                             'year' : 2020
+        //                             }
+        //             })
+        //                 .then( response => {
+        //                     // res.json({
+        //                     //     data : response.data.response.holidays
+        //                     // })
+        //                     return response.data.response.holidays
+        //                 })
+        //                 .catch(error => {
+        //                     res.status(500).json({
+        //                         error : error.message
+        //                     })
+        //                     console.log(error);
+        //                 })
+
         Todo    
             .create({title,description, due_date, UserId})
             .then(data => res.status(201).json({todo : data}))
@@ -31,6 +51,14 @@ class ToDoController{
                     res.status(400).json({err : err.message})
 
             })
+
+
+            // Promise.all([p1,p2]).then(data => {
+            //     let holidaysList = data[0]
+            //     for (let temp of holidaysList){
+            //         if(temp.date.datetime.year == data[0].due_date.getFullYear())
+            //     }
+            // })
     }
 
     static updateToDo(req,res){

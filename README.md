@@ -20,7 +20,7 @@
 
 *    Succes Response
 
-    *    Code : 200
+        Code : 200
 
         Content : {
                         "Todos": [
@@ -56,10 +56,12 @@
                         }
 
 *    Error Response :
-    *    Code :  500
+
+        Code :  500
         Content : "Error Acces Server"
     
 *    Sample Call :
+
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -95,7 +97,7 @@
 
 *    Succes Response
 
-    *    Code : 201
+        Code : 201
 
         Content : {
                     "Todos": {
@@ -111,10 +113,12 @@
                     }
 
 *    Error Response :
-    *    Code :  500
+
+        Code :  500
         Content : "Error Acces Server"
     
 *    Sample Call :
+
         $.ajax({
             url: "/todos",
             dataType: "json",
@@ -181,10 +185,12 @@
                     }
 
 *    Error Response :
+
     *    Code :  500
         Content : "Not Found"
     
 *    Sample Call :
+
         $.ajax({
             url: "/todos/7",
             dataType: "json",
@@ -220,7 +226,7 @@
 
 *    Succes Response
 
-    *    Code : 201
+        Code : 201
 
         Content :   {
                         "Todos": {
@@ -236,10 +242,12 @@
                     }
 
 *    Error Response :
-    *    Code :  304
+
+        Code :  304
         Content : "Not Modified"
     
 *    Sample Call :
+
         $.ajax({
             url: "/todos/7",
             dataType: "json",
@@ -272,14 +280,16 @@
 
 *    Succes Response
 
-    *    Code : 202
+        Code : 202
         Content : { msg : "Succes Destroy Todo with ${Id} " }
 
 *    Error Response :
-    *    Code :  501
+
+        Code :  501
         Content : "Not Implemented"
     
 *    Sample Call :
+
         $.ajax({
             url: "/todos/3",
             dataType: "json",
@@ -312,7 +322,7 @@
 
 *    Succes Response
 
-    *    Code : 201
+        Code : 201
         Content :   {
                     "User": {
                         "id": 1,
@@ -324,10 +334,12 @@
                     }
 
 *    Error Response :
-    *    Code :  501
+
+        Code :  501
         Content : "Cannot Implemented"
     
 *    Sample Call :
+
         $.ajax({
             url: "/user/register",
             dataType: "json",
@@ -359,16 +371,18 @@
 
 *    Succes Response
 
-    *    Code : 200
+        Code : 200
         Content :   {
                         "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
                     }
 
 *    Error Response :
+
         Code :  404
         Content : "wrong email/password"
     
 *    Sample Call :
+
         $.ajax({
             url: "/user/login",
             dataType: "json",

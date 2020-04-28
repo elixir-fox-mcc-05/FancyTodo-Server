@@ -1,27 +1,25 @@
 const { Todo, User } = require('../models')
+const send = require('../helpers/nodemailer')
 
 class FancyTodo {
-    static add(req, res) {
+    static add(req, res, next) {
         const { UserId } = req
         const { title, description, status, due_date } = req.body
         Todo.create({ title, description, status, due_date, UserId })
             .then(data => {
-                res
-                  .status(201)
-                  .json({ new_data: data }) 
+                User.findByPk(UserId)
+                    .then(user => {
+                        send(user.email, title, due_date)
+                        res
+                          .status(201)
+                          .json({ new_data: data }) 
+                    })
+                    .catch(err => {
+                        next(err)
+                    })
             })
             .catch(err => { 
-                if (err.name == 'SequelizeValidationError') {
-                    res
-                      .status(400)
-                      .json({ err })
-                } else {
-                    res
-                      .status(500)
-                      .json({ 
-                        name: 'InternalServerError',  
-                        msg: 'status code 500' })
-                }
+                next(err)
             })
     }   
 
@@ -35,26 +33,18 @@ class FancyTodo {
                           .status(200)
                           .json({ data }) 
                     } else {
-                        // res
-                        //   .status(404)
-                        //   .json({ msg: 'NOT FOUND' })
                         next(err)
                     }
                 })
                 .catch(err => { 
-                    // res
-                    //   .status(500)
-                    //   .json({ msg: 'status code 500' })
                     next(err)
                 })
         } else {
-            res
-              .status(404)
-              .json({ msg: 'NOT FOUND' })
+            next(err)
         }
     }
 
-    static show_id(req, res) {
+    static show_id(req, res, next) {
         const { UserId } = req
         const { id } = req.params
         Todo.findOne({ where: { id, UserId } })
@@ -64,14 +54,15 @@ class FancyTodo {
                       .status(200)
                       .json({ data }) 
                 } else {
-                    res
-                      .status(404)
-                      .json({ msg: 'NOT FOUND' })
+                    next(err)
                 }
-        })
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 
-    static delete(req, res) {
+    static delete(req, res, next) {
         const { UserId } = req
         const { id } = req.params
         Todo.destroy({ where: { id, UserId } })
@@ -81,15 +72,11 @@ class FancyTodo {
                       .status(204)
                       .json({ msg: `success delete with id ${id}` })
                 } else {
-                    res
-                      .status(404)
-                      .json({ msg: `NOT FOUND` })
+                    next(errr)
                 }
             })
             .catch(err => { 
-                res
-                  .status(500)
-                  .json({ msg: err })
+                next(err)
         })
     }
 
@@ -104,26 +91,11 @@ class FancyTodo {
                     .status(200)
                     .json({ data: req.body }) 
                 } else if (data == 0) {
-                    res
-                    .status(404)
-                    .json({ msg: 'NOT FOUND' })
+                    next(err) 
                 }
-                next() 
             })
             .catch(err => {
-                if (err == undefined) {
-                    res
-                      .status(400)
-                      .json({ msg: `Invalid Input` })
-                } else if (err.name == 'jwt must be provided') {
-                    res
-                      .status(404)
-                      .json({ msg: 'NOT FOUND' })
-                } else {
-                    res
-                    .status(500)
-                    .json({ err: err.message }) 
-                }
+                next(err)
             })
     }
 }

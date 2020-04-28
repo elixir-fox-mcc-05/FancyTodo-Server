@@ -8,20 +8,20 @@ function authorization (req, res, next) {
                 if(data.UserId == req.currentUserId) {
                     next()
                 } else {
-                    res.status(401).json({
-                        msg: 'unauthorized'
-                    })
+                    throw {
+                        msg: 'unauthorized',
+                        code: 401
+                    }
                 }
             } else {
-                res.status(404).json({
-                    msg: 'todo not found'
-                })
+                throw {
+                    msg: 'todo not found',
+                    code: 404
+                }
             }
         })
         .catch(err => {
-            res.status(500).json({
-                msg: 'internal server error'
-            })
+            next(err)
         })
 }
 

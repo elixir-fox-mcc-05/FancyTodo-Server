@@ -12,22 +12,17 @@ function authentication (req, res, next) {
                     req.currentUserId = id
                     next()
                 } else {
-                    res.status(401).json({
-                        msg: 'Please login first'
-                    })
+                    throw {
+                        msg: 'Please login first',
+                        code: 401
+                    }
                 }
             })
             .catch(err => {
-                res.status(500).json({
-                    msg: 'internal server error',
-                    err
-                })
+                throw err
             })
     } catch (err) {
-        res.status(500).json({
-            msg: 'internal server error',
-            err
-        })
+        next(err)
     }
 }
 

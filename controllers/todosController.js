@@ -1,7 +1,7 @@
 let { Todo } = require('../models/index')
 
 class TodosController {
-    static findAll (req, res) {
+    static findAll (req, res, next) {
         let UserId = req.currentUserId
         Todo.findAll({
             where: { UserId }
@@ -12,13 +12,11 @@ class TodosController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static createTodo (req, res) {
+    static createTodo (req, res, next) {
         let { title, description, due_date } = req.body
         let UserId = req.currentUserId
         Todo.create({
@@ -34,13 +32,11 @@ class TodosController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static findById (req, res) {
+    static findById (req, res, next) {
         let { id } = req.params
         Todo.findByPk(id)
             .then(data => {
@@ -49,13 +45,11 @@ class TodosController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static updateTodo (req, res) {
+    static updateTodo (req, res, next) {
         let { id } = req.params
         let {title, description, status, due_date} = req.body
         Todo.update({
@@ -74,13 +68,11 @@ class TodosController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static deleteTodo (req, res) {
+    static deleteTodo (req, res, next) {
         let { id } = req.params
         Todo.destroy({
             where: {
@@ -93,9 +85,7 @@ class TodosController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 }

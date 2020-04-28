@@ -3,7 +3,7 @@ const { comparePassword } = require('../helpers/bcrypt')
 const { generateToken } = require('../helpers/jwt')
 
 class UsersController {
-    static register (req, res) {
+    static register (req, res, next) {
         let {name, email, password} = req.body
         User.create({
             name,
@@ -16,13 +16,11 @@ class UsersController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static login (req, res) {
+    static login (req, res, next) {
         let {email, password} = req.body
         User.findOne({
             where: {
@@ -41,20 +39,20 @@ class UsersController {
                             token
                         })        
                     } else {
-                        res.status(401).json({
-                            msg: 'Please input correct password'
-                        })    
+                        throw {
+                            msg: 'Please input correct password',
+                            code: 401
+                        }    
                     }
                 } else {
-                    res.status(401).json({
-                        msg: 'Please input registered email'
-                    })
+                    throw {
+                        msg: 'Please input registered email',
+                        code: 401
+                    }
                 }
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 }

@@ -1,12 +1,13 @@
 const {compare} = require('../helpers/bcrypt')
 const {generateToken} = require('../helpers/jwt')
+const {User} = require('../models')
 
 class UserController {
 
     static register(req,res){
 
-        let {first_name, last_name, username, password, email} = req.body
-        let newUser = {first_name, last_name, username, password, email}
+        let {first_name, last_name, password, email} = req.body
+        let newUser = {first_name, last_name,  password, email}
 
         User
             .create(newUser)
@@ -25,7 +26,7 @@ class UserController {
         const {email , password} = req.body
 
         User
-            .findOne({where:{"email" : email}})
+            .findOne({where:{email : req.body.email}})
             .then(data => {
 
                 if(data){
@@ -33,10 +34,11 @@ class UserController {
                     if (compare(password, data.password)){
 
                         let token = generateToken({
+                                        id : data.id,
                                         email : data.email,
                                         password : data.password
                                     })
-                        res.status(200).json({token})
+                        res.status(200).json({token : token})
 
                     }else {
 

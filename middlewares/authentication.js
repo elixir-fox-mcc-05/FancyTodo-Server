@@ -5,12 +5,14 @@ function authentication (req, res, next) {
   let token = req.headers.token
 
   try {
-    let decodedid = verifyToken(token).id
-    // let { id } = decoded
-    User.findByPk(decodedid)
+    let decodedid = verifyToken(token)
+    let { id } = decodedid
+    console.log(decodedid)
+    User.findByPk(id)
       .then(result => {
+        //   console.log(result)
         if (result) {
-          req.LoginId = decodedid
+          req.LoginId = id
           next()
         } else {
           throw {

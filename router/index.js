@@ -3,25 +3,23 @@ const router = require('express').Router()
 const UserController = require('../controllers/userController')
 const todos = require('../router/todos')
 const Axios = require('axios')
-// const dotenv = require('dotenv')
 require('dotenv').config();
 
 const CALENDARIFIC = process.env.CALENDARIFIC
-var port = process.env.PORT;
 
-console.log(CALENDARIFIC) 
+// console.log(CALENDARIFIC) 
 
 router.get('/test', (req,res) => {
     Axios.get ('https://calendarific.com/api/v2/holidays', {
         params : {
-                    'api_key' : "f30857ad187e79bb8b583908f02ad06c167437ce",
+                    'api_key' : CALENDARIFIC,
                     'country' : 'ID',
-                    'year' : 2019
+                    'year' : 2020
                     }
     })
         .then( response => {
             res.json({
-                data : response.data
+                data : response.data.response.holidays[0].date.datetime
             })
         })
         .catch(error => {

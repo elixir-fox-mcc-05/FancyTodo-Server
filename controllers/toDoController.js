@@ -1,13 +1,14 @@
 const {User,Todo} = require('../models')
 // const {compare} = require('../helpers/bcrypt')
 // const generateToken = require('../helpers/jwt')
+const Axios = require('axios')
 
 class ToDoController{
 
     static list(req,res){
 
         Todo
-            .findAll({order : [['id','ASC']]})
+            .findAll({order : [['id','ASC']], where : {id : req.LoginId}})
             .then(data => {
                 res.status(200).json({todos : data})
             })
@@ -22,14 +23,12 @@ class ToDoController{
         let UserId = req.LoginId
 
         Todo    
-            .create({title,description, due_date})
+            .create({title,description, due_date, UserId})
             .then(data => res.status(201).json({todo : data}))
             .catch(err => {
-                if(err.message){
-                    res.status(400).json({err : err.message})
-                }else{
-                    res.status(500).json({error : err.message})
-                }
+               
+                    res.status(400).json({err : err})
+
             })
     }
 

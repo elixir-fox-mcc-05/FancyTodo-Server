@@ -9,7 +9,7 @@ function authorization (req,res,next){
                     // let results = Object.assign(data1)
                     // return results
             if (data){
-                if (data.UserId == req.loginId){
+                if (data.UserId == req.LoginId){
                     next()
                 }else {
                     res.status(401).json({

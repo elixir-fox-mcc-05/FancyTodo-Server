@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty : true
       }
     },
+    UserId: {
+      type : DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName : "Todo",

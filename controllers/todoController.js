@@ -38,14 +38,21 @@ class TodoController {
 
   static create(req, res) {
     let { title, description, due_date } = req.body;
+    let UserId = req.currentUserId;
+    
+
     Todo.create({
       title,
       description,
       due_date,
+      UserId,
     })
       .then((data) => {
+        
         res.status(201).json({
-          todo: data
+          
+          todo: data,
+          msg: 'success create todo'
         });
       })
       .catch((err) => {
@@ -58,7 +65,8 @@ class TodoController {
           });
         } else {
           res.status(500).json({
-            error: err.message,
+            error: 'internal server error',
+            err: err
           });
         }
       });
@@ -102,11 +110,11 @@ class TodoController {
       .then((data) => {
         if (data) {
           res.status(200).json({
-            msg: `todo with id ${id} succesfully deleted`
+            msg: `todo with id ${id} succesfully deleted`,
           });
         } else {
           res.status(404).json({
-              msg: `todo with id ${id} is not found`
+            msg: `todo with id ${id} is not found`,
           });
         }
       })

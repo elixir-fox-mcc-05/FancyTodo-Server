@@ -3,7 +3,7 @@ const { checkPassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 
 class UserController {
-  static signup(req, res) {
+  static signup(req, res, next) {
     let { name, email, password } = req.body;
 
     User.create({
@@ -19,13 +19,11 @@ class UserController {
         });
       })
       .catch((err) => {
-        res.status(500).json({
-          errors: err,
-        });
+        next(err);
       });
   }
 
-  static signin(req, res) {
+  static signin(req, res, next) {
     let { email, password } = req.body;
 
     User.findOne({
@@ -44,20 +42,20 @@ class UserController {
               token,
             });
           } else {
-            res.status(401).json({
+            throw {
               msg: "wrong email/password",
-            });
+              code: 401,
+            };
           }
         } else {
-          res.status(401).json({
+          throw {
             msg: "wrong email/password",
-          });
+            code: 401,
+          }; 
         }
       })
       .catch((err) => {
-        res.status(500).json({
-          errors: err,
-        });
+        next(err);
       });
   }
 }

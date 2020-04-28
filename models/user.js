@@ -12,25 +12,58 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: { args: true, msg: "name cannot be empty" },
-          len: [4, 50],
+          notNull: {
+            args: true,
+            msg: "Name is required",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Name is required",
+          },
+          len: {
+            args: 4, 
+            msg: "Name must be or more than 4 character"
+          },
         },
       },
       email: {
         type: DataTypes.STRING,
+        unique: {
+          args: true,
+          msg: "Email already in use",
+        },
         allowNull: false,
-        unique: { args: true, msg: "email already in use" },
         validate: {
-          notEmpty: { args: true, msg: "email cannot be empty" },
-          len: [4, 50],
+          notNull: {
+            args: true,
+            msg: "Email is required",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Email is required",
+          },
+          isEmail: {
+            args: true,
+            msg: "Invalid email format",
+          },
         },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: { args: true, msg: "password cannot be empty" },
-          len: [3, 50],
+          notNull: {
+            args: true,
+            msg: "Email is required",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Email is required",
+          },
+          len: {
+            args: 4, 
+            msg: "Password must be or more than 4 character"
+          },
         },
       },
     },

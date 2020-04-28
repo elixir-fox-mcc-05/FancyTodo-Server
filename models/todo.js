@@ -10,16 +10,36 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: { args: true, msg: "title cannot be empty" },
-          len: [4, 50],
+          notNull: {
+            args: true,
+            msg: "Title is required",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Title is required",
+          },
+          len: {
+            args: 4, 
+            msg: "Title must be or more than 4 character"
+          },
         },
       },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: { args: true, msg: "description cannot be empty" },
-          len: [4, 200],
+          notNull: {
+            args: true,
+            msg: "Description is required",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Description is required",
+          },
+          len: {
+            args: 4, 
+            msg: "Description must be or more than 4 character"
+          },
         },
       },
       status: {
@@ -30,8 +50,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {
-          notEmpty: { args: true, msg: "due date cannot be empty" },
-          isAfter: `${new Date()}`
+          notNull: {
+            args: true,
+            msg: "Due date is required",
+          },
+          notEmpty: {
+            args: true,
+            msg: "Due date is required",
+          },
+          isAfter: {
+            args:`${new Date()}`,
+            msg: "Due date must be more than current day and time"
+          }
         },
       },
       UserId:{

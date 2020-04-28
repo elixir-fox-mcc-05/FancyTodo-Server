@@ -7,33 +7,26 @@ function authentication(req, res, next) {
   try {
     let decoded = verifyToken(token);
     let { id } = decoded;
-    
-    User.findByPk(id)
-     .then((result) => {
-      if (result) {
-        req.currentUserId = id; 
-        
-        next();
-      } else {
-        res.status(401).json({
-          msg: "Unauthorized, please login first",
-          err: err
-        });
-      }
-    })
-    .catch(err=>{
-        res.status(500).json({
-            msg: 'internal server error',
-            err: err
-        })
-    })
 
-  } catch (err) { 
-      res.status(500).json({
-          msg: 'internal server error',
-          err: err
+    User.findByPk(id)
+      .then((result) => {
+        if (result) {
+          req.currentUserId = id;
+
+          next();
+        } else {
+          throw {
+            msg: "Unauthorized, please login first",
+            code: 401,
+          };
+        }
       })
-   }
+      .catch((err) => {
+        throw err;
+      });
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = authentication;

@@ -9,12 +9,12 @@ function authorization(req, res, next) {
         next();
       } else {
         res.status(401).json({
-          msg: "unauthorized!",
+          msg: "Unauthorized!",
         });
       }
     } else {
       res.status(400).json({
-        msg: "not found",
+        msg: `Id ${id} is not found`,
       });
     }
   });

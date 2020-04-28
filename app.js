@@ -3,13 +3,15 @@ if (process.env.NODE_ENV == "development") {
 }
 
 const express = require("express");
-const routes = require("./routes/index");
-
 const app = express();
 const PORT = 3000;
+const routes = require("./routes/index");
+const errorHandler = require('./middlewares/errorHandler')
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(routes);
+app.use(errorHandler)
 
 app.listen(PORT, (_) => console.log(`I love you ${PORT}`));

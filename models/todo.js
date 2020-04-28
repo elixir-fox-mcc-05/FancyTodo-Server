@@ -31,12 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: { args: true, msg: "due date cannot be empty" },
-          checkDate(){
-              let currenDate = new Date();
-              if(due_date < currentDate) {
-                  throw new Error(`cannot set due date before current date`)
-              }
-          }
+          isAfter: `${new Date()}`
         },
       },
     },

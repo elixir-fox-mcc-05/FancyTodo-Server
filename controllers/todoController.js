@@ -45,7 +45,7 @@ class TodoController {
     })
       .then((data) => {
         res.status(201).json({
-          todo: data,
+          todo: data
         });
       })
       .catch((err) => {
@@ -84,6 +84,7 @@ class TodoController {
       .then((data) => {
         res.status(201).json({
           todo: data,
+          msg: `todo with id ${id} succesfully updated`,
         });
       })
       .catch((err) => {
@@ -101,7 +102,7 @@ class TodoController {
       .then((data) => {
         if (data) {
           res.status(200).json({
-            msg: `todo with id ${id} succesfully deleted`,
+            msg: `todo with id ${id} succesfully deleted`
           });
         } else {
           res.status(404).json({

@@ -16,7 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false
     },
     due_date: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      validate: {
+        isDate: {
+          msg: "Input must be in ISO format (ISO 8601) YYYY - MM - DD"
+        },
+        isPast(due_date) {
+          let now = new Date()
+          if(due_date < now) {
+            throw new Error("Due date cannot be set to be in the past")
+          }
+        }
+      }
     },
     UserId: {
       type: DataTypes.INTEGER,

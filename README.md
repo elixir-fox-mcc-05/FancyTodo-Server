@@ -1,6 +1,6 @@
 # FancyTodo-Server
 
-FancyTodo API is organized around [REST][1]. It is based on resource-oriented URLs and returns responses as JSON. In FancyTodo, all tasks in the todo-list is saved as instance of model Todo.
+FancyTodo API is organized around [REST][1]. It is based on resource-oriented URLs and returns responses as JSON. In FancyTodo, all tasks in the todo-list is saved as instance of model Todo. Similarly, all users is saved as instance of model User.
 
 ## POST /todos
 
@@ -87,7 +87,7 @@ This will update an instance of Todo based on based on form-URL-encoded request 
 Request body:
 ```javascript
 {
-      "title": "Pull Request",
+      "title": "PR Tugas",
       "description": "PR Tugas hari Senin",
       "due_date": "2020-05-01
 }
@@ -96,9 +96,7 @@ Request body:
 Response:
 ```javascript
 {
-  "Updated Todo": [
-    1 // only one instance has been updated
-  ]
+  { msg: `Task dengan id ${id} telah berhasil diubah` }
 }
 ```
 
@@ -108,13 +106,75 @@ This will destroy an instance of Todo based on id in request params.
 
 Request params: 
 ```javascript
-{ id: "integer" }
+{ id: <integer> }
 ```
 
 Response:
-Request params: 
 ```javascript
 { msg: `Task dengan id ${id} telah berhasil dihapus` }
 ```
+
+
+## POST /users/signup
+
+This will create a new user based on form-URL-encoded request body.
+
+Request header:
+```javascript
+{ Content-Type: "application/json" }
+```
+
+Request body:
+```javascript
+{
+      "email": "emaildemo@mail.ru",
+      "password": "emailada"
+}
+```
+
+Success Response:
+```javascript
+{
+  "User": {
+    "id": 8,
+    "email": "adadehaja@mail.ru"
+  }
+}
+```
+
+Error Response:
+```javascript
+{
+  "msg": "Error in signup",
+  "error": "email must be unique"
+}
+```
+
+## POST /users/signin
+
+This will return a string of jsonwebtoken based on input of user (email and password) in request body.
+
+Request body:
+```javascript
+{
+      "email": "emaildemo@mail.ru",
+      "password": "emailada"
+}
+```
+
+Success Response:
+```javascript
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhZGFkZWhhamFAbWFpbC5ydSIsImlhdCI6MTU4ODA0ODg0MH0.xwCKLdoiniQYBSqRQDBt50gAlfEB0blhXqDmHNoWWL0"
+}
+```
+
+Error Response:
+```javascript
+{
+  "msg": "Wrong email or password"
+}
+```
+
 
 [1]: https://en.wikipedia.org/wiki/Representational_state_transfer

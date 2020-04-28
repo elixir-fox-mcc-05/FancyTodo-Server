@@ -54,7 +54,7 @@ class TodoController {
             .catch(error => {
                 res.status(500).json({
                     error,
-                    msg: 'Mohon maaf, untuk saat ini layanan sedang tidak tersedia'
+                    msg: `Todo dengan id ${id} tidak ditemukan`
                 })
             })
     }
@@ -81,17 +81,18 @@ class TodoController {
             description,
             due_date
         }, {
-            where: { id }
+            where: { id },
+            returning: true // return the updated instance
         })
         .then(updated => {
             res.status(200).json({
-                "Updated Todo": updated
+                msg: `Todo dengan id ${id} telah berhasil dihapus`
             })
         })
         .catch(error => {
             res.status(500).json({
                 error,
-                msg: 'Mohon maaf, untuk saat ini layanan sedang tidak tersedia'
+                msg: `Todo dengan id ${id} tidak ditemukan`
             })
         })
     }
@@ -104,12 +105,13 @@ class TodoController {
         })
         .then(() => {
             res.status(200).json({
-                msg: `Task dengan id ${id} telah berhasil dihapus`
+                msg: `Todo dengan id ${id} telah berhasil dihapus`
             })
         })
         .catch(error => {
             res.status(500).json({
-                error
+                error,
+                msg: `Todo dengan id ${id} tidak ditemukan`
             })
         })
     }

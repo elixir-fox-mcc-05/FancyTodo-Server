@@ -1,4 +1,7 @@
 'use strict';
+
+const { generateHash } = require('../helpers/bcrypt')
+
 module.exports = (sequelize, DataTypes) => {
   class User extends sequelize.Sequelize.Model {}
 
@@ -28,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: "User",
     hooks: {
       beforeCreate(user) {
-        // user.password = generateHash(user.password)
+        user.password = generateHash(user.password)
       }
     }
   });

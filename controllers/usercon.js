@@ -43,7 +43,8 @@ class UserCon {
                         id : result.id,
                         email : result.email
                     }
-                    let token = jwt.sign(obj, 'secret')
+                    // let token = jwt.sign(obj, 'secret')
+                    let token = generateToken(obj)
                     res.status(200).json({
                         token
                     })

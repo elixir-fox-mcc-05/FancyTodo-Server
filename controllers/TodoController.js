@@ -2,7 +2,11 @@ const { Todo } = require('../models');
 
 class TodoController {
   static findAll(req, res) {
+    let UserId = req.UserId;
     let options = {
+      where: {
+        UserId
+      },
       order: [["id", "ASC"]]
     }
     Todo.findAll(options)
@@ -19,12 +23,13 @@ class TodoController {
   }
   static createTodo(req, res) {
     let { title, description, status, due_date } = req.body;
-    console.log(req.body);
+    let UserId = req.UserId;
     Todo.create({
       title,
       description,
       status,
-      due_date
+      due_date,
+      UserId
     })
       .then(data => {
         res.status(201).json({

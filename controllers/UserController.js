@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { compare } = require('../helpers/encrypt.js');
-const userToken = require('../helpers/jwt.js');
+const { userToken } = require('../helpers/jwt.js');
 
 class UserController {
   static register(req, res) {

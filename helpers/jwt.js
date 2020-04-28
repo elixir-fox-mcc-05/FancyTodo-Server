@@ -1,7 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 function userToken(payload) {
-  return jwt.sign(payload, 'restapitodo');
+  return jwt.sign(payload, process.env.SECRET);
 }
 
-module.exports = userToken;
+function verifyToken(token) {
+  return jwt.verify(token, process.env.SECRET);
+}
+
+module.exports = {
+  userToken,
+  verifyToken
+}

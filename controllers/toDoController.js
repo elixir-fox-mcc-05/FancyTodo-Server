@@ -7,8 +7,9 @@ class ToDoController{
 
     static list(req,res){
 
+
         Todo
-            .findAll({order : [['id','ASC']], where : {id : req.LoginId}})
+            .findAll({order : [['id','ASC']], where : {UserId : req.LoginId}})
             .then(data => {
                 res.status(200).json({todos : data})
             })
@@ -27,7 +28,7 @@ class ToDoController{
             .then(data => res.status(201).json({todo : data}))
             .catch(err => {
                
-                    res.status(400).json({err : err})
+                    res.status(400).json({err : err.message})
 
             })
     }
@@ -70,7 +71,7 @@ class ToDoController{
 
             })
             .catch(err => {
-                res.status(400).json({error : err})
+                res.status(400).json({error : err.message})
             })
     }
 
@@ -90,8 +91,8 @@ class ToDoController{
                     .catch(err => res.status(404).json({error : err}))
 
 
-        Promise.all([p1,p2]).then(data => {
-                                    res.status(200).json({todo : data[0]})
+        Promise.all([p2,p1]).then(data => {
+                                    res.status(200).json({todo : data[1]})
                              })
                             .catch(err => res.status(404).json({error : err}))
 

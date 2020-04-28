@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       type :  DataTypes.DATE,
       validate : {
         isDate : true,
-        notEmpty : true
+        notEmpty : true,
+
       }
     },
     UserId: {
@@ -43,6 +44,13 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate : (todo) => {
         if (!todo.status){
         todo.status = false
+        }
+      }
+    },
+    validate : {
+      checkdate (){
+        if (this.due_date < new Date()){
+          throw new Error('due_date must before time today');
         }
       }
     }

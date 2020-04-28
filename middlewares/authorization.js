@@ -6,10 +6,11 @@ function authorization (req,res,next){
     Todo
         .findByPk(req.params.id)
         .then(data => {
-                    // let results = Object.assign(data1)
+                    
                     // return results
             if (data){
                 if (data.UserId == req.LoginId){
+                    let results = Object.assign(data)
                     next()
                 }else {
                     res.status(401).json({

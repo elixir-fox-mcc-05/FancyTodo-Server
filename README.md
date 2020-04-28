@@ -691,3 +691,282 @@
       })
   ```
 
+
+
+## **View  Member**
+
+* **URL:**
+
+​			/todos/member
+
+* **Method:**
+
+​		`GET`
+
+- **URL Params**
+
+  **Required:**
+
+  `id:[integer]`
+
+- **Data Headers**
+
+  **Required:**
+
+  `token=[string]`
+
+  `id_todo=[string]`
+
+  `status:true`
+
+- **Data Params**
+
+  **Required:**
+
+  `none`
+
+  
+
+- success Response:
+
+- - **Code:** 200 
+    **Content:** 
+
+    ```json
+    {
+      "data": {
+        "result": [
+          {
+            "id": 1,
+            "email": "iguntop@gmail.com",
+            "Projects": [
+              {
+                "name": "default",
+                "UserId": 1,
+                "TodoId": 3,
+                "createdAt": "2020-04-27T13:05:40.305Z",
+                "updatedAt": "2020-04-27T13:05:40.305Z"
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "email": "a@a.com",
+            "Projects": [
+              {
+                "name": null,
+                "UserId": 3,
+                "TodoId": 3,
+                "createdAt": "2020-04-27T13:06:19.654Z",
+                "updatedAt": "2020-04-27T13:06:19.654Z"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "email": "b@b.com",
+            "Projects": []
+          },
+          {
+            "id": 6,
+            "email": "igunt@gmail.com",
+            "Projects": []
+          }
+        ]
+      },
+      "msg": "find All success"
+    }
+    ```
+
+    
+
+- **Error Response:**
+
+  - **Code:** 401 unauthorized
+    **Content:** 
+
+    ```json
+    {
+      "message": "Unauthorized",
+      "errors": "User Not authorized"
+    }
+    ```
+
+    
+
+- **Sample Call:**
+
+  ```
+    $.ajax({
+          method:'GET',
+          url:urlmaster+'/todos/member',
+          headers:{
+              token:localStorage.token,
+              status:true,
+              id_todo:id
+          }
+      })
+  ```
+
+
+
+## **Add  Member**
+
+* **URL:**
+
+​			/todos/member
+
+* **Method:**
+
+​		`POST`
+
+- **URL Params**
+
+  **Required:**
+
+  `None`
+
+- **Data Headers**
+
+  **Required:**
+
+  `token=[string]`
+
+  `UserId:[string]`
+
+  `TodoId=[string]`
+
+- **Data Params**
+
+  **Required:**
+
+  `none`
+
+  
+
+- success Response:
+
+- - **Code:** 200 
+    **Content:** 
+
+    ```json
+    {
+        msg:"member add success"
+    } 
+    ```
+
+    
+
+- **Error Response:**
+
+  - **Code:** 401 unauthorized
+    **Content:** 
+
+    ```json
+    {
+      "message": "Unauthorized",
+      "errors": "User Not authorized"
+    }
+    ```
+
+    
+
+- **Sample Call:**
+
+  ```
+    $.ajax({
+          method :'POST',
+          url: urlmaster +'/todos/member',
+          headers:{
+              token: localStorage.token
+          },
+          data:{
+              UserId:UserId,
+              TodoId:TodoId
+          }
+      })
+  ```
+
+
+
+
+
+## **3rd Api **
+
+* **URL:**
+
+​			/apiquotes
+
+* **Method:**
+
+​		`GET`
+
+- **URL Params**
+
+  **Required:**
+
+  `None`
+
+  
+
+- **Data Headers**
+
+  **Required:**
+
+  `None`
+
+  
+
+- **Data Headers**
+
+  **Required:**
+
+  `None`
+
+  
+
+- **Data Params**
+
+  **Required:**
+
+   ` None `
+
+- **Success Response:**
+
+  - **Code:** 200 
+    **Content:** 
+
+    ```json
+    {
+      "quotes": {
+        "_id": "5d91b45d9980192a317c8d92",
+        "quoteText": "Love at first sight is easy to understand; its when two people have been looking at each other for a lifetime that it becomes a miracle.",
+        "quoteAuthor": "Amy Bloom"
+      }
+    }
+    ```
+
+    
+
+- **Error Response:**
+
+  - **Code:** 500
+    **Content:** 
+
+    ```json
+    {
+      "message": "internal server error"  
+    }
+    ```
+
+    
+
+- **Sample Call:**
+
+  ```
+    $.ajax({
+          method:"GET",
+          url:urlmaster +'/apiquotes'
+      })
+  ```
+

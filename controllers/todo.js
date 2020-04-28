@@ -35,6 +35,7 @@ class Controller{
 
     static viewmember(req,res){
         User.findAll({
+            attributes: ['id', 'email'],
             include:[{
                 model:Project,
                 required:false,
@@ -46,7 +47,7 @@ class Controller{
         .then(result=>{
            
             return res.status(200).json({
-                data:result,
+                data:{result},
                 msg:"find All success"
             })
         })

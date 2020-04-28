@@ -12,7 +12,7 @@ class Controller{
         })
         .catch(err=>{
             res.status(500).json({
-                err
+                message: "internal server error" 
             })
         })
     }

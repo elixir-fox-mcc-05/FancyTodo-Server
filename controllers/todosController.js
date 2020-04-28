@@ -2,7 +2,10 @@ let { Todo } = require('../models/index')
 
 class TodosController {
     static findAll (req, res) {
-        Todo.findAll()
+        let UserId = req.currentUserId
+        Todo.findAll({
+            where: { UserId }
+        })
             .then(data => {
                 res.status(200).json({
                     Todos: data
@@ -17,12 +20,15 @@ class TodosController {
 
     static createTodo (req, res) {
         let { title, description, due_date } = req.body
+        let UserId = req.currentUserId
         Todo.create({
             title,
             description,
-            due_date
+            due_date,
+            UserId
         })
             .then(data => {
+                console.log(data)
                 res.status(201).json({
                     Todo: data
                 })

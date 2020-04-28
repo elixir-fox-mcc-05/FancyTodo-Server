@@ -38,7 +38,7 @@ class TodoCon {
             })
         })
         .catch(err=>{
-            res.status(500).json({
+            res.status(400).json({
                 error : err
             })
         })

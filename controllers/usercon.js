@@ -8,7 +8,7 @@ class UserCon {
         let { email , password , confirm_password } = req.body
 
         if(password!==confirm_password) {
-            res.status(401).json({
+            res.status(400).json({
                 error : 'please input confirm password same as password'
             })
         } else {
@@ -22,7 +22,7 @@ class UserCon {
                 })
             })
             .catch(err=> {
-                res.status(401).json({
+                res.status(400).json({
                     error : err.errors[0].message
                 })
             })

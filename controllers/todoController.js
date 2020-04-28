@@ -2,7 +2,12 @@ const { Todo } = require("../models");
 
 class TodoController {
   static findAll(req, res) {
-    Todo.findAll()
+    let UserId = req.currentUserId;
+    Todo.findAll({
+      where: {
+        UserId,
+      },
+    })
       .then((data) => {
         res.status(200).json({
           todos: data,
@@ -10,6 +15,7 @@ class TodoController {
       })
       .catch((err) => {
         res.status(500).json({
+          err: "internal server error",
           error: err.message,
         });
       });
@@ -39,7 +45,6 @@ class TodoController {
   static create(req, res) {
     let { title, description, due_date } = req.body;
     let UserId = req.currentUserId;
-    
 
     Todo.create({
       title,
@@ -48,11 +53,9 @@ class TodoController {
       UserId,
     })
       .then((data) => {
-        
         res.status(201).json({
-          
           todo: data,
-          msg: 'success create todo'
+          msg: "success create todo",
         });
       })
       .catch((err) => {
@@ -65,38 +68,35 @@ class TodoController {
           });
         } else {
           res.status(500).json({
-            error: 'internal server error',
-            err: err
+            error: "internal server error",
+            err: err,
           });
         }
       });
   }
 
   static update(req, res) {
-    let { title, description, status, due_date } = req.body;
     let { id } = req.params;
-    Todo.update(
-      {
-        title,
-        description,
-        status,
-        due_date,
-      },
-      {
-        where: { id },
-      }
-    )
-      .then((_) => {
-        return Todo.findByPk(id);
-      })
-      .then((data) => {
+    let updatedTodo = {
+      title: req.body.title,
+      description: req.body.description,
+      status: req.body.status,
+      due_date: req.body.due_date,
+    };
+
+    Todo.update(updatedTodo, {
+      where: { id },
+      returning: true,
+    })
+      .then((result) => {
         res.status(201).json({
-          todo: data,
           msg: `todo with id ${id} succesfully updated`,
+          todo: result[1][0],
         });
       })
       .catch((err) => {
         res.status(500).json({
+          error: "internal server error",
           error: err,
         });
       });

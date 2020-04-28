@@ -1,22 +1,30 @@
 const {Todo, User} = require('../models')
+const axios = require('axios')
 
 class TodoController {
     static findAll(req, res){
         const UserId = req.currentUser
-        Todo
-            .findAll({
-                where : {
-                    UserId,
-                }
+        let result;
+        axios
+            .get('http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=civil&output=json')
+            .then(response => {
+                result = response.data
+                return Todo.findAll({
+                        where : {
+                                UserId,
+                        }
+                    })
             })
-            .then(result => {
+            .then(data => {
                 res.status(200).json({
-                    Todos : result
+                    Todos : data,
+                    Weather : result
                 })
             })
             .catch(err => {
                 next(err)
             })
+            
     }
     static create(req, res){
         const {title, description, status, due_date} = req.body
@@ -41,16 +49,21 @@ class TodoController {
     }
     static findOne(req, res){
         const {id} = req.params
-
-        Todo
-            .findOne({
-                where : {
-                    id : parseInt(id),
-                }
+        let data;
+        axios
+            .get('http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=civil&output=json')
+            .then(response => {
+                data = response.data
+                return Todo.findOne({
+                    where : {
+                        id : parseInt(id),
+                    }
+                })
             })
             .then(result => {
                 res.status(200).json({
-                    Todos : result
+                    Todos : result,
+                    Weather : data
                 })
             })
             .catch(err => {

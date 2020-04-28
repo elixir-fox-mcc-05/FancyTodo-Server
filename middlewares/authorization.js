@@ -6,14 +6,13 @@ function authorization(req, res, next) {
     Todo
         .findByPk(id)
         .then(result => {
-            console.log(result)
             if(result){
                 if(result.UserId === req.currentUser){
                     next()
                 } else {
                     throw ({
-                        msg : "Not Authorize",
-                        code : 401
+                        msg : "Not Found",
+                        code : 404
                     })
                 }
             } else {

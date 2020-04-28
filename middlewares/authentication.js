@@ -18,6 +18,7 @@ const authentication = (req, res, next) => {
                 } else {
                     throw {
                         code : 401,
+                        type : "UNAUTHORIZED",
                         message : "Please login first!"
                     }
                 }

@@ -57,15 +57,13 @@ class UserController {
                         })
                     } else {
                         throw {
-                            code : 400,
-                            msg : "Please insert correct password!"
+                            message : "Please insert correct password!"
                         }
                     }
 
                 } else {
                     throw {
-                        code : 400,
-                        msg : "Please insert correct email!"
+                        message : "Please insert correct email!"
                     }
                 }
             })

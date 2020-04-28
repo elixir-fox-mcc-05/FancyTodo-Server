@@ -25,7 +25,7 @@ class ToDoController {
             })
     }
         
-    static findAll (req, res) {
+    static findAll (req, res, next) {
 
         let options = {
             where : {
@@ -45,7 +45,7 @@ class ToDoController {
             })
     }
 
-    static findById (req, res) {
+    static findById (req, res, next) {
 
         let param = req.params.id
 
@@ -61,7 +61,7 @@ class ToDoController {
             })
     }
 
-    static putById (req, res) {
+    static putById (req, res, next) {
 
         let values = {
             title : req.body.title,
@@ -89,7 +89,7 @@ class ToDoController {
             })
     }
 
-    static deleteById (req, res) {
+    static deleteById (req, res, next) {
 
         let options = {
             where : {
@@ -102,8 +102,7 @@ class ToDoController {
         ToDo
             .findOne(options)
             .then(data => {
-                choosed = data
-                return ToDo.destroy(options)
+                    return ToDo.destroy(options)
             })
             .then(data => {
                 res.status(200).json({

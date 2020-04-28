@@ -4,6 +4,8 @@ module.exports = (err, req, res, next) => {
     if (err.name === "SequelizeUniqueConstraintError") {
 
         res.status(400).json({
+            code : 400,
+            type : "BAD REQUEST",
             errors : err.message
         })
     }
@@ -15,18 +17,24 @@ module.exports = (err, req, res, next) => {
         }))
 
         res.status(400).json({
+            code : 400,
+            type : "BAD REQUEST",
             errors
         })
     }
 
     if (err.name === "JsonWebTokenError") {
 
-        res.status(400).json({
+        res.status(401).json({
+            code : 401,
+            type : "UNAUTHORIZED",
             errors : "Please login first!"
         })
     }
 
     res.status(err.code || 500).json({
-        errors : err
+        code : err.code || 500,
+        type : err.type || "INTERNAL SERVER ERROR",
+        errors : err.message || "ERROR"
     })
 }

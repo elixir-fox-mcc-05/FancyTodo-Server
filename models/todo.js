@@ -39,14 +39,15 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Due Date must in sting'
         },
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: "Todo"
   });
 
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User, {foreignKey: 'UserId'});
   };
   return Todo;
 };

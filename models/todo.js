@@ -34,7 +34,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    status: DataTypes.STRING,
+    status: {
+      type: DataTypes.ENUM('done', 'pending'),
+      validate: {
+        isIn: {
+          args: [['done', 'pending']],
+          msg: "Status must be either 'pending' or 'done' "
+        }
+      },
+    },
     due_date: {
       type: DataTypes.DATE,
       validate: {

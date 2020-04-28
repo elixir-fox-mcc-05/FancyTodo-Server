@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV == 'development') {
-    console.log('jalan');
+    console.log('Starting....');
     require('dotenv').config()
 }
 

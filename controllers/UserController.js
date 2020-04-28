@@ -6,21 +6,21 @@ const { generateToken } = require('../helpers/jwt')
 
 class UserController {
 
-    static read(req, res) {
-        User.findAll({
-            order: [['id', 'ASC']]
-        })
-            .then(users => {
-                res.status(200).json({ users })
-            })
-            .catch(err => {
-                res.status(500).json({
-                    error: err.message
-                })
-            })
-    }
+    // static read(req, res) {
+    //     User.findAll({
+    //         order: [['id', 'ASC']]
+    //     })
+    //         .then(users => {
+    //             res.status(200).json({ users })
+    //         })
+    //         .catch(err => {
+    //             res.status(500).json({
+    //                 error: err.message
+    //             })
+    //         })
+    // }
 
-    static register(req, res) {
+    static register(req, res, next) {
         const { username, email, password } = req.body;
 
         User.create({
@@ -36,19 +36,11 @@ class UserController {
                 })
             })
             .catch(err => {
-                if (err.name == 'SequelizeValidationError') {
-                    res.status(400).json({
-                        error: err.message
-                    })
-                } else {
-                    res.status(400).json({
-                        error: err
-                    })
-                }
+                return next(err)
             })
     }
 
-    static login(req, res) {
+    static login(req, res, next) {
         const { email, password } = req.body;
 
         User.findOne({
@@ -63,19 +55,22 @@ class UserController {
                         })
                         res.status(200).json({ token })
                     } else {
-                        res.status(400).json({
-                            msg: `Wrong email/password!`
+                        return next({
+                            name: 'Bad Request',
+                            errors: [{ message: `Wrong email/password!` }]
                         })
                     }
                 } else {
-                    res.status(400).json({
-                        msg: `Wrong email/password!`
+                    return next({
+                        name: 'Bad Request',
+                        errors: [{ message: `Wrong email/password!` }]
                     })
                 }
             })
             .catch(err => {
-                res.status(400).json({
-                    error: err.message
+                next({
+                    name: 'Internal Server Error',
+                    errors: [{ message: err}]
                 })
             })
     }

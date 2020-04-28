@@ -13,7 +13,7 @@ const authorization = (req, res, next) => {
                     next()
                 } else {
                     throw {
-                        code : 400,
+                        code : 401,
                         type : "UNAUTHORIZED",
                         message : "Sorry, not authorized, please use correct account"
                     }

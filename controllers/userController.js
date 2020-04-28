@@ -57,12 +57,16 @@ class UserController {
                         })
                     } else {
                         throw {
+                            code : 400,
+                            type : "BAD REQUEST",
                             message : "Please insert correct password!"
                         }
                     }
 
                 } else {
                     throw {
+                        code : 400,
+                        type : "BAD REQUEST",
                         message : "Please insert correct email!"
                     }
                 }

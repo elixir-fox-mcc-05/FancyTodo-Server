@@ -102,7 +102,8 @@ class ToDoController {
         ToDo
             .findOne(options)
             .then(data => {
-                    return ToDo.destroy(options)
+                choosed = data
+                return ToDo.destroy(options)
             })
             .then(data => {
                 res.status(200).json({

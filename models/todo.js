@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
           msg : 'please input date after this day'
         }
       }
+    },
+    UserId : {
+      type : DataTypes.INTEGER
     }
   }, {
     sequelize,

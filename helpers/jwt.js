@@ -6,5 +6,13 @@ function generateToken ( payload ) {
     return token;
 }
 
+function verifyToken (token) {
+    let result = jwt.verify(token, "secret" )
+    return result;
+}
 
-module.exports = generateToken ;
+
+module.exports = {
+    generateToken,
+    verifyToken
+}

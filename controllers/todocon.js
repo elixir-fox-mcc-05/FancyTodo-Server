@@ -2,8 +2,14 @@ let { Todo } = require('../models')
 
 class TodoCon {
     static show (req,res) {
-        Todo.findAll()
+        let { id } = req.currentUser
+        Todo.findAll( {
+            where : {
+                UserId : id
+            }
+        })
         .then(data=>{
+            console.log(id)
             res.status(200).json({
                 data
             })
@@ -16,11 +22,13 @@ class TodoCon {
     }
 
     static addTodo (req,res) {
-        let { title , description , due_date } = req.body
+        let { id } = req.currentUser
+        let { title , description , due_date , UserId } = req.body
         Todo.create({
             title,
             description,
-            due_date
+            due_date,
+            UserId : id
         })
         .then(data=>{
             res.status(201).json({
@@ -30,7 +38,7 @@ class TodoCon {
         })
         .catch(err=>{
             res.status(500).json({
-                error : err.errors[0].message
+                error : err
             })
         })
     }

@@ -1,6 +1,6 @@
 const {User} = require('../models')
 const {compare} = require('../helpers/generatepassword')
-const generateToken = require('../helpers/tokengenerator')
+const {generateToken} = require('../helpers/jwt')
 
 class userController {
     static register(req, res){
@@ -24,6 +24,7 @@ class userController {
     }
     static login(req, res){
         const {email, password} = req.body
+        console.log(req.body)
         User
             .findOne({
                 where : {
@@ -47,7 +48,7 @@ class userController {
             })
             .catch(err => {
                 res.status(404).json({
-                    Error : "User doesnt exist"
+                    Error : "User Doesn't Exist"
                 })
             })
     }

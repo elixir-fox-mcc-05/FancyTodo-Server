@@ -1,9 +1,14 @@
-const {Todo} = require('../models')
+const {Todo, User} = require('../models')
 
 class TodoController {
     static findAll(req, res){
+        const UserId = req.currentUser
         Todo
-            .findAll()
+            .findAll({
+                where : {
+                    UserId,
+                }
+            })
             .then(result => {
                 res.status(200).json({
                     Todos : result
@@ -17,11 +22,13 @@ class TodoController {
     }
     static create(req, res){
         const {title, description, status, due_date} = req.body
+        const UserId = req.currentUser
         const values = {
             title,
             description,
             status,
-            due_date
+            due_date,
+            UserId
         }
         Todo
             .create(values)
@@ -38,8 +45,15 @@ class TodoController {
     }
     static findOne(req, res){
         const {id} = req.params
+        const UserId = req.currentUser
+        console.log(id, UserId)
         Todo
-            .findByPk(id)
+            .findOne({
+                where : {
+                    id : parseInt(id),
+                    UserId : UserId
+                }
+            })
             .then(result => {
                 res.status(200).json({
                     Todos : result
@@ -54,6 +68,7 @@ class TodoController {
     static Update(req, res){
         const { title, description, status, due_date} = req.body
         const {id} = req.params
+        const UserId = req.currentUser
         const values = {
             title,
             description,
@@ -63,7 +78,8 @@ class TodoController {
         Todo
             .update(values, {
                 where : {
-                    id : id
+                    id : id,
+                    UserId, 
                 }
             })
             .then(result => {
@@ -79,10 +95,12 @@ class TodoController {
     }
     static delete(req, res){
         const {id} = req.params
+        const UserId = req.currentUser
         Todo
             .destroy({
                 where : {
-                    id : id
+                    id : id,
+                    UserId
                 }
             })
             .then(result => {

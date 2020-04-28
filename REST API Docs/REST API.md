@@ -233,6 +233,48 @@ content : {error : "id not found"}
 code : 500 INTERNAL SERVER ERROR
 content : {error : "Internal Server Error"}
 
+Login
+Returns json data with auth token.
+
+URL
+
+/login
+
+Method:
+
+POST
+
+Success Response:
+
+Code: 201 CREATED
+Content:{ accessToken : ""}
+
+Error Response:
+
+code : 400 BAD REQUEST
+content : {error : "id not found"}
 
 
+Register
+add new user to database.
 
+URL
+
+/register
+
+Method:
+
+POST
+
+Success Response:
+
+Code: 201 CREATED
+Content:{ id : 2,
+          email : "blablabal@com",
+          password : "aefogiph3q4urh-f89hnseipug0eh"
+        }
+
+Error Response:
+
+code : 400 BAD REQUEST
+content : {error : "id not found"}

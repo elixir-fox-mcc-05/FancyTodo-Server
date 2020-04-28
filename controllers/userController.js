@@ -1,5 +1,6 @@
 const { User } = require("../models");
 const { checkPassword } = require("../helpers/bcrypt");
+const { generateToken } = require("../helpers/jwt");
 
 class UserController {
   static signup(req, res) {
@@ -35,8 +36,12 @@ class UserController {
           let compare = checkPassword(password, result.password);
 
           if (compare) {
+            let token = generateToken({
+              id: result.id,
+              email: result.email,
+            });
             res.status(200).json({
-              result,
+              token,
             });
           } else {
             res.status(401).json({

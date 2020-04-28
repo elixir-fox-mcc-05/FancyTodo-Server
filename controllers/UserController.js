@@ -3,7 +3,7 @@ const { compare } = require('../helpers/bycrypt.js');
 const { generateToken } = require('../helpers/jsonwebtoken.js');
 
 class UserController {
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         const options = {
             orderBy: 'id'
         }
@@ -12,11 +12,14 @@ class UserController {
                 res.status(200).json({ users });
             })
             .catch(err => {
-                res.status(500).json({ Error: err });
+                next({
+                    name: 'Internal Server Error',
+                    errors: [{ message: err }]
+                })
             })
     }
 
-    static signup(req, res) {
+    static signup(req, res, next) {
         const { name, email, password } = req.body;
         const values = {
             name,
@@ -28,43 +31,36 @@ class UserController {
                 res.status(201).json({ users });
             })
             .catch(err => {
-                res.status(500).json({ Error: err.message });
+                next(err);
             })
     }
 
-    static signin(req, res) {
+    static signin(req, res, next) {
         const { email, password } = req.body;
         User.findOne({ where: { email } })
             .then(user => {
                 if (user) {
                     if (compare(password, user.password)) {
-                        const token = generateToken({ name: user.name, email: user.email })
+                        const token = generateToken({ id: user.id, name: user.name, email: user.email })
                         res.status(200).json({ token });
                     } else {
-                        res.status(200).json({ message: `password atau email salah`});
+                        next({
+                            name: 'Bad Request',
+                            errors: [ { message: `email atau password salah `}]
+                        })
                     }
                 } else {
-                    res.status(200).json({ message: `password atau email salah`});
+                    next({
+                        name: 'Bad Request',
+                        errors: [ { message: `email atau password salah `}]
+                    })
                 }
             })
             .catch(err => {
-                res.status(500).json({ Error: err.message });
-            })
-    }
-
-    static delete(req, res) {
-        const email = req.params.email;
-        const options = {
-            where: {
-                email
-            }
-        }
-        User.destroy(options)
-            .then(user => {
-                res.status(200).json({ user });
-            })
-            .catch(err => {
-                res.status(500).json({ Error: err.message });
+                next({
+                    name: 'Internal Server Error',
+                    errors: [{ message: err }]
+                })
             })
     }
 }

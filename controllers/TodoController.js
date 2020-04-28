@@ -1,25 +1,25 @@
 const { Todo } = require('../models');
 
 class TodoController {
-    static create(req, res) {
-        const { title, description, due_date, UserId } = req.body;
+    static create(req, res, next) {
+        let { title, description, due_date, UserId } = req.body;
         const values = {
             title,
             description,
             status: false,
             due_date,
-            UserId
+            UserId: req.currentUserId
         }
         Todo.create(values)
             .then(todo => {
                 res.status(201).json({ Todo: todo });
             })
             .catch(err => {
-                res.status(500).json({ Error: err.message });
+                next(err);
             })
     }
 
-    static findAll(req, res) {
+    static findAll(req, res, next) {
         const options = {
             orderBy: 'id'
         }
@@ -28,26 +28,32 @@ class TodoController {
                 res.status(200).json({ Todos: todo });
             })
             .catch(err => {
-                res.status(500).json({ Error: err.message });
+                next({
+                    name: 'Internal Server Error',
+                    errors: [{ message: err }]
+                })
             })
     }
-    static update(req, res) {
 
-    }
-
-    static delete(req, res) {
+    static delete(req, res, next) {
         const id = Number(req.params.id);
         const options = {
             where: {
                 id
-            }
+            }, 
+            returning: true
         };
         Todo.destroy(options)
             .then(data => {
-                res.status(200).json(`Successfully delete todo`);
+                res.status(200).json({
+                    message: `Successfully delete todo`,
+                });
             })
             .catch( err => {
-                res.status(500).json( { Error: err.message });
+                next({
+                    name: 'Internal Server Error',
+                    errors: [{ message: err }]
+                })
             })
     }
 
@@ -57,7 +63,8 @@ class TodoController {
         const options = {
             where: {
                 id
-            }
+            }, 
+            returning: true
         }
         const values = {
             title,
@@ -66,10 +73,16 @@ class TodoController {
         }
         Todo.update(values, options)
             .then(todo => {
-                res.status(200).json({ Todo: todo });
+                res.status(200).json({
+                    message: 'todo updated',
+                    todo: todo[1][0]
+                });
             })
             .catch(err => {
-                res.status(500).json({ Error: err.message });
+                next({
+                    name: 'Internal Server Error',
+                    errors: [{ message: err }]
+                })
             })
     }
 }

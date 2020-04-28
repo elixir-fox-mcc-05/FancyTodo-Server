@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
+      unique: {
+        args: true,
+        msg: `Email already exists`
+      },
       validate: {
         isEmail: {
           args: true,
@@ -16,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    
     password: {
       type: DataTypes.STRING,
       validate: {

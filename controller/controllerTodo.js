@@ -15,9 +15,7 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    Error: "Error Acces Server"
-                })
+                next(err)
             })
     }
     static create(req, res){
@@ -38,20 +36,16 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    Error : "Error Creating Data"
-                })
+                next(err)
             })
     }
     static findOne(req, res){
         const {id} = req.params
-        const UserId = req.currentUser
-        console.log(id, UserId)
+
         Todo
             .findOne({
                 where : {
                     id : parseInt(id),
-                    UserId : UserId
                 }
             })
             .then(result => {
@@ -60,15 +54,12 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(404).json({
-                    Error : "Not Found"
-                })
+                next(err)
             })
     }
     static Update(req, res){
-        const { title, description, status, due_date} = req.body
+        const {title, description, status, due_date} = req.body
         const {id} = req.params
-        const UserId = req.currentUser
         const values = {
             title,
             description,
@@ -79,7 +70,6 @@ class TodoController {
             .update(values, {
                 where : {
                     id : id,
-                    UserId, 
                 }
             })
             .then(result => {
@@ -88,19 +78,15 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(304).json({
-                    Error : "Not Modified"
-                })
+                next(err)
             })
     }
     static delete(req, res){
         const {id} = req.params
-        const UserId = req.currentUser
         Todo
             .destroy({
                 where : {
                     id : id,
-                    UserId
                 }
             })
             .then(result => {
@@ -109,9 +95,7 @@ class TodoController {
                 })
             })
             .catch(err => {
-                res.status(501).json({
-                    Error : "Not Implemented"
-                })
+                next(err)
             })
     }
 }

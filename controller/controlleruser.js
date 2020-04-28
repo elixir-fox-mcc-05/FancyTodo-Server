@@ -17,9 +17,7 @@ class userController {
                 })
             })
             .catch(err => {
-                res.status(501).json({
-                    Error : "Cannot Implemented"
-                })
+                next(err)
             })
     }
     static login(req, res){
@@ -41,15 +39,14 @@ class userController {
                         Token : token
                     })
                 } else {
-                    res.status(404).json({
-                        Error : "User Not Found"
+                    throw ({
+                        msg : "wrong email/password",
+                        code : 404
                     })
                 }
             })
             .catch(err => {
-                res.status(404).json({
-                    Error : "User Doesn't Exist"
-                })
+                next(err)
             })
     }
 }

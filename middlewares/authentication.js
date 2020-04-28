@@ -9,14 +9,19 @@ function authentication(req, res, next){
         User
             .findByPk(id)
             .then(result=> {
-                req.currentUser = id
-                next()
+                if(result){
+                    req.currentUser = id
+                    next()
+                } else {
+                    throw ({
+                        msg : "Please Login First",
+                        code : 401
+                    })
+                }
             })
 
     } catch (err) {
-        res.status(500).json({
-            Message: "Please Login First"
-        })
+        next(err)
     }
 }
 

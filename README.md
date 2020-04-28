@@ -12,7 +12,7 @@
 
     URL PARAMS
 
-        NONE
+        UserId = Integer
 
     Data PARAMS
 
@@ -25,11 +25,12 @@
          Content : {
                         "Todos": [
                             {
-                            "id": 3,
+                            "id": 7,
                             "title": "Sport",
                             "description": "Go Swimming",
                             "status": false,
                             "due_date": "2020-04-27",
+                            "UserId": 1,
                             "createdAt": "2020-04-27T05:44:45.150Z",
                             "updatedAt": "2020-04-27T05:44:45.150Z"
                             },
@@ -64,7 +65,7 @@
 
     URL PARAMS
 
-        NONE
+        UserId : Integer
 
     Data PARAMS
 
@@ -72,6 +73,7 @@
         description : String
         status : Boolean
         due_date : DateOnly
+        UserId : Integer
 
     Succes Response
 
@@ -79,12 +81,12 @@
 
          Content : {
                     "Todos": {
-                        "id": 1,
+                        "id": 7,
                         "title": "Sport",
-                        "description": "Futsal",
+                        "description": "Go Swimming",
                         "status": false,
                         "due_date": "2020-04-27",
-                        "UserId": null,
+                        "UserId": 1,
                         "createdAt": "2020-04-27T05:44:00.692Z",
                         "updatedAt": "2020-04-27T05:57:48.461Z"
                         }
@@ -118,7 +120,8 @@
 
     URL PARAMS
 
-        id = [integer]
+        id = integer
+        UserId = Integer
 
     Data PARAMS
 
@@ -131,12 +134,12 @@
         Content : {
                         "Todos": [
                             {
-                            "id": 3,
+                            "id": 7,
                             "title": "Sport",
                             "description": "Go Swimming",
                             "status": false,
                             "due_date": "2020-04-27",
-                            "UserId": null,
+                            "UserId": 1,
                             "createdAt": "2020-04-27T05:44:45.150Z",
                             "updatedAt": "2020-04-27T05:44:45.150Z"
                             },
@@ -149,7 +152,7 @@
     
     Sample Call :
         $.ajax({
-            url: "/todos/3",
+            url: "/todos/7",
             dataType: "json",
             type : "GET",
             success : function(result) {
@@ -172,6 +175,7 @@
     URL PARAMS
 
         id = [integer]
+        UserId : Integer
 
     Data PARAMS
 
@@ -186,7 +190,16 @@
 
         Content :   {
                         "Todos": [
-                            1
+                            {
+                            "id": 7,
+                            "title": "Sport",
+                            "description": "Go Swimming",
+                            "status": false,
+                            "due_date": "2020-04-27",
+                            "UserId": 1,
+                            "createdAt": "2020-04-27T05:44:45.150Z",
+                            "updatedAt": "2020-04-27T05:44:45.150Z"
+                            },
                         ]
                     }
 
@@ -196,7 +209,7 @@
     
     Sample Call :
         $.ajax({
-            url: "/todos/3",
+            url: "/todos/7",
             dataType: "json",
             type : "PUT",
             success : function(result) {
@@ -219,6 +232,7 @@
     URL PARAMS
 
         id : INTEGER
+        UserId : INTEGER
 
     Data PARAMS
 

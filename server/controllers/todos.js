@@ -36,7 +36,7 @@ class Controller {
                 if (data) {
                     res.status(200).json({ data })
                 } else {
-                    res.status(404)
+                    res.status(404).json({ name: 'empty' })
                 }
             })
             .catch(err => res.status(500).json({ error: err }))

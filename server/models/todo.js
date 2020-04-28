@@ -5,10 +5,28 @@ module.exports = (sequelize, DataTypes) => {
   class Todo extends Model { }
 
   Todo.init({
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        args: true,
+        msg: `Title can't be empty`
+      }
+    },
     description: DataTypes.STRING,
-    status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATEONLY,
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    due_date: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        isAfter: {
+          args: new Date().toString(),
+          msg: `Can't set Date before now`
+        }
+      }
+    },
     UserId: DataTypes.INTEGER
   }, { sequelize })
 

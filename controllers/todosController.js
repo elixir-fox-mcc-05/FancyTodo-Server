@@ -40,9 +40,16 @@ class TodosController {
         let { id } = req.params
         Todo.findByPk(id)
             .then(data => {
-                res.status(200).json({
-                    Todo: data
-                })
+                if(data) {
+                    res.status(200).json({
+                        Todo: data
+                    })
+                } else {
+                    throw {
+                        msg: "Todo not found",
+                        code: 404
+                    }
+                }
             })
             .catch(err => {
                 next(err)

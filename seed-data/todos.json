@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Morning lecture",
+        "description": "Learn about REST API",
+        "status": false,
+        "due_date": "2020-05-20"
+    },
+    {
+        "title": "Workout",
+        "description": "Finish workout challenge",
+        "status": false,
+        "due_date": "2020-05-01"
+    },
+    {
+        "title": "Buy groceries",
+        "description": "Buy groceries needed for a month",
+        "status": false,
+        "due_date": "2020-04-29"
+    }
+]

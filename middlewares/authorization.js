@@ -11,9 +11,8 @@ function authorization(req,res,next){
             return next()
     })
     .catch(err=>{
-        res.status(404).json({
-            message:"Error not found",
-            todos:err
+        res.status(401).json({
+            message:"Unauthorized"
         })
         
     })

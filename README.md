@@ -1,3 +1,257 @@
+## **Register**
+
+* **URL:**
+
+​			user/register
+
+* **Method:**
+
+​		`POST`
+
+- **URL Params**
+
+  **Required:**
+
+  `None`
+
+- **Data Headers**
+
+  **Required:**
+
+  ` None`
+
+- **Data Params**
+
+  **Required:**
+
+  `email:string`
+
+  `password:string`
+
+- success Response:
+
+- - **Code:** 200 
+    **Content:** 
+
+    ```json
+    {
+      "msg": "Succes Create User",
+      "Data": {
+        "id": 6,
+        "email": "igunt@gmail.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJpZ3VudEBnbWFpbC5jb20iLCJpYXQiOjE1ODgwNDEzMjl9.E7jk_DYOrbk_HB-roc3FlHL68GqVSpF5brrXfF45G_s"
+      }
+    }
+    ```
+
+    
+
+- **Error Response:**
+
+  - **Code:** 400 
+    **Content:** 
+
+    ```json
+    {
+      "errors": [
+        {
+          "message": "email must be unique"
+        }
+      ]
+    }
+    ```
+
+    
+
+- **Sample Call:**
+
+  ```
+    $.ajax({
+              method :'POST',
+              url: '/user/register',        
+              data:{
+                  email: string,
+                  password: string
+              }
+          })
+  ```
+
+
+
+## **Login**
+
+* **URL:**
+
+​			/user/login
+
+* **Method:**
+
+​		`POST`
+
+- **URL Params**
+
+  **Required:**
+
+  `None`
+
+- **Data Headers**
+
+  **Required:**
+
+  ` None`
+
+- **Data Params**
+
+  **Required:**
+
+  `email:string`
+
+  `password:string`
+
+- success Response:
+
+- - **Code:** 200 
+    **Content:** 
+
+    ```json
+    {
+      "msg": "Succes find user",
+      "Data": {
+        "id": 6,
+        "email": "igunt@gmail.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJpZ3VudEBnbWFpbC5jb20iLCJpYXQiOjE1ODgwNDI2Nzh9.5WlqHR3Cc6vZ37gpH-n3u6ZmofCVs162pH-MkCcV_vA"
+      }
+    }
+    ```
+
+    
+
+- **Error Response:**
+
+  - **Code:** 400 
+    **Content:** 
+
+    ```json
+    {
+      "type": "Bad Request",
+      "msg": "Invalid Email/password"
+    }
+    ```
+
+    
+
+- **Sample Call:**
+
+  ```
+    $.ajax({
+          method:'POST',
+          url:'/user/login',
+          data:{
+             email: email,
+             password: password
+          }
+      })
+  ```
+
+
+
+
+
+## **Create Todo**
+
+* **URL:**
+
+​			/user/login
+
+* **Method:**
+
+​		`POST`
+
+- **URL Params**
+
+  **Required:**
+
+  `None`
+
+- **Data Headers**
+
+  **Required:**
+
+  ` token:string`
+
+- **Data Params**
+
+  **Required:**
+
+  `title:string`
+
+​      `description: string`
+
+​      `status:string`
+
+​      `due_date: string`
+
+- success Response:
+
+- - **Code:** 201
+    **Content:** 
+
+    ```json
+    {
+      "message": "Data created Success",
+      "todos": {
+        "id": 4,
+        "title": "nama todo",
+        "description": "test",
+        "status": false,
+        "due_date": "2020-04-28T03:13:22.400Z",
+        "updatedAt": "2020-04-28T03:13:22.619Z",
+        "createdAt": "2020-04-28T03:13:22.619Z"
+      }
+    }
+    ```
+
+    
+
+- **Error Response:**
+
+  - **Code:** 400 
+    **Content:** 
+
+    ```json
+    {
+      "errors": [
+        {
+          "message": "title is required"
+        }
+      ]
+    }
+    ```
+
+    
+
+- **Sample Call:**
+
+  ```
+    $.ajax({
+          method :'POST',
+          url: '/todos',
+          headers:{
+              token: string
+          },
+          data:{
+              title:string,
+              description:string,
+              due_date:date,
+              status:boolean
+          }
+      })
+  ```
+
+
+
+
+
 ## **View  all  todo in progress /done per user.**
 
 * **URL:**
@@ -22,9 +276,11 @@
 
   `status=[boolean]`
 
-  Data Params
+  
 
-- **Required:**
+- **Data Params**
+
+  **Required:**
 
   `None`
 

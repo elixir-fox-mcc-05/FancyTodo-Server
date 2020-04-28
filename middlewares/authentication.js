@@ -33,7 +33,7 @@ function authentication(req,res,next){
 
     } catch (err) {
         return res.status(500).json({
-            'type':'Internal Server errorrr',
+            'type':'Internal Server error',
             'msg':{err}
         })
     }

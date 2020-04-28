@@ -1,4 +1,3 @@
-const cool = require('cool-ascii-faces')
 require('dotenv').config()
 const express = require("express")
 const app = express()

@@ -1,7 +1,7 @@
 const {Todo,User,Project} = require("../models")
 
 class Controller{
-    static create(req,res){
+    static create(req,res,next){
         let payload = {
             title:req.body.title,
             description: req.body.description,
@@ -28,16 +28,8 @@ class Controller{
                 })
             })
         })
-        .catch(err=>{
-            
-            res.status(400).json({
-                message:"Validation Errors",
-                todos:err
-            })
-            res.status(500).json({
-                message:"server Error",
-                todos:err
-            })
+        .catch(err=>{            
+            next(err)
         })
     }
 
@@ -120,17 +112,17 @@ class Controller{
         .then(result=>{
             res.status(200).json({
                 message:"Read by PK Success",
-                todos:result})
+                todo:result})
         })
         .catch(err=>{
             res.status(404).json({
-                message:"Error not found",
-                todos:err
+                message:"Data not found",
+                todo:err
             })
             
         })
     }
-    static update(req,res){
+    static update(req,res,next){
         const{title,description,status,due_date} = req.body
         const id = req.params.id
         
@@ -142,24 +134,14 @@ class Controller{
         .then(result=>{
             res.status(200).json({
                 message:"Updated Success",
-                todos:result})
+                todo:{title,description,status,due_date}
+            })
         })
         .catch(err=>{
-            res.status(404).json({
-                message:"Error not found",
-                todos:err
-            })
-            res.status(400).json({
-                message:"Validation Errors",
-                todos:err
-            })
-            res.status(500).json({
-                message:"server Error",
-                todos:err
-            })
+            next(err)
         })
     }
-    static updateStatus(req,res){
+    static updateStatus(req,res,next){
         const{status} = req.body
         const id = req.params.id
         
@@ -174,21 +156,10 @@ class Controller{
                 todos:result})
         })
         .catch(err=>{
-            res.status(404).json({
-                message:"Error not found",
-                todos:err
-            })
-            res.status(400).json({
-                message:"Validation Errors",
-                todos:err
-            })
-            res.status(500).json({
-                message:"server Error",
-                todos:err
-            })
+            next(err)
         })
     }
-    static delete(req,res){
+    static delete(req,res,next){
         const id = req.params.id
         Project.destroy({
             where:{
@@ -205,14 +176,7 @@ class Controller{
                     todos:result})
             })
             .catch(err=>{
-                res.status(400).json({
-                    message:"Validation Errors",
-                    todos:err
-                })
-                res.status(500).json({
-                    message:"server Error",
-                    todos:err
-                })
+                next(err)
             })
         })
     }

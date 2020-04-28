@@ -28,10 +28,7 @@ class Controller{
             })
         })
         .catch(err=>{
-            res.status(500).json({
-                'msg':"Internal Server Error",
-                'error':err
-            })
+            next(err)
         })
     }
 
@@ -91,16 +88,11 @@ class Controller{
                     })
                 })
                 .catch(err=>{
-                    res.status(500).json({
-                        'msg':"Internal Server Error",
-                        'error':err
-                    })
+                   next(err)
                 })
             }
 
         })
-
-
         .catch(next)
 
 

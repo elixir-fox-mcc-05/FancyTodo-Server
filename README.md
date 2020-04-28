@@ -365,7 +365,7 @@
                     }
 
 *    Error Response :
-    *    Code :  404
+        Code :  404
         Content : "wrong email/password"
     
 *    Sample Call :

@@ -3,7 +3,7 @@ const { comparePassword } = require('../helpers/bcryptjs')
 const { generateToken } = require('../helpers/token')
 
 class userController{
-    static signup(req, res){
+    static signup(req, res, next){
         let { email, password } = req.body
         User.create({
             email,
@@ -17,14 +17,13 @@ class userController{
                     password
                 })
             })
-            .catch(err => {
-                res.status(400).json({
-                    error: err.message
-                });
+            .catch(err => {         
+                next(err)
+                
             })
     }
 
-    static signin(req, res){
+    static signin(req, res, next){
         let { email, password } = req.body
         User.findOne({
             where: {email}
@@ -43,20 +42,20 @@ class userController{
                             token
                         })
                     } else {
-                        res.status(400).json({
-                            error: `password not match`
-                        })
+                        throw{
+                            msg: `password not match`,
+                            code: 400
+                        }
                     }
                 } else {
-                    res.status(400).json({
-                        error: `Invalid email or password`
-                    })
+                    throw{
+                        msg: 'invelid email or password',
+                        code: 400
+                    }
                 }
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 }

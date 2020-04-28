@@ -52,7 +52,10 @@ POST
 none
 
 * **Data Params:**
-none
+  * **title:** string<br />
+  * **description:** string<br />
+  * **status:** boolean<br />
+  * **due_date:** date
 
 * **Success Response:**
 {
@@ -118,7 +121,10 @@ PUT
 /:id
 
 * **Data Params:**
-id
+  * **title:** string<br />
+  * **description:** string<br />
+  * **status:** boolean<br />
+  * **due_date:** date
 
 * **Success Response:**
 {
@@ -150,7 +156,6 @@ DELETE
 /:id
 
 * **Data Params:**
-id
 
 * **Success Response:**
 example with id = 10
@@ -176,7 +181,8 @@ POST
 none
 
 * **Data Params:**
-none
+  * **email:** string <br />
+  * **password:** string
 
 * **Success Response:**
 {
@@ -201,7 +207,8 @@ POST
 none
 
 * **Data Params:**
-none
+  * **email:** string <br />
+  * **password:** string
 
 * **Success Response:**
 {

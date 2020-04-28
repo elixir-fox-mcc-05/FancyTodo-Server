@@ -1,7 +1,9 @@
 const { Todo } = require('../models')
+const axios = require('axios')
+const API_KEY = process.env.API_KEY
 
 class TodoController{
-    static showAll(req, res){
+    static showAll(req, res, next){
         let UserId = req.userId
         Todo.findAll({where: {UserId}})
             .then(data => {
@@ -10,13 +12,11 @@ class TodoController{
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error:err
-                })
+                next(err)
             })
     }
     
-    static create(req, res){
+    static create(req, res, next){
         let { title, description, status, due_date } = req.body
         let UserId = req.userId
         Todo.create({
@@ -32,46 +32,54 @@ class TodoController{
                 })
             })
             .catch(err => {
-                if(err.name === 'SequelizeValidationError'){ 
-                    res.status(400).json({
-                        error: `Validation error`     
-                    })
-                } else {
-                    res.status(500).json({
-                        error:`internal server error`
-                    })
-                }
+                next(err)
             })
     }
 
-    static findById(req, res){
+    static findById(req, res, next){
         let { id } = req.params
         let UserId = req.userId
-        Todo.findOne({
-            where: {
-                UserId, 
-                id
+        let restaurant
+
+        axios.get('https://developers.zomato.com/api/v2.1/collections?city_id=74', {
+            headers: {
+                "user-key" : API_KEY
             }
         })
+            .then(response => {
+                restaurant = response.data
+                return Todo.findOne({where: {UserId,id}})
+            })       
             .then(data => {
                 if(data){
+                    let activity = ['makan', 'dinner', 'nongkrong', 'hangout']
+                    for (let i = 0; i < activity.length; i++) {
+                        if(data.title.toLowerCase() == activity[i]){
+                            res.status(200).json({
+                                Todo: data,
+                                restaurant: restaurant.collections
+                                // RestaurantType: restaurant.title,
+                                // RestaurantUrl: restaurant.url
+                            })
+                        } 
+                    }
                     res.status(200).json({
-                        todo:data
+                        Todo: data
                     })
                 } else {
-                    res.status(404).json({
-                        error: `data not found`
-                    })
+                    throw{
+                        msg: `data not found`,
+                        code: 404
+                    }
                 }
+
             })
             .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+                next(err)
             })
     }
 
-    static update(req, res){
+    static update(req, res, next){
         let { id } = req.params
         let { title, description, status, due_date } = req.body
         let newData = {
@@ -90,25 +98,18 @@ class TodoController{
                         todo: data
                     })
                 } else {
-                    res.status(404).json({
-                        error: 'Data not found'
-                    })
+                    throw{
+                        error: `data not found`,
+                        code: 404
+                    }
                 }
             })
             .catch(err => {
-                if(err.name === 'SequelizeValidationError'){
-                    res.status(400).json({
-                        error: `validation error`
-                    })
-                } else {
-                    res.status(500).json({
-                        error: err
-                    })
-                }
+                next(err) 
             })
     }
 
-    static delete(req, res){
+    static delete(req, res, next){
         let { id } = req.params
         Todo.destroy({where:{id}})
             .then(data => {

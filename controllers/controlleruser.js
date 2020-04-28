@@ -21,9 +21,10 @@ class ControllerUser{
             })
         })
         .catch(err => {
-            res.status(500).json({
-                errors: err
-            })
+            next(err);
+            // res.status(500).json({
+            //     errors: err
+            // })
         })
     }
     static signin(req, res){
@@ -39,7 +40,7 @@ class ControllerUser{
                 let compare = checkPassword(password, result.password);
 
                 if(compare){
-                    let token generateToken({
+                    let token = generateToken({
                         id: result.id,
                         email: result.email
                     })
@@ -49,16 +50,21 @@ class ControllerUser{
                     })
                 }
                 else{
-                    res.status(401).json({
-                        msg: 'Please login first'
-                    })
+                    throw{
+                        msg: "email/password unavailable",
+                        code: 401
+                    }
                 }
             }
             else{
-                res.status(401).json({
-                    msg: 'Please login first'
-                })
+                throw{
+                    msg: "email/password unavailable",
+                    code: 401
+                }
             }
+        })
+        .catch(err => {
+            next(err);
         })
     }
 }

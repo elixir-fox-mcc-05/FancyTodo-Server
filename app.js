@@ -14,6 +14,9 @@ app.use(express.json());
 const routes = require("./routes");
 app.use("/", routes);
 
+const errorHandler = require("./middlewares/errorhandler.js");
+app.use(errorHandler);
+
 app.listen(port, () => {
     console.log('app listen to port', port);
   })

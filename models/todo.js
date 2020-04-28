@@ -37,21 +37,29 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        isAfter: `${new Date()}`,
         check(value) {
           if (value == '') {
             throw new Error('due_date required')
+          } else {
+            if (new Date() > value) { throw new Error ('you must set date at least one day before') }
           }
         }
       }
-    }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: true
+      }
+    },
   },
   {
     sequelize,
     modelName: "Todo"
   })
   Todo.associate = function(models) {
-    // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };

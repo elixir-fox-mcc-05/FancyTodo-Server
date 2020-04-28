@@ -1,13 +1,14 @@
 const FancyTodo = require('../controllers/todo.js')
+const authentication = require('../middlewares/authentication')
 const router = require('express').Router()
 
-router.get('/', FancyTodo.show)
-router.get('/:id', FancyTodo.show_id)
+router.post('/', authentication, FancyTodo.add)
 
-router.post('/', FancyTodo.add)
+router.get('/', authentication, FancyTodo.show)
+router.get('/:id', authentication, FancyTodo.show_id)
 
-router.put('/:id', FancyTodo.edit)
+router.put('/:id', authentication, FancyTodo.edit)
 
-router.delete('/:id', FancyTodo.delete)
+router.delete('/:id', authentication, FancyTodo.delete)
 
 module.exports = router

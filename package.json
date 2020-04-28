@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "NODE_ENV=development nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,10 +20,12 @@
   "homepage": "https://github.com/IrwanKhaliq/FancyTodo-Server#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.0.3",
     "sequelize": "^5.21.7"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

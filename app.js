@@ -1,7 +1,7 @@
 // if (process.env.NODE_ENV == "development"){
 
 // }
-const jquery = require('jquery')
+// const jquery = require('jquery')
 const express = require('express')
 const router = require('./router')
 const port = process.env.PORT || 3000

@@ -5,7 +5,7 @@ module.exports = (err, req, res, next) => {
       })
     } else {
       res.status(err.code || 500).json({
-        err: err
+        err: err.message
       })
     }
   }

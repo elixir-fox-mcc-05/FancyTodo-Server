@@ -1,6 +1,6 @@
 const {User,Todo} = require('../models')
-const {compare} = require('../helpers/bcrypt')
-const generateToken = require('../helpers/jwt')
+// const {compare} = require('../helpers/bcrypt')
+// const generateToken = require('../helpers/jwt')
 
 class ToDoController{
 
@@ -19,6 +19,7 @@ class ToDoController{
     static createToDo(req,res){
         
         let {title , description, due_date} = req.body
+        let UserId = req.LoginId
 
         Todo    
             .create({title,description, due_date})

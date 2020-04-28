@@ -17,13 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     last_name: {
       type :DataTypes.STRING,
     },
-    username: { 
-      type : DataTypes.STRING,
-      validate : {
-        len : [3],
-        notEmpty : true
-      }
-    },
     password: {
       type : DataTypes.STRING,
       validate : {

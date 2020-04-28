@@ -15,7 +15,6 @@ class UserController {
                 res.status(201).json({
                     id: data.id,
                     email: data.email,
-                    password: data.password
                 })
             })
             .catch(err => {
@@ -40,14 +39,14 @@ class UserController {
                             id: result.id,
                             email: result.email
                         })
-                        res.status(201).json({token});
+                        res.status(200).json({token});
                     }
                     else {
-                        res.status(400).json({msg: `Please Login`});
+                        res.status(400).json({msg: `Invalid Password`});
                     }
                 }
                 else {
-                    res.status(400).json({msg: `Please Login`});
+                    res.status(400).json({msg: `Invalid E-mail`});
                 }
             })
             .catch(err => {

@@ -21,7 +21,7 @@ class TodoController {
         Todo.findByPk(Number(id))
             .then(data => {
                 if (!data){
-                    res.status(404).json({error: `todo with id ${id} NOT FOUND`});
+                    res.status(404).json({msg: `todo with id ${id} NOT FOUND`});
                 }
                 else {
                     res.status(200).json({todo: data})
@@ -55,10 +55,11 @@ class TodoController {
         let options = {
             where: {id:Number(id)}
         }
-        let { title, description, due_date } = req.body;
+        let { title, description, status, due_date } = req.body;
         let input = {
             title,
             description,
+            status,
             due_date
         }
         let todoUpdate = null;
@@ -69,7 +70,7 @@ class TodoController {
             })
             .then (_ => {
                 if (!todoUpdate){
-                    res.status(404).json({error: `todo with id ${id} NOT FOUND`});
+                    res.status(404).json({msg: `todo with id ${id} NOT FOUND`});
                 }
                 else {
                     Todo.findByPk(Number(id))
@@ -100,7 +101,7 @@ class TodoController {
             })
             .then (_ => {
                 if (!todoDelete){
-                    res.status(404).json({error: `todo with id ${id} NOT FOUND`});
+                    res.status(404).json({msg: `todo with id ${id} NOT FOUND`});
                 }
                 else {
                     res.status(200).json({todo: todoDelete, msg: `todo with id ${id} delete`});

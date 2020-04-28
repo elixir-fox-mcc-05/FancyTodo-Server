@@ -478,7 +478,78 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     `{ errors : "Internal Server Error" }`
 
 
+**Update Todo**
+----
 
+* **URL**
 
+  /api
 
+* **Method:**
+  
+  `GET`
+  
 
+*  **Request Body**
+
+   **Required:**
+
+   `{
+       city: "bandung"
+    }`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+    `{
+      "cityName": {
+          "city": "Bandung",
+          "country": "ID"
+      },
+      "weatherIcon": "http://openweathermap.org/img/wn/10d@2x.png",
+      "cityWeather": {
+          "weather": {
+              "id": 501,
+              "main": "Rain",
+              "description": "moderate rain",
+              "icon": "10d"
+          },
+          "temp": {
+              "temp": 296.76,
+              "feels_like": 298.68,
+              "temp_min": 296.76,
+              "temp_max": 296.76,
+              "pressure": 1008,
+              "humidity": 69,
+              "sea_level": 1008,
+              "grnd_level": 927
+          }
+      },
+      "shalatSchedule": {
+          "date_for": "2020-4-28",
+          "fajr": "4:31 am",
+          "shurooq": "5:43 am",
+          "dhuhr": "11:47 am",
+          "asr": "3:08 pm",
+          "maghrib": "5:50 pm",
+          "isha": "6:54 pm"
+      }
+    }`
+ 
+* **Error Response:**
+
+  * **Code:** 404 <br />
+    **Content:** 
+    
+    `{
+      "errors": "City not found"
+    }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** 
+    
+    `{ errors : "Internal Server Error" }`

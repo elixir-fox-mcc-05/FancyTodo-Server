@@ -17,7 +17,11 @@ function errorHandler (err, req, res, next){
             errors
         })
     }
-
+    else if(err.isAxiosError == true){
+        return res.status(404).json({
+            errors: 'City not found'
+        })
+    }
 }
 
 module.exports = errorHandler

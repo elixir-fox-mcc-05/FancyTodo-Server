@@ -1,9 +1,12 @@
 let router = require('express').Router()
-let controlerTodo = require('../controllers/todo')
+let ControllerTodo = require('../controllers/todo')
+let authentification = require('../middlewares/authetification')
+let authorization = require('../middlewares/authorization')
 
-router.get('/', controlerTodo.show)
-router.post('/', controlerTodo.create)
-router.put('/:id', controlerTodo.edit)
-router.delete('/:id', controlerTodo.delete)
+router.use(authentification)
+router.get('/', ControllerTodo.show)
+router.post('/', ControllerTodo.create)
+router.put('/:id', authorization, ControllerTodo.edit)
+router.delete('/:id', authorization, ControllerTodo.delete)
 
 module.exports = router

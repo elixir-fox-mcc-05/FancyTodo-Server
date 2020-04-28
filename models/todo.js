@@ -22,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.STRING,
       validate: {
-        isEven() {
-          if (due_date < new Date()) {
-            throw new Error('Todo Cannot be Past Tense');
+        isValid(due_date) {
+          console.log('object');
+          if (new Date(due_date) < new Date()) {
+            throw new Error('due date must be atleast now');
           }
         },
         notEmpty: {

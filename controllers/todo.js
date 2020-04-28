@@ -2,7 +2,11 @@ let { Todo, User } = require('../models/index')
 
 class ControllerTodo {
     static show (req, res) {
-        Todo.findAll()
+        Todo.findAll({
+            where: {
+                UserId : req.currentUserId
+            }
+        })
         .then(data => {
             res.status(200).json({
                 Todo : data
@@ -21,8 +25,9 @@ class ControllerTodo {
             description: req.body.description,
             status: req.body.status,
             due_date: req.body.due_date,
-            UserId: req.body.UserId
+            UserId: req.currentUserId
         }
+        console.log(req.currentUserId);
         Todo.create(data)
         .then(data => {
             res.status(201).json({
@@ -30,8 +35,9 @@ class ControllerTodo {
             })  
         })
         .catch(err => {
+            console.log(err);
             res.status(500).json({
-                error : err
+                err: 'server error',
             })
         })
     }
@@ -45,37 +51,31 @@ class ControllerTodo {
             UserId: req.body.UserId
         }
         Todo.update(data, 
-        {   where : {
-            id : req.params.id
-            }
+        {   
+            where : {
+                id : req.params.id
+            },
+            returning: true
         })
         .then((result) => {
-            if (title && description && status && due_date && result) {
+            result = result[1][0]
+            console.log(result);
+            if (result) {
                 res.status(200).json({
-                    title: req.body.title,
-                    description: req.body.description,
-                    status: req.body.status,
-                    due_date: req.body.due_date
+                    title: result.title,
+                    description: result.description,
+                    status: result.status,
+                    due_date: result.due_date
                 })
             }
-            else if(!result) {
+            else {
                 res.status(404).json({
                     msg : 'id Not Found'
                 })
             }
-            else if(!title || !description || !status || !due_date) {
-                res.status(400).json({
-                    msg : 'Validation error'
-                })
-            }
-            else {
-                res.status(500).json({
-                    msg : 'server error'
-                })
-            }
-            
         })
         .catch(err => {
+            console.log(err);
             res.status(500).json({
                 error : err
             })

@@ -1,7 +1,11 @@
 var jwt = require('jsonwebtoken');
 
 function jwtToken (password) {
-    return jwt.sign({ password }, process.env.SECRET);
+    return jwt.sign(password, process.env.SECRET);
 }
 
-module.exports = jwtToken
+function verifyToken (token) {
+    return jwt.verify(token, process.env.SECRET);
+}
+
+module.exports = {jwtToken, verifyToken}

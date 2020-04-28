@@ -1,6 +1,6 @@
 let { Todo, User } = require('../models/index')
 let compare = require('../helpers/bycrypt').compare
-let jwtToken = require('../helpers/jwt')
+let { jwtToken } = require('../helpers/jwt')
 class ControllerUser {
     static register (req, res) {
         let data = {
@@ -25,6 +25,7 @@ class ControllerUser {
         let password = req.body.password
 
         User.findOne({where : {email : email}})
+        
             .then((user) => {
                 if (!user) {
                     res.status(401).json({
@@ -35,12 +36,13 @@ class ControllerUser {
                         msg : 'wrong email / password'
                     })
                 } else  {
-                    let token = jwtToken ({
-                        email,
-                        password
+                    let access_token = jwtToken ({
+                        id:user.id,
+                        email
                     })
+                    
                     res.status(200).json({
-                        token
+                        access_token 
                     })
                 }
             })

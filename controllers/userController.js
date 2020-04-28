@@ -6,7 +6,7 @@ const { generateToken } = require("../helpers/jwt.js");
 
 class UserController {
 
-    static register (req, res) {
+    static register (req, res, next) {
 
         let values = {
             email : req.body.email,
@@ -23,13 +23,11 @@ class UserController {
                 })
             })
             .catch(err => {
-                res.status(400).json({
-                    error : err
-                })
+                next(err)
             })
     }
 
-    static login (req, res) {
+    static login (req, res, next) {
         
         let values = {
             email : req.body.email,
@@ -58,21 +56,21 @@ class UserController {
                             token
                         })
                     } else {
-                        res.status(401).json({
-                            msg : "Wrong Password"
-                        })
+                        throw {
+                            code : 400,
+                            msg : "Please insert correct password!"
+                        }
                     }
 
                 } else {
-                    res.status(401).json({
-                        msg : "Email not found"
-                    })
+                    throw {
+                        code : 400,
+                        msg : "Please insert correct email!"
+                    }
                 }
             })
             .catch(err => {
-                res.status(400).json({
-                    error : err
-                })
+                next(err)
             })
     }
 }

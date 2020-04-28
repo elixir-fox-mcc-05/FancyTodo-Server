@@ -3,13 +3,14 @@ const ToDo = Model.ToDo;
 
 class ToDoController {
 
-    static create (req, res) {
+    static create (req, res, next) {
 
         let values = {
             title : req.body.title,
             description : req.body.description,
             status : req.body.status,
-            due_date : req.body.due_date
+            due_date : req.body.due_date,
+            UserId : req.loggedInUserId
         }
 
         ToDo
@@ -20,15 +21,17 @@ class ToDoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error : err
-                })
+                next(err)
             })
     }
         
     static findAll (req, res) {
 
-        let options = {};
+        let options = {
+            where : {
+                UserId : req.loggedInUserId
+            }
+        };
 
         ToDo
             .findAll(options)
@@ -38,9 +41,7 @@ class ToDoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error : err
-                })
+                next(err)
             })
     }
 
@@ -56,9 +57,7 @@ class ToDoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error : err
-                })
+                next(err)
             })
     }
 
@@ -73,24 +72,20 @@ class ToDoController {
 
         let options = {
             where : { 
-                id : req.params.id
-            }
+                id : req.params.id,
+            },
+            returning : true
         }
 
         ToDo
             .update(values, options)
             .then(data => {
-                return ToDo.findOne(options)
-            })            
-            .then(data => {
                 res.status(200).json({
-                    UpdatedToDo : data
+                    UpdatedToDo : data[1][0]
                 })
-            })
+            })            
             .catch(err => {
-                res.status(500).json({
-                    error : err
-                })
+                next(err)
             })
     }
 
@@ -116,9 +111,7 @@ class ToDoController {
                 })
             })
             .catch(err => {
-                res.status(500).json({
-                    error : err
-                })
+                next(err)
             })
     }
 }

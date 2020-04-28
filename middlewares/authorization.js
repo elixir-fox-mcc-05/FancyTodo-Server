@@ -9,20 +9,22 @@ const authorization = (req, res, next) => {
         if(result.UserId == req.UserId) {
           next();
         } else {
-          res.status(401).json({
-            msg: `Not Authorized. You cannot edit/delete this Todo`
+          return next({
+            code: 401,
+            name: "Unauthorized Error",
+            msg: `You cannot edit/delete this Todo`
           });
         }
       } else {
-        res.status(404).json({
-          error: `Data Not Found`
+        return next({
+          code: 404,
+          name: "NotfoundError",
+          msg: `Data Not Found`
         });
       }
     })
     .catch(err => {
-      res.status(500).json({
-        error: `Internal server error`
-      });
+      return next(err);
     })
 }
 

@@ -105,7 +105,7 @@ Login using user data that already create (register)
 
 * **Success Response:**
 
-  * **Code:** 201 <br />
+  * **Code:** 200 OK <br />
     **Content:** 
 
         {
@@ -121,22 +121,11 @@ Login using user data that already create (register)
           "name": "BadRequest",
           "errors": [
             {
-              "msg": "Invalid E-mail"
+              "msg": "Invalid E-Mail/Password"
             }
           ]
         }
       
-      OR
-
-        {
-          "name": "BadRequest",
-          "errors": [
-            {
-              "msg": "Invalid Password"
-            }
-          ]
-        }
-
     OR
 
   * **Code:** 500 Internal Server Error <br />       
@@ -374,8 +363,8 @@ Update Todo list data by Todo Id
 
    **Required:**
  
-  id = [integer] <br />
-  UserId = [integer]
+    id = [integer] <br />
+    UserId = [integer]
 
 * **Data Params**
 

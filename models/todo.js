@@ -38,14 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            validate: {
-                notNull: {
-                    args: true,
-                    msg: "Status cannot be null"
-                }
-            }
+            type: DataTypes.STRING
         },
         due_date: {
             type: DataTypes.DATE,
@@ -66,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         hooks: {
             beforeCreate(todo, option) {
-                todo.status = 'Undone'
+                todo.status = false
             }
         },
         sequelize

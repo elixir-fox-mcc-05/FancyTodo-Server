@@ -17,7 +17,7 @@ class TodoController {
 
     static findOne(req, res, next) {
         let id = req.params.id
-        Todo.findOne({ where: { id } })
+        Todo.findOne({ where: { id: id } })
             .then((result) => {
                 if (result) {
                     return res.status(200).json(result)

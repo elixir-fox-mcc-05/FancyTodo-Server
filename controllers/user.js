@@ -130,9 +130,9 @@ class Controller{
                         }
                     })
                 }else {
-                    res.status(400).json({
-                        'type':'Bad Request',
-                        'msg':'Invalid Email/password'
+                    return next({
+                        name :'error_manual',
+                        message: 'Invalid Email/password'                    
                     })
                 }
             
@@ -142,7 +142,9 @@ class Controller{
                 //     'msg':'Invalid Email/password'
                 // })
                 return next({
-                    name :'err'})
+                    name :'error_manual',
+                    message: 'Invalid Email/password'                    
+                })
             }
 
         })

@@ -52,9 +52,9 @@ class Controller{
             })
         })
         .catch(err=>{
-            return res.status(400).json({
-                msg:"find All fail",
-                data:err
+            return next({
+                name :'error_manual',
+                message: 'View member error'                    
             })
         })
     }
@@ -73,9 +73,9 @@ class Controller{
             })
         })
         .catch(err=>{
-            return res.status(400).json({
-                msg:"Task add fail",
-                data:err
+            return next({
+                name :'error_manual',
+                message: 'Create task error'                    
             })
         })
     }
@@ -99,11 +99,9 @@ class Controller{
                 todos:result})
         })
         .catch(err=>{
-            console.log(err);
-            
-            res.status(500).json({
-                message:"server Error",
-                todos:err
+            return next({
+                name :'error_manual',
+                message: 'read task error'                    
             })
         })
     }
@@ -116,9 +114,9 @@ class Controller{
                 todo:result})
         })
         .catch(err=>{
-            res.status(404).json({
-                message:"Data not found",
-                todo:err
+            return next({
+                name :'error_manual',
+                message: 'Data not found'                    
             })
             
         })

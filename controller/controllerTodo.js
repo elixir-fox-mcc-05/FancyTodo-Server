@@ -6,7 +6,7 @@ class TodoController {
         const UserId = req.currentUser
         let result;
         axios
-            .get('http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=civil&output=json')
+            .get('http://www.7timer.info/bin/api.pl?lon=106.831&lat=-6.386&product=civillight&output=json')
             .then(response => {
                 result = response.data
                 return Todo.findAll({
@@ -16,6 +16,7 @@ class TodoController {
                     })
             })
             .then(data => {
+                result.dataseries.weather
                 res.status(200).json({
                     Todos : data,
                     Weather : result
@@ -51,7 +52,7 @@ class TodoController {
         const {id} = req.params
         let data;
         axios
-            .get('http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=civil&output=json')
+            .get('http://www.7timer.info/bin/api.pl?lon=106.831&lat=-6.386&product=civillight&output=json')
             .then(response => {
                 data = response.data
                 return Todo.findOne({

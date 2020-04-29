@@ -7,7 +7,7 @@ function generateToken ( payload ) {
 }
 
 function verifyToken (token) {
-    let result = jwt.verify(token, "secret" )
+    let result = jwt.verify( token , "secret" )
     return result;
 }
 

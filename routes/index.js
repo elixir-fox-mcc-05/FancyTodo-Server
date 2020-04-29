@@ -7,4 +7,7 @@ router.use("/todos", todoRoutes);
 const userRoutes = require("./user.js");
 router.use("/users", userRoutes);
 
+const foodRecipeRoutes = require("./foodrecipe.js");
+router.use("/foodrecipe", foodRecipeRoutes);
+
 module.exports = router;

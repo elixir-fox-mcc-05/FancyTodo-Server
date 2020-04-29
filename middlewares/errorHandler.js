@@ -3,8 +3,9 @@ module.exports = (err, req, res, next) => {
         res.status(400).json({
             error: `validation error`
         })
+    } else {
+        res.status(err.code || 500).json({
+            error: err
+        })
     }
-    res.status(err.code || 500).json({
-        error: err
-    })
 }

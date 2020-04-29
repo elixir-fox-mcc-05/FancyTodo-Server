@@ -39,15 +39,23 @@ class TodoController{
     static findById(req, res, next){
         let { id } = req.params
         let UserId = req.userId
-        let restaurant
+        let recommendation = []
 
         axios.get('https://developers.zomato.com/api/v2.1/collections?city_id=74', {
             headers: {
-                "user-key" : API_KEY
+                "user-key" : API_KEY,
+
             }
         })
             .then(response => {
-                restaurant = response.data
+                for (let i = 0; i < response.data.collections.length; i++) {
+                    let temp = {
+                        title: response.data.collections[i].collection.title,
+                        description: response.data.collections[i].collection.description,
+                        url: response.data.collections[i].collection.url
+                    }
+                    recommendation.push(temp)
+                }
                 return Todo.findOne({where: {UserId,id}})
             })       
             .then(data => {
@@ -57,9 +65,7 @@ class TodoController{
                         if(data.title.toLowerCase() == activity[i]){
                             res.status(200).json({
                                 Todo: data,
-                                restaurant: restaurant.collections
-                                // RestaurantType: restaurant.title,
-                                // RestaurantUrl: restaurant.url
+                                recommendations: recommendation
                             })
                         } 
                     }

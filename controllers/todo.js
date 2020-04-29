@@ -63,9 +63,8 @@ class FancyTodo {
     }
 
     static delete(req, res, next) {
-        const { UserId } = req
         const { id } = req.params
-        Todo.destroy({ where: { id, UserId } })
+        Todo.destroy({ where: { id } })
             .then(data => {
                 if (data) {
                     res
@@ -81,10 +80,9 @@ class FancyTodo {
     }
 
     static edit(req, res, next) {
-        const { UserId } = req
         const { id } = req.params
         const { title, description, status, due_date } = req.body
-        Todo.update({ title, description, status, due_date }, { where: { id, UserId } })
+        Todo.update({ title, description, status, due_date }, { where: { id } })
             .then(data => { 
                 if (data != 0) {
                     res

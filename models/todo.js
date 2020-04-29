@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
             }
           }
         }
-      }
+      },
+      UserId: DataTypes.INTEGER
     },
     {
       validate:
@@ -53,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User)
   };
   return Todo;
 };

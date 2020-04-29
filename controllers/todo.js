@@ -2,141 +2,106 @@ const { Todo } = require("../models")
 
 
 class Controller {
-    static findAll(req, res) 
-    {
-        Todo.findAll()
-            .then(data => res.status(200).json({
-                todos: data
-            }))
-            .catch(err => {
-                res.status(500).json({
-                    error: err
+    static findAll(req, res, next) {
+        Todo.findAll({ where: { UserId: req.currentUserId } })
+            .then((result) => {
+                return res.status(200).json(result)
+            })
+            .catch((err) => {
+                next({
+                    name: 'NotFound',
+                    errors: [{ msg: 'Data Not Found' }]
                 })
             })
     }
 
-    static add(req, res)
-    {
-        let { title, description, status, due_date } = req.body
-        Todo.create({
-            title,
-            description,
-            status,
-            due_date
-        })
-            .then(data => 
-                {
-                    if(!data) {
-                        res.status(404).json({
-                        msg: "ERROR : not found"
-                        })
-                    } else {
-                        res.status(201).json({
-                        todos: data
-                        })
-                    }
-                })
-            .catch(err => {
-                {
-                    if(err.name == 'SequelizeValidationError') {
-                        res.status(400).json({
-                        error: err
-                        })
-                    } else {
-                        res.status(500).json({
-                        error: err
-                        })
-                    }
-                }
-            })
-    }
-
-    static search(req, res) 
-    {
-        let { id } = req.params
-        Todo.findByPk(id)
-            .then(data => 
-                {
-                    if(!data) {
-                        res.status(404).json({
-                        msg: "ERROR : not found"
-                        })
-                    } else {
-                        res.status(200).json({
-                        todos: data
-                        })
-                    }
-                })
-            .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
-            })
-    }
-
-    static update(req, res)
-    {
-        const { id } = req.params
-        const { title, description, status, due_date } = req.body
-        Todo.update({ title, description, status, due_date }, { where: { id } })
-            .then(data => 
-                {
-                    Todo.findByPk(id)
-                    .then(data => 
-                        {
-                            if(!data) {
-                                res.status(404).json({
-                                msg: "ERROR : not found"
-                                })
-                            } else {
-                                res.status(200).json({
-                                todos: data
-                                })
-                            }
-                        })
-                    .catch(err => {
-                        res.status(500).json({
-                            error: err
-                        })
+    static search(req, res, next) {
+        let id = req.params.id
+        Todo.findOne({ where: { id } })
+            .then((result) => {
+                if (result) {
+                    return res.status(200).json(result)
+                } else {
+                    next({
+                        name: 'NotFound',
+                        errors: [{ msg: 'Data Not Found' }]
                     })
-                })
-            .catch(err => {
-                {
-                    if(err.name == 'SequelizeValidationError') {
-                        res.status(400).json({
-                        error: err
-                        })
-                    } else {
-                        res.status(500).json({
-                        error: err
-                        })
-                    }
                 }
+            })
+            .catch((err) => {
+                next(err)
             })
     }
 
-    static delete(req, res)
-    {
-        let { id } = req.params
-        Todo.destroy({where : {id}})
-            .then(data => 
-                {
-                    if(!data) {
-                        res.status(404).json({
-                        msg: "ERROR : not found"
-                        })
-                    } else {
-                        res.status(200).json({
-                        todos: data
-                        })
-                    }
-                })
-            .catch(err => {
-                res.status(500).json({
-                    error: err
-                })
+    static add(req, res, next) {
+        let payload = {
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            due_date: req.body.due_date,
+            UserId: req.currentUserId
+        }
+        Todo.create(payload)
+            .then((result) => {
+                return res.status(201).json(result)
+            })
+            .catch((err) => {
+                next(err)
             })
     }
+
+    static update(req, res, next) {
+        let id = +req.params.id
+        let payload = {
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            due_date: req.body.due_date,
+            UserId: req.currentUserId
+        }
+        Todo.findOne({ where: { id } })
+            .then((data) => {
+                if (data) Todo.update(payload, { where: { id: id } })
+                else next({
+                    name: 'NotFound',
+                    msg: 'Data Not Found'
+                })
+            })
+            .then((result) => {
+                return res.status(200).json({
+                    title: req.body.title,
+                    description: req.body.description,
+                    status: req.body.status,
+                    due_date: req.body.due_date,
+                    UserId: payload.UserId
+                })
+            })
+            .catch((err) => {
+                next(err)
+            })
+    }
+
+    static delete(req, res, next) {
+        let id = +req.params.id
+        Todo.findOne({ where: { id } })
+            .then((data) => {
+                if (data) {
+                    Todo.destroy({ where: { id: id } })
+                        .then((result) => {
+                            return res.status(201).json({ data })
+                        })
+                } else {
+                    next({
+                        name: 'NotFound',
+                        msg: 'Data Not Found'
+                    })
+                }
+            })
+            .catch((err) => {
+                next(err)
+            })
+    }
+
 }
 
 module.exports = Controller

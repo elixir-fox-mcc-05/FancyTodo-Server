@@ -18,7 +18,7 @@ class TodoController {
       })
       .then(data => {
         res.status(200).json({
-          msg: data,
+          Todos: data,
           weather
         });
       })
@@ -38,7 +38,7 @@ class TodoController {
     })
       .then(data => {
         res.status(201).json({
-          msg: data
+          Todo: data
         })
       })
       .catch(err => {
@@ -51,7 +51,7 @@ class TodoController {
       .then(data => {
         if(data){
           res.status(200).json({
-            data
+            Todo: data
           });
         } else {
           return next({

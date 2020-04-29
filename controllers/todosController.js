@@ -28,7 +28,8 @@ class TodosController {
             .then(data => {
                 console.log(data)
                 res.status(201).json({
-                    Todo: data
+                    Todo: data,
+                    notif: 'Todo successfully created!'
                 })
             })
             .catch(err => {
@@ -71,7 +72,7 @@ class TodosController {
         })
             .then(() => {
                 res.status(200).json({
-                    msg: `Todo with id ${id} successfully updated`
+                    notif: `Todo with id ${id} successfully updated`
                 })
             })
             .catch(err => {
@@ -88,7 +89,7 @@ class TodosController {
         })
             .then(() => {
                 res.status(200).json({
-                    msg: `Todo with id ${id} successfully deleted`
+                    notif: `Todo with id ${id} successfully deleted`
                 })
             })
             .catch(err => {

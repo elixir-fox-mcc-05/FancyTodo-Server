@@ -12,7 +12,8 @@ class UsersController {
         })
             .then(data => {
                 res.status(201).json({
-                    User: data
+                    User: data,
+                    notif: 'Register successful!'
                 })
             })
             .catch(err => {
@@ -36,7 +37,8 @@ class UsersController {
                             email: data.email
                         })
                         res.status(201).json({
-                            token
+                            token,
+                            notif: 'Welcome Back!'
                         })        
                     } else {
                         throw {

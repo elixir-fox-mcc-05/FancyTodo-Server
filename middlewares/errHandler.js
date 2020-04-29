@@ -1,19 +1,46 @@
 module.exports = (err, req, res, next) => {
     console.log(err)
     if(err.name == 'SequelizeValidationError') {
-        res.status(400).json({
-            msg: 'please input data as required'
+        let newErr = []
+        err.errors.forEach(el => {
+            if(el.message == 'Validation len on name failed') {
+                newErr.push('Please input name with minimum 3 characters')
+            } else if(el.message == 'Validation isEmail on email failed') {
+                newErr.push('Please input the correct email')
+            } else if(el.message == 'Validation len on password failed') {
+                newErr.push('Please input password from 6-20 characters')
+            } else if(el.message == 'Validation len on title failed') {
+                newErr.push('Please input title from 3-40 characters')
+            } else if(el.message == 'Validation isAfter on due_date failed') {
+                newErr.push('Please Due date must be greater than today')
+            } else if(el.message == 'Validation len on description failed') {
+                newErr.push('Please input description from 3-150 characters')
+            }
+        })
+        res.status(401).json({
+            err: newErr
         })
     } else if(err.name == 'SequelizeUniqueConstraintError') {
-        res.status(400).json({
-            msg: 'please make sure your email never registered before'
+        let newErr = []
+        err.errors.forEach(el => {
+            if(el.message == 'email must be unique') {
+                newErr.push('Please make sure your email never registered here before')
+            }
         })
-    } else if(err.name == 'JsonWebTokenError') {
+        res.status(401).json({
+            err: newErr
+        })
+    } else if(err.name == 'JsonWebTokenError'){
         res.status(400).json({
-            msg: 'please login first'
+            err: 'please login first'
+        })
+    } else if(err.code) {
+        res.status(err.code).json({
+            err: err.msg
         })
     } else {
-        res.status(err.code || 500).json({
+        res.status(500).json({
+            msg: 'internal server error',
             err: err
         })
     }

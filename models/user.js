@@ -13,9 +13,34 @@ module.exports = (sequelize, DataTypes) => {
       unique: {
         args: true,
         msg: `Email already exists`
+      },
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: `Email Required`
+        }
+      },
+      validate: {
+        isEmail: {
+          args: true,
+          msg: `Need input valid Email`
+        }
       }
     },
-    password: DataTypes.STRING
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: `Password Required`
+        },
+        len: {
+          args: [8, 20],
+          msg: `Password must be more than 8 character and less than 20 character`
+        }
+      }
+    }
   }, {
     sequelize,
     hooks: {

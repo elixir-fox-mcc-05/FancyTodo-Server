@@ -20,7 +20,7 @@ router.post("/register", UserController.register)
 router.post("/login", UserController.login)
 
 //Holiday's Controller
-router.get('/holiday', HolidayController.nager)
+router.get('/holiday', HolidayController.holiday)
 
 
 module.exports = router

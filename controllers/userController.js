@@ -59,7 +59,7 @@ class UserController {
                         throw {
                             code : 400,
                             type : "BAD REQUEST",
-                            message : "Please insert correct password!"
+                            message : "Opps!, invalid email / password"
                         }
                     }
 
@@ -67,7 +67,7 @@ class UserController {
                     throw {
                         code : 400,
                         type : "BAD REQUEST",
-                        message : "Please insert correct email!"
+                        message : "Opps!, invalid email / password"
                     }
                 }
             })

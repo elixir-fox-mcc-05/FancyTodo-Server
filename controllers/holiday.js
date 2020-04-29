@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 class HolidayController {
-    static nager(req, res, next) {
+    static find(req, res, next) {
         let year = new Date().getFullYear()
         let url = `https://date.nager.at/api/v2/PublicHolidays/${year}/ID`
         console.log(url);

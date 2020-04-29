@@ -19,7 +19,8 @@ router.delete("/todos/:id",authentication, authorization, Controller.delete)
 router.post("/register", UserController.register)
 router.post("/login", UserController.login)
 
-//weather's Controller
+//Holiday's Controller
+router.get('/holiday', HolidayController.nager)
 
 
 module.exports = router

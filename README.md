@@ -416,13 +416,6 @@
 -----
 * method: GET
 * purpose: Get all public holidays in Indonesia
-* request params: CurrentYear and Country Code<br>
-    ```javascript
-        {
-            "year": 2020,
-            "countyCode": 'ID'
-        }
-    ```
 * success response: <br>
     * code: 200 <br>
     * content: <br>

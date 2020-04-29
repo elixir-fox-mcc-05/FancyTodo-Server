@@ -3,10 +3,10 @@ const router = require("express").Router()
 const authentication = require('../middlewares/authetication')
 const authorization = require('../middlewares/authorization')
 
-//router.use(authentication)
 //Controller refrence
 const Controller = require("../controllers/todo")
 const UserController = require("../controllers/user")
+const HolidayController = require('../controllers/holiday')
 
 //Todo's Controller
 router.get("/todos",authentication, Controller.findAll)
@@ -18,5 +18,8 @@ router.delete("/todos/:id",authentication, authorization, Controller.delete)
 //User's Controller
 router.post("/register", UserController.register)
 router.post("/login", UserController.login)
+
+//weather's Controller
+
 
 module.exports = router

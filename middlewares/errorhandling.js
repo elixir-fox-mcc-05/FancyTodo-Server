@@ -23,12 +23,12 @@ function errorHandling(err,req,res,next){
           message: "Delete on table violates foreign key constraint "
         });
       } else if (err.name == 'SequelizeDatabaseError'){
-        return res.status(500).json(err.parent.detail);
+        return res.status(500).json({message:'Internal Server error'});
 
       } else {
         console.log("error",err);
         
-        return res.status(500).json(err);
+        return res.status(500).json({message:'Internal Server error'});
       }
 }
 module.exports=errorHandling

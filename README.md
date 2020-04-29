@@ -30,7 +30,7 @@
 
 - success Response:
 
-- - **Code:** 200 
+- - **Code:** 201 
     **Content:** 
 
     ```json
@@ -161,7 +161,7 @@
 
 * **URL:**
 
-​			/user/login
+​			/todos
 
 * **Method:**
 
@@ -386,7 +386,7 @@
 
     ```json
     {
-      "type": "Internal Server errorrr",
+      "type": "Internal Server error",
       "msg": {
         "err": {
           "name": "JsonWebTokenError",
@@ -399,39 +399,11 @@
     OR
 
     ```json
-    {
-      "message": "server Error",
-      "todos": {
-        "name": "SequelizeDatabaseError",
-        "parent": {
-          "name": "error",
-          "length": 161,
-          "severity": "ERROR",
-          "code": "22P02",
-          "position": "167",
-          "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\utils\\adt\\bool.c",
-          "line": "154",
-          "routine": "boolin",
-          "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"UserId\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"UserId\" = 13 AND \"Todo\".\"status\" = '';"
-        },
-        "original": {
-          "name": "error",
-          "length": 161,
-          "severity": "ERROR",
-          "code": "22P02",
-          "position": "167",
-          "file": "d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\utils\\adt\\bool.c",
-          "line": "154",
-          "routine": "boolin",
-          "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"UserId\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"UserId\" = 13 AND \"Todo\".\"status\" = '';"
-        },
-        "sql": "SELECT \"id\", \"title\", \"description\", \"status\", \"due_date\", \"UserId\", \"createdAt\", \"updatedAt\" FROM \"Todos\" AS \"Todo\" WHERE \"Todo\".\"UserId\" = 13 AND \"Todo\".\"status\" = '';"
-      }
-    }
+    {message:'Internal Server error'}
     ```
-
     
-
+    
+  
 - **Sample Call:**
 
   ```
@@ -846,7 +818,7 @@
 
 - success Response:
 
-- - **Code:** 200 
+- - **Code:** 201 
     **Content:** 
 
     ```json

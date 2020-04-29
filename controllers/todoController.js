@@ -27,7 +27,7 @@ class TodoController {
 
     static findAll(req, res) {
         Todo.findAll({
-            oder: [
+            order: [
                 ['due_date', 'ASC']
             ]
         })

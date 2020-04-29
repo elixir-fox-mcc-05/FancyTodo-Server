@@ -13,20 +13,41 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: {
         args: true,
-        msg: "Email already in use"
+        msg: "Email already exist"
       },
+      allowNull: false,
       validate: {
-        isEmail: true
-      },
-      allowNull: false
+        notNull: {
+          args: true,
+          msg: "Email is required"
+        },
+        notEmpty: {
+          args: true,
+          msg: "Email is required"
+        },
+        isEmail: {
+          args: true,
+          msg: "Invalid email format"
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        notEmpty: true,
-        len: [0, 20]
-      },
-      allowNull: false
+        notNull: {
+          args: true,
+          msg: "Email is required"
+        },
+        notEmpty: {
+          args: true,
+          msg: "Password is required"
+        },
+        len: {
+          args: [7],
+          msg: "Password has minimal length 7 characters"
+        }
+      }
     }
   },
   {
@@ -34,6 +55,25 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (user) => {
         user.password = generatePassword(user.password);
+      }
+    },
+    validate: {
+      valueNotEmpty(){
+        if(!this.email || !this.password){
+          throw new Error(`All data must filled`);
+        }
+      },
+      isUnique(){
+        return User.findOne({
+          where: {
+            email: this.email
+          }
+        })
+        .then(data => {
+          if(data){
+            throw new Error('email is being used')
+          } 
+        })
       }
     },
     modelName: "User"

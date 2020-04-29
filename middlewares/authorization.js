@@ -12,21 +12,24 @@ function authorization(req, res, next){
                     next();
                 }
                 else{
-                    throw{
-                        msg: "unauthorized",
-                        code: 401
-                    }
+                    return next({
+                        name: "BadRequest",
+                        errors: [{message: "Invalid email or password"}]
+                    })
                 }
             }
             else{
-                throw{
-                    msg: "Not found",
-                    code: 404
-                }
+                return next({
+                    name: "NotFound",
+                    errors: [{message: "Not found"}]
+                })
             }
         })
         .catch(err => {
-            next(err);
+            return next({
+                name: "InternalServerError",
+                errors: [{message: err}]
+            });
         })
 }
 module.exports = authorization;

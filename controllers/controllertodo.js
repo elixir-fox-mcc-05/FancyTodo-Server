@@ -5,7 +5,7 @@ const Model = require("../models/index.js");
 const Todo = Model.Todo;
 
 class ControllerTodo{
-    static showTodo(req, res){
+    static showTodo(req, res, next){
         const UserId = req.currentUserId;
         
         Todo
@@ -14,17 +14,17 @@ class ControllerTodo{
                     UserId
                 }
             })
-            .then(todo => {
-                res.status(200).json({todo});
+            .then(todos => {
+                res.status(200).json({todos});
             })
             .catch(err => {
-                next(err);
-                // res.status(500).json({
-                //     err: "Internal server error"
-                // });
+                return next({
+                    name: "InternalServerError",
+                    errors: [{message: err}]
+                });
             })
     }
-    static addTodo(req, res){
+    static addTodo(req, res, next){
         const {title, description, status, due_date} = req.body;
         const UserId = req.currentUserId
         
@@ -42,38 +42,38 @@ class ControllerTodo{
                 });
             })
             .catch(err => {
-                next(err);
-                // res.status(500).json({
-                //     err: "Internal server error"
-                // });
+                return next({
+                    name: "InternalServerError",
+                    errors: [{message: err}]
+                });
             })
     }
-    static findTodo(req, res){
-        const UserId = req.currentUserId;
+    static findTodo(req, res, next){
+        const {id} = req.params;
         
         Todo
             .findOne({
                 where: {
-                UserId
+                id
                 }
             })
             .then(todo => {
                 res.status(200).json({todo});
             })
             .catch(err => {
-                next(err);
-                // res.status(500).json({
-                //     err: "Internal server error"
-                // });
+                return next({
+                    name: "InternalServerError",
+                    errors: [{message: err}]
+                });
             })
     }
-    static deleteTodo(req, res){
-        const UserId = req.currentUserId;
+    static deleteTodo(req, res, next){
+        const {id} = req.params;
 
         Todo
             .destroy({
                 where: {
-                UserId
+                id
                 }
             })
             .then(todo => {
@@ -83,13 +83,13 @@ class ControllerTodo{
                 });
             })
             .catch(err => {
-                next(err);
-                // res.status(500).json({
-                //     err: "Internal server error"
-                // });
+                return next({
+                    name: "InternalServerError",
+                    errors: [{message: err}]
+                });
             })
     }
-    static updateTodo(req, res){
+    static updateTodo(req, res, next){
         const {id} = req.params;
         const updatedTodo = {
             title: req.body.title,
@@ -112,10 +112,10 @@ class ControllerTodo{
                 });
             })
             .catch(err => {
-                next(err);
-                // res.status(500).json({
-                //     err: "Internal server error"
-                // });
+                return next({
+                    name: "InternalServerError",
+                    errors: [{message: err}]
+                });
             })
     }
 }

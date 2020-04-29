@@ -7,7 +7,7 @@ const {generateToken} = require("../helpers/jwt.js");
 const User = Model.User;
 
 class ControllerUser{
-    static signup(req, res){
+    static signup(req, res, next){
         let {email, password} = req.body;
 
         User.create({
@@ -21,13 +21,13 @@ class ControllerUser{
             })
         })
         .catch(err => {
-            next(err);
-            // res.status(500).json({
-            //     errors: err
-            // })
+            return next({
+                name: "InternalServerError",
+                errors: [{message: err}]
+            });
         })
     }
-    static signin(req, res){
+    static signin(req, res, next){
         let {email, password} = req.body;
 
         User.findOne({
@@ -50,21 +50,24 @@ class ControllerUser{
                     })
                 }
                 else{
-                    throw{
-                        msg: "email/password unavailable",
-                        code: 401
-                    }
+                    return next({
+                        name: "BadRequest",
+                        errors: [{message: "Invalid email or password"}]
+                    })
                 }
             }
             else{
-                throw{
-                    msg: "email/password unavailable",
-                    code: 401
-                }
+                return next({
+                    name: "BadRequest",
+                    errors: [{message: "Invalid email or password"}]
+                })
             }
         })
         .catch(err => {
-            next(err);
+            return next({
+                name: "InternalServerError",
+                errors: [{message: err}]
+            });
         })
     }
 }

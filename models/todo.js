@@ -8,11 +8,21 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "This field cannot be empty"
+        }
+      }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "This field cannot be empty"
+        }
+      }
     },
     status: {
       type: DataTypes.BOOLEAN,

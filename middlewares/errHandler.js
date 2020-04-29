@@ -35,6 +35,6 @@ module.exports = (err, req, res, next) => {
     res.status(err.code || 500).json({
         code : err.code || 500,
         type : err.type || "INTERNAL SERVER ERROR",
-        errors : err.message || "ERROR"
+        errors : err.message || err
     })
 }

@@ -4,7 +4,7 @@ const { generateToken } = require('../helpers/jwt.js');
 
 class UserController {
     // router.post('/register', UserController.registerUser);
-    static registerUser(req, res){
+    static registerUser(req, res, next){
         let { email, password } = req.body;
         let input = {
             email,
@@ -18,12 +18,12 @@ class UserController {
                 })
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
     }
 
     // router.post('/login', UserController.loginUser);
-    static loginUser(req,res){
+    static loginUser(req, res, next){
         let { email, password } = req.body;
         let options = {
             where: {
@@ -42,21 +42,27 @@ class UserController {
                         res.status(200).json({token});
                     }
                     else {
-                        res.status(400).json({msg: `Invalid Password`});
+                        return next({
+                            name: `BadRequest`,
+                            errors: [{
+                                msg: `Invalid Password`
+                            }]
+                        })
                     }
                 }
                 else {
-                    res.status(400).json({msg: `Invalid E-mail`});
+                    return next({
+                        name: `BadRequest`,
+                        errors: [{
+                            msg: `Invalid E-mail`
+                        }]
+                    })
                 }
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
     }
 }
 
 module.exports = UserController;
-
-///// catatan //////
-// status 400 register x
-// status 400 login ??

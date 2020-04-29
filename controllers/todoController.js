@@ -2,7 +2,7 @@ const { Todo } = require('../models/index.js');
 
 class TodoController {
     // router.get('/', TodoController.readAllTodo);
-    static readAllTodo(req, res){
+    static readAllTodo(req, res, next){
         let UserId = req.currentUserId; // dari middleware authentication
         let options = {
             order: [['createdAt', 'ASC']],
@@ -15,12 +15,12 @@ class TodoController {
                 res.status(200).json({todos: data});
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
     }
 
     // router.get('/:id', TodoController.searchTodo);
-    static searchTodo(req, res){
+    static searchTodo(req, res, next){
         let { id } = req.params;
         let UserId = req.currentUserId; // dari middleware authentication
         let options = {
@@ -32,19 +32,22 @@ class TodoController {
         Todo.findOne(options)
             .then(data => {
                 if (!data){
-                    res.status(404).json({msg: `Todo with id ${id} NOT FOUND`});
+                    return next({
+                        name: `NotFound`,
+                        message: `Todo with id ${id} NOT FOUND`
+                    })
                 }
                 else {
                     res.status(200).json({todo: data})
                 }
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
     }
 
     // router.post('/', TodoController.createTodo);
-    static createTodo(req,res){
+    static createTodo(req,res, next){
         let { title, description, due_date } = req.body;
         let UserId = req.currentUserId; // dari middleware authentication
         let input = {
@@ -58,12 +61,12 @@ class TodoController {
                 res.status(201).json({todo: data})
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
     }
 
     // router.put('/:id', TodoController.updateTodo);
-    static updateTodo(req, res){
+    static updateTodo(req, res, next){
         let { id } = req.params;
         let UserId = req.currentUserId; // dari middleware authentication
         let options = {
@@ -85,13 +88,13 @@ class TodoController {
                 res.status(200).json({todo: data[1][0], msg: `todo with id ${id} update`});
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
 
     }
 
     // router.delete('/:id', TodoController.deleteTodo);
-    static deleteTodo(req,res){
+    static deleteTodo(req,res, next){
         let { id } = req.params;
          let UserId = req.currentUserId; // dari middleware authentication
         let options = {
@@ -107,15 +110,10 @@ class TodoController {
                 return Todo.destroy(options)
             })
             .then (_ => {
-                if (!todoDelete){
-                    res.status(404).json({msg: `todo with id ${id} NOT FOUND`});
-                }
-                else {
-                    res.status(200).json({todo: todoDelete, msg: `todo with id ${id} delete`});
-                }
+                res.status(200).json({todo: todoDelete, msg: `todo with id ${id} delete`});
             })
             .catch(err => {
-                res.status(500).json({error: err.message});
+                return next(err)
             })
     }
 
@@ -127,4 +125,3 @@ module.exports = TodoController;
 // ////// catatan /////////////
 // status 400 di create x
 // status 400 di update x
-// status 404 di search/update/delete ???

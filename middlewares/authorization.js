@@ -9,11 +9,17 @@ function authorization(req, res, next) {
                     next()
                 }
                 else {
-                    res.status(401).json({msg: `Unauthorized`})
+                    return next ({
+                        name: `Unauthorized`,
+                        message: `Unauthorized. Please login first`
+                    })
                 }
             }
             else {
-                res.status(404).json({msg: `todo with id ${id} NOT FOUND`})
+                return next({
+                    name: 'NotFound',
+                    message: `Todo with id ${id} NOT FOUND`
+                })
             }
         })
 }

@@ -10,17 +10,27 @@ function authentication(req, res, next){
             .then(result => {
                 if(result) {
                     req.currentUserId = Number(id);
-                    next()  // agar lanjut ke selanjutnya(setelah fungsi ini dipanggil)
+                    return next()  // agar lanjut ke selanjutnya(setelah fungsi ini dipanggil)
                 }
                 else {
-                    res.status(401).json({ msg: 'Please login'})
+                    return next({
+                        name: 'NotFound',
+                        errors: [{ 
+                            msg: 'User not found' 
+                        }]
+                    })
                 }
             })
             .catch (err => {
-                res.status(500).json({ msg: 'Internal server error' })
+                return next ({
+                    name: `Unauthorized`,
+                    errors: [{
+                        msg: 'User Unauthenticated' 
+                    }]
+                })
             })
       } catch(err) {
-        res.status(500).json({ msg: 'Internal server error' })
+        next(err)
       }
 
 }

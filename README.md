@@ -50,8 +50,30 @@ Create user data
   * **Code:** 400 Bad Request <br />
   **Content:**
 
-        ---under development---
-        
+        {
+          "name": "BadRequest",
+          "errors": [
+            {
+              "msg": "E-mail must not empty"
+            },
+            {
+              "msg": "E-mail must be in e-mail format \"youremail@mail.com\""
+            },
+            {
+              "msg": "Password must not empty"
+            }
+          ]
+        }
+      
+      OR
+
+        {
+          "name": "BadRequest",
+          "errors": [{
+              "message": "Email already in use"
+            }]
+        }
+
     OR
 
   * **Code:** 500 Internal Server Error <br />   
@@ -92,8 +114,32 @@ Login using user data that already create (register)
 
 * **Error Response:**
 
-  * **Code:** 500 Internal Server Error <br />
-    
+  * **Code:** 400 Bad Request <br />
+  **Content:**
+
+        {
+          "name": "BadRequest",
+          "errors": [
+            {
+              "msg": "Invalid E-mail"
+            }
+          ]
+        }
+      
+      OR
+
+        {
+          "name": "BadRequest",
+          "errors": [
+            {
+              "msg": "Invalid Password"
+            }
+          ]
+        }
+
+    OR
+
+  * **Code:** 500 Internal Server Error <br />       
 
 
 
@@ -150,7 +196,34 @@ Create Todo list data
   * **Code:** 400 Bad Request <br />
   **Content:**
 
-        ---under development---
+        {
+          "name": "BadRequest",
+          "errors": [
+            {
+              "msg": "Title must not empty"
+            },
+            {
+              "msg": "Due Date must not empty"
+            },
+            {
+              "msg": "Due Date must in sting"
+            }
+          ]
+        }
+
+  OR
+
+  * **Code:** 401 Unauthorized <br />
+  **Content:**
+
+        {
+          "name": "Unauthorized",
+          "errors": [
+            {
+              "message": "Unauthorized. Please login first"
+            }
+          ]
+        }
 
   OR
 
@@ -259,8 +332,27 @@ Show Todo by Todo Id
   **Content:**
 
         {
-          "msg": "todo with id 1 NOT FOUND"
-        }       
+          "name": "NotFound",
+          "errors": [
+            {
+              "message": "Todo with id 1 NOT FOUND"
+            }
+          ]
+        } 
+
+  OR
+
+  * **Code:** 401 Unauthorized <br />
+  **Content:**
+
+        {
+          "name": "Unauthorized",
+          "errors": [
+            {
+              "message": "Unauthorized. Please login first"
+            }
+          ]
+        }
 
   OR
 
@@ -318,15 +410,33 @@ Update Todo list data by Todo Id
   * **Code:** 400 Bad Request <br />
   **Content:**
 
-        ---under development---
+        {
+          "name": "BadRequest",
+          "errors": [
+            {
+              "msg": "Title must not empty"
+            },
+            {
+              "msg": "Due Date must not empty"
+            },
+            {
+              "msg": "Due Date must in sting"
+            }
+          ]
+        }
 
   OR
 
-  * **Code:** 401 Unauthorized<br />
+  * **Code:** 401 Unauthorized <br />
   **Content:**
 
         {
-          "msg": "Unauthorized"
+          "name": "Unauthorized",
+          "errors": [
+            {
+              "message": "Unauthorized. Please login first"
+            }
+          ]
         }
 
   OR
@@ -335,8 +445,13 @@ Update Todo list data by Todo Id
   **Content:**
 
         {
-          "msg": "todo with id 1 NOT FOUND"
-        }       
+          "name": "NotFound",
+          "errors": [
+            {
+              "message": "Todo with id 1 NOT FOUND"
+            }
+          ]
+        } 
 
   OR
 
@@ -391,11 +506,17 @@ Delete Todo list data by Todo Id
  
 * **Error Response:**
 
-  * **Code:** 401 Unauthorized<br />
+ 
+  * **Code:** 401 Unauthorized <br />
   **Content:**
 
         {
-          "msg": "Unauthorized"
+          "name": "Unauthorized",
+          "errors": [
+            {
+              "message": "Unauthorized. Please login first"
+            }
+          ]
         }
 
   OR
@@ -404,8 +525,13 @@ Delete Todo list data by Todo Id
   **Content:**
 
         {
-          "msg": "todo with id 1 NOT FOUND"
-        }       
+          "name": "NotFound",
+          "errors": [
+            {
+              "message": "Todo with id 1 NOT FOUND"
+            }
+          ]
+        } 
 
   OR
 
@@ -415,3 +541,6 @@ Delete Todo list data by Todo Id
 
 
   <!-- cek 1 by 1, still many error problems -->
+
+
+

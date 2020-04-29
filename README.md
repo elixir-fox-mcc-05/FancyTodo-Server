@@ -13,6 +13,7 @@
 *    URL PARAMS
 
         UserId = Integer
+        headers = Token
 
 *    Data PARAMS
 
@@ -86,6 +87,7 @@
 *    URL PARAMS
 
         UserId : Integer
+        headers = Token
 
 *    Data PARAMS
 
@@ -143,7 +145,7 @@
 *    URL PARAMS
 
         id = integer
-        UserId = Integer
+        headers = Token
 
 *    Data PARAMS
 
@@ -215,7 +217,7 @@
 *    URL PARAMS
 
         id = [integer]
-        UserId : Integer
+        headers = Token
 
 *    Data PARAMS
 
@@ -272,7 +274,7 @@
 *    URL PARAMS
 
         id : INTEGER
-        UserId : INTEGER
+        headers = Token
 
 *    Data PARAMS
 
@@ -324,13 +326,8 @@
         ```
         Code : 201
         Content :   {
-                    "User": {
-                        "id": 1,
-                        "email": "your email",
-                        "password": "$2a$15$34DMinzpBLJtoq/JsjNc2.C0kZ9ngiUzPUsEclcnoKlBgX.Aeurra",
-                        "updatedAt": "2020-04-27T09:11:48.226Z",
-                        "createdAt": "2020-04-27T09:11:48.226Z"
-                        }
+                    "UserId": 1,
+                    "UserEmail" : "your email",
                     }
         ```
 *    Error Response :

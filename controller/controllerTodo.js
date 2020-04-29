@@ -1,22 +1,20 @@
 const {Todo, User} = require('../models')
-const axios = require('axios')
+const getWeather = require('../helpers/weather')
 
 class TodoController {
     static findAll(req, res){
         const UserId = req.currentUser
-        let result;
-        axios
-            .get('http://www.7timer.info/bin/api.pl?lon=106.831&lat=-6.386&product=civillight&output=json')
-            .then(response => {
-                result = response.data
+        let result; 
+        getWeather()
+            .then(data => {
+                result = data.data
                 return Todo.findAll({
-                        where : {
-                                UserId,
-                        }
-                    })
+                    where : {
+                            UserId,
+                    }
+                })
             })
             .then(data => {
-                result.dataseries.weather
                 res.status(200).json({
                     Todos : data,
                     Weather : result
@@ -28,12 +26,11 @@ class TodoController {
             
     }
     static create(req, res){
-        const {title, description, status, due_date} = req.body
+        const {title, description, due_date} = req.body
         const UserId = req.currentUser
         const values = {
             title,
             description,
-            status,
             due_date,
             UserId
         }
@@ -50,25 +47,18 @@ class TodoController {
     }
     static findOne(req, res){
         const {id} = req.params
-        let data;
-        axios
-            .get('http://www.7timer.info/bin/api.pl?lon=106.831&lat=-6.386&product=civillight&output=json')
-            .then(response => {
-                data = response.data
-                return Todo.findOne({
-                    where : {
-                        id : parseInt(id),
-                    }
-                })
+        Todo.findOne({
+                where : {
+                    id : parseInt(id),
+                }
             })
-            .then(result => {
+            .then(data => {
                 res.status(200).json({
-                    Todos : result,
-                    Weather : data
+                    Todos : data,
                 })
             })
             .catch(err => {
-                next(err)
+                console.log(err)
             })
     }
     static Update(req, res){

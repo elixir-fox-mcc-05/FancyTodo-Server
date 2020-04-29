@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
+    hooks : {
+      beforeCreate: (todo)=>{
+        todo.status = false
+      }
+    },
     modelName : 'Todo'
   });
   Todo.associate = function(models) {

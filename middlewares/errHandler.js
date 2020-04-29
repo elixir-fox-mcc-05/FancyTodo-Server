@@ -47,10 +47,10 @@ module.exports = (err, req, res, next) => {
         })
     }
     else {
-        return req.status(500).json({
+        return res.status(500).json({
             name: `InternalServerError`,
             errors: [{
-                msg: err
+                message: err.message
             }]
         })
     }

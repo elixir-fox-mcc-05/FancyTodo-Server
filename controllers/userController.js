@@ -10,6 +10,7 @@ class UserController {
             email,
             password
         }
+        console.log(req.body)
         User.create(input)
             .then(data => {
                 res.status(201).json({
@@ -18,7 +19,7 @@ class UserController {
                 })
             })
             .catch(err => {
-                return next(err)
+                next(err)
             })
     }
 
@@ -60,7 +61,7 @@ class UserController {
                 }
             })
             .catch(err => {
-                return next(err)
+                next(err)
             })
     }
 }

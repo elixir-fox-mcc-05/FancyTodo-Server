@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         isAfter : {
           args : `${new Date()}`,
-          msg : 'please input date after this day'
+          msg : 'please input due date after this day'
         }
       }
     },

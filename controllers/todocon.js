@@ -39,7 +39,7 @@ class TodoCon {
         })
         .catch(err=>{
             res.status(400).json({
-                error : err
+                error : err.errors[0].message
             })
         })
     }

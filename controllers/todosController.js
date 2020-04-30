@@ -4,6 +4,7 @@ class TodosController {
     static findAll (req, res, next) {
         let UserId = req.currentUserId
         Todo.findAll({
+            order: [['due_date', 'ASC']],
             where: { UserId }
         })
             .then(data => {
@@ -90,6 +91,29 @@ class TodosController {
             .then(() => {
                 res.status(200).json({
                     notif: `Todo with id ${id} successfully deleted`
+                })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static changeStatus(req, res, next) {
+        let { id } = req.params
+        Todo.findByPk(id)
+            .then(todo => {
+                let status = todo.status ? false : true
+                return Todo.update({
+                    status
+                }, {
+                    where: {
+                        id
+                    }
+                })
+            })
+            .then(() => {
+                res.status(200).json({
+                    notif: `Status of Todo with id ${id} successfully changed!`
                 })
             })
             .catch(err => {

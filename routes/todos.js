@@ -9,6 +9,7 @@ router.get('/', todosController.findAll)
 router.post('/', todosController.createTodo)
 router.get('/:id', authorization, todosController.findById)
 router.put('/:id', authorization, todosController.updateTodo)
+router.patch('/:id', authorization, todosController.changeStatus)
 router.delete('/:id', authorization, todosController.deleteTodo)
 
 module.exports = router

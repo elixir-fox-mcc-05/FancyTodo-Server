@@ -1,5 +1,6 @@
 'use strict';
 let { hashPassword } = require('../helpers/bcrypt.js')
+let env = require('env')
 
 
 module.exports = (sequelize, DataTypes) => {

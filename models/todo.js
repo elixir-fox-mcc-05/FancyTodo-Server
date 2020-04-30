@@ -6,11 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.init({
     title: {
-      type: DataTypes.STRING,
-      unique : {
-        args : true,
-        msg : 'title already exists'
-      }
+      type: DataTypes.STRING
     },
     description: DataTypes.STRING,
     due_date: {

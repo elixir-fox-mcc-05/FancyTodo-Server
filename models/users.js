@@ -5,7 +5,13 @@ module.exports = (sequelize, DataTypes) => {
 
   const Model = sequelize.Sequelize.Model
 
-  class User extends Model{}
+  class User extends Model{
+
+    get fullname() {
+      return `${this.first_name} ${this.last_name}`
+    }
+
+  }
   User.init({
     first_name:{ 
       type : DataTypes.STRING,
@@ -51,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   User.associate = function(models) {
-    // User.hasMany(models.Todo)
+    User.hasMany(models.Todo)
     // associations can be defined here
   };
   return User;

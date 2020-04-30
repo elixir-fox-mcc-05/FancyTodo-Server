@@ -49,8 +49,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     validate : {
       checkdate (){
-        if (this.due_date < new Date()){
-          throw new Error('due_date must before time today');
+        let today = new Date()
+        let check = new Date(this.due_date)
+        if (check.getFullYear() < today.getFullYear() || check.getMonth() < today.getMonth || check.getDate() < today.getDate()){
+          throw new Error('due_date must after time today');
         }
       }
     }

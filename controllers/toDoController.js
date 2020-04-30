@@ -3,13 +3,15 @@ const {User,Todo} = require('../models')
 // const generateToken = require('../helpers/jwt')
 const Axios = require('axios')
 
+require('cors')
+
 class ToDoController{
 
     static list(req,res){
 
 
         Todo
-            .findAll({order : [['id','ASC']], where : {UserId : req.LoginId}})
+            .findAll({order : [['id','ASC']], where : {UserId : req.LoginId},include : [User]})
             .then(data => {
                 res.status(200).json({todos : data})
             })
@@ -62,19 +64,21 @@ class ToDoController{
     }
 
     static updateToDo(req,res){
-
-        let { title, description , due_date} = req.body
-
+        let { title, description, status} = req.body
+        console.log(title, description, status)
         Todo
             .update({
                 'title' : title,
                 'description' : description,
-                'due_date' : due_date
+                'status' : status
+                //'due_date' : due_date
             }, {where : {id : req.params.id}})
             .then(data => {
+                //console.log(data)
                 return Todo.findByPk(req.params.id)
             })
             .then(data => {
+                //console.log(data)
                 if (data == null){
                     res.status(404).json({err : "id not found"})
                 }else {
@@ -82,6 +86,7 @@ class ToDoController{
                 }    
             })
             .catch(err => {
+                console.log(err.message)
                 res.status(400).json({err : err.message})
             })
     }
@@ -105,13 +110,13 @@ class ToDoController{
 
     static deleteToDo(req,res){
 
-        const p1 = Todo
-                    .findByPk(req.params.id)
-                    .then(data1 => {
-                                let results = Object.assign(data1)
-                                return results
-                             })
-                    .catch(err => res.status(404).json({error : err.message}))
+        // const p1 = Todo
+        //             .findByPk(req.params.id)
+        //             .then(data1 => {
+        //                         let results = Object.assign(data1)
+        //                         return results
+        //                      })
+        //             .catch(err => res.status(404).json({error : err.message}))
 
         const p2 = Todo
                     .destroy({where : {id : req.params.id},returning : true})
@@ -119,8 +124,8 @@ class ToDoController{
                     .catch(err => res.status(404).json({error : err}))
 
 
-        Promise.all([p2,p1]).then(data => {
-                                    res.status(200).json({todo : data[1]})
+        Promise.all([p2]).then(data => {
+                                    res.status(200).json({todo : results})
                              })
                             .catch(err => res.status(404).json({error : err}))
 

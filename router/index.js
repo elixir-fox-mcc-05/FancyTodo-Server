@@ -39,5 +39,6 @@ router.use('/todos', todos)
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/logingoogle', UserController.googleLogin);
 
 module.exports = router

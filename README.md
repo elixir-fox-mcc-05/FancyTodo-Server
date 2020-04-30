@@ -233,6 +233,93 @@ content : {error : "id not found"}
 code : 500 INTERNAL SERVER ERROR
 content : {error : "Internal Server Error"}
 
+Login
+Returns json data with auth token.
+
+URL
+
+/login
+
+Method:
+
+POST
+
+Success Response:
+
+Code: 201 CREATED
+Content:{ accessToken : ""}
+
+Error Response:
+
+code : 400 BAD REQUEST
+content : {error : "id not found"}
 
 
+Register
+add new user to database.
 
+URL
+
+/register
+
+Method:
+
+POST
+
+Success Response:
+
+Code: 201 CREATED
+Content:{ id : 2,
+          email : "blablabal@com",
+          password : "aefogiph3q4urh-f89hnseipug0eh"
+        }
+
+Error Response:
+
+code : 400 BAD REQUEST
+content : {error : "id not found"}
+
+
+Holiday List
+show list of holiday this year
+
+URL
+
+/holidays
+
+Method:
+
+GET
+
+Success Response:
+
+Code: 200 OK
+Content:[
+    "data": [
+        {
+            "name": "New Year's Day",
+            "description": "New Year’s Day is the first day of the year, or January 1, in the Gregorian calendar.",
+            "country": {
+                "id": "id",
+                "name": "Indonesia"
+            },
+            "date": {
+                "iso": "2020-01-01",
+                "datetime": {
+                    "year": 2020,
+                    "month": 1,
+                    "day": 1
+                }
+            },
+            "type": [
+                "National holiday"
+            ],
+            "locations": "All",
+            "states": "All"
+        }
+]
+
+Error Response:
+
+code : 500 INTERNAL SERVER ERROR
+content : {error : "internal server error"}

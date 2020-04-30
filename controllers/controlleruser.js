@@ -38,13 +38,12 @@ class ControllerUser{
         .then(result => {
             if(result){
                 let compare = checkPassword(password, result.password);
-
+                
                 if(compare){
                     let token = generateToken({
                         id: result.id,
                         email: result.email
                     })
-
                     res.status(200).json({
                         token
                     })

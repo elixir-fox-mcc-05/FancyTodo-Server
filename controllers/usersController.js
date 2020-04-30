@@ -39,7 +39,7 @@ class UsersController {
                         })
                         res.status(201).json({
                             token,
-                            notif: 'Welcome Back!'
+                            notif: `Welcome Back ${data.name}!`
                         })        
                     } else {
                         throw {

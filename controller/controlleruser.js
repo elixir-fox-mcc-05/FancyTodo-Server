@@ -4,11 +4,18 @@ const {generateToken} = require('../helpers/jwt')
 const verificationToken = require('../helpers/googleOauthApi')
 
 class userController {
-    static register(req, res){
-        const {email, password} = req.body
+    static register(req, res, next){
+        const {email, password, confirmPassword} = req.body
         const values = {
             email,
             password
+        }
+        if (password !== confirmPassword){
+            return next({
+                code : 400,
+                type : "Bad Request",
+                msg : "Password doesnt match"
+            })
         }
         User
             .create(values)
@@ -19,17 +26,26 @@ class userController {
                         UserEmail : result.email
                     })
                 } else {
-                    throw ({
-                        msg : "user allready exist",
-                        code : "501"
+                    return next ({
+                        code : "501",
+                        msg : "user already exist",
+                        type : "Not Implemented"
                     })
                 }
             })
             .catch(err => {
-                next(err)
+                if (err.name){
+                    return next(err)
+                } else {
+                    return next({
+                        code : 500,
+                        msg : "something went wrong",
+                        type : "internal Server Error"
+                    })
+                }
             })
     }
-    static login(req, res){
+    static login(req, res, next){
         const {email, password} = req.body
         User
             .findOne({
@@ -43,18 +59,23 @@ class userController {
                         id : result.id,
                         email : result.email
                     })
-                    res.status(200).json({
+                    res.status(202).json({
                         Token : token
                     })
                 } else {
-                    throw ({
+                    return next ({
+                        code : 404,
                         msg : "wrong email/password",
-                        code : 404
+                        type : "Not Found"
                     })
                 }
             })
             .catch(err => {
-                next(err)
+                return next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "internal Server Error"
+                })
             })
     }
     static googleLogin(req, res, next){ 
@@ -82,7 +103,7 @@ class userController {
                 }
             })
             .then(user => {
-                let code = newUser ? 200 : 200
+                let code = newUser ? 202 : 201
                 let token = generateToken({
                     id : user.id,
                     email : user.email
@@ -92,7 +113,11 @@ class userController {
                 })
             })
             .catch(err => {
-                next(err)
+                return next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
             })
     }
 }

@@ -2,7 +2,7 @@ const {Todo, User} = require('../models')
 const getWeather = require('../helpers/weather')
 
 class TodoController {
-    static findAll(req, res){
+    static findAll(req, res, next){
         const UserId = req.currentUser
         let result; 
         getWeather()
@@ -15,17 +15,29 @@ class TodoController {
                 })
             })
             .then(data => {
-                res.status(200).json({
-                    Todos : data,
-                    Weather : result
-                })
+                if (data){
+                    res.status(200).json({
+                        Todos : data,
+                        Weather : result
+                    })
+                } else {
+                    return next({
+                        code : 404,
+                        msg : "Data Not Found",
+                        type : "Not Found"
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
             })
             
     }
-    static create(req, res){
+    static create(req, res, next){
         const {title, description, due_date} = req.body
         const UserId = req.currentUser
         const values = {
@@ -37,15 +49,27 @@ class TodoController {
         Todo
             .create(values)
             .then(result => {
-                res.status(201).json({
-                    Todos : result
-                })
+                if (result){
+                    res.status(201).json({
+                        Todos : result
+                    })
+                } else {
+                    next({
+                        code : 404,
+                        msg : "Data Not Found",
+                        type : "Not Found"
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
             })
     }
-    static findOne(req, res){
+    static findOne(req, res, next){
         const {id} = req.params
         Todo.findOne({
                 where : {
@@ -53,15 +77,27 @@ class TodoController {
                 }
             })
             .then(data => {
-                res.status(200).json({
-                    Todos : data,
-                })
+                if (data){
+                    res.status(200).json({
+                        Todos : data,
+                    })
+                } else {
+                    next({
+                        code : 404,
+                        msg : "Data Not Found",
+                        type : "Not Found"
+                    })
+                }
             })
             .catch(err => {
-                console.log(err)
+                next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
             })
     }
-    static Update(req, res){
+    static Update(req, res, next){
         const {title, description, status, due_date} = req.body
         const {id} = req.params
         const values = {
@@ -77,15 +113,27 @@ class TodoController {
                 }
             })
             .then(result => {
-                res.status(201).json({
-                    Todos : result
-                })
+                if(result){
+                    res.status(201).json({
+                        Todos : result
+                    })
+                } else {
+                    next({
+                        code : 304,
+                        msg : "Cannot Modified, You are not authorized to change the file",
+                        type : "Not Modified"
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
             })
     }
-    static delete(req, res){
+    static delete(req, res, next){
         const {id} = req.params
         Todo
             .destroy({
@@ -94,12 +142,24 @@ class TodoController {
                 }
             })
             .then(result => {
-                res.status(202).json({
-                    msg : `Completely Destroy Todo ${id}`
-                })
+                if(result){
+                    res.status(202).json({
+                        msg : `Completely Destroy Todo ${id}`
+                    })
+                } else {
+                    next({
+                        code : 403,
+                        msg : "You Doesn't allow to delete this file",
+                        type : "Forbidden"
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
             })
     }
 }

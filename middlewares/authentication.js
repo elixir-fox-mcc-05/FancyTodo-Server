@@ -13,15 +13,20 @@ function authentication(req, res, next){
                     req.currentUser = id
                     next()
                 } else {
-                    throw ({
+                    next ({
                         msg : "Please Login First",
-                        code : 401
+                        code : 401,
+                        type : "Unauthorized"
                     })
                 }
             })
 
     } catch (err) {
-        next(err)
+        next({
+            msg : "Something Went Wrong",
+            code : 500,
+            type : "Internal Server Error"
+        })
     }
 }
 

@@ -2,7 +2,6 @@ const {Todo} = require('../models')
 
 function authorization(req, res, next) {
     let { id } = req.params
-    console.log(req.params)
     Todo
         .findByPk(id)
         .then(result => {
@@ -10,20 +9,26 @@ function authorization(req, res, next) {
                 if(result.UserId === req.currentUser){
                     next()
                 } else {
-                    throw ({
-                        msg : "Not Found",
-                        code : 404
+                    next ({
+                        msg : "You are not authorized to do this",
+                        type : "Not Authorize",
+                        code : 401
                     })
                 }
             } else {
                 throw ({
-                    msg : "Not Authorize",
-                    code : 401
+                    msg : "You are not authorized to do this",
+                    code : 401,
+                    type : "Not Authorize"
                 })
             }
         })
         .catch(err => {
-            next(err)
+            next({
+                msg : "Something Went Wrong",
+                code : 500,
+                type : "Internal Server Error"
+            })
         })
 }
 

@@ -59,11 +59,11 @@ class TodosController {
 
     static updateTodo (req, res, next) {
         let { id } = req.params
-        let {title, description, status, due_date} = req.body
+        let {title, description, due_date} = req.body
         Todo.update({
             title,
             description,
-            status,
+            status: false,
             due_date
         }, {
             where: {

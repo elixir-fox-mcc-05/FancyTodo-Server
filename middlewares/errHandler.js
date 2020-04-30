@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
             } else if(el.message == 'Validation len on title failed') {
                 newErr.push('Please input title from 3-40 characters')
             } else if(el.message == 'Validation isAfter on due_date failed') {
-                newErr.push('Please Due date must be greater than today')
+                newErr.push('Please input due date which is greater than today')
             } else if(el.message == 'Validation len on description failed') {
                 newErr.push('Please input description from 3-150 characters')
             }

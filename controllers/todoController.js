@@ -68,16 +68,12 @@ class TodoController {
         const { id } = req.params
         let { title, description, due_date } = req.body
         if (due_date) due_date = new Date(due_date)
-        console.log('Masuk Update()');        
-        console.log(due_date, description);
 
         Todo.findByPk(+id)
             .then(todo => {                
                 if (!title) title = todo.title;
                 if (!description) description = todo.description; 
                 if (!due_date) due_date = todo.due_date;
-
-                console.log(due_date, description, 'Setelah findByPk');
 
                 Todo.update({
                     title,
@@ -98,17 +94,12 @@ class TodoController {
                         msg: `Todo dengan id ${id} tidak ditemukan`
                     })
                 })
-
             })
             .catch(error => {
                 res.status(404).json({
                     msg: `Todo dengan id ${id} tidak ditemukan`
                 })
-            })
-            
-        
-
-
+            })       
     }
 
     static destroy(req, res) {

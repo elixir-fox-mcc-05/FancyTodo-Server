@@ -11,3 +11,12 @@ function compare_password(password, hash) {
 }
 
 module.exports = { generate_password, compare_password  }
+
+let hashed = generate_password('hi!google')
+let pass = compare_password('hi!google', hashed)
+
+console.log(
+    hashed,
+    '\n',
+    pass
+    )

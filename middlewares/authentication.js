@@ -1,9 +1,10 @@
 const {verify} = require('../helpers/jwt')
 const {User} = require('../models')
 
-function auth(req, res, next) {
+function authentication(req, res, next) {
     const { token } = req.headers
     let decode = verify(token)
+    console.log(decode)
     User.findByPk(decode.id)
         .then(data => {
             if (data) {
@@ -23,4 +24,4 @@ function auth(req, res, next) {
 }
 
 
-module.exports = auth
+module.exports = authentication

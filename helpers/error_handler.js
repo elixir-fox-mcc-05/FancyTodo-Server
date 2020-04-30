@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-    console.log(err.name)
+    console.log(err.message)
     if(err.name == 'SequelizeValidationError'
     || err.name == 'JsonWebTokenError'
     || err.name == 'ReferenceError') {

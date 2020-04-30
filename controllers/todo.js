@@ -4,12 +4,13 @@ const send = require('../helpers/nodemailer')
 class FancyTodo {
     static add(req, res, next) {
         const { UserId } = req
+        console.log(req.UserId)
         const { title, description, status, due_date } = req.body
         Todo.create({ title, description, status, due_date, UserId })
             .then(data => {
                 User.findByPk(UserId)
                     .then(user => {
-                        send(user.email, title, due_date)
+                        send(user.email, title, due_date) // helpers 
                         res
                           .status(201)
                           .json({ new_data: data }) 
@@ -22,6 +23,10 @@ class FancyTodo {
                 next(err)
             })
     }   
+
+
+
+
 
     static show(req, res, next) {
         const { UserId } = req
@@ -71,7 +76,7 @@ class FancyTodo {
                       .status(204)
                       .json({ msg: `success delete with id ${id}` })
                 } else {
-                    next(errr)
+                    next(err)
                 }
             })
             .catch(err => { 

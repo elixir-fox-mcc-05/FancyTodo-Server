@@ -40,13 +40,19 @@ module.exports = (sequelize, DataTypes) => {
     due_date: { 
       type : DataTypes.DATE,
       validate : {
+        notEmpty : {
+          args : true,
+          msg : "Please insert due date!"
+        },
         isDate: {
           args : true,
           msg : "Please insert correct date format yyyy-mm-dd!"
         },
-        isAfter: {
-          args : `"${new Date().getFullYear()}-${new Date().getMonth() < 10 ? "0" + new Date().getMonth() : new Date().getMonth()}-${new Date().getDate() < 10 ? "0"+new Date().getDate() : new Date().getDate()}"`,
-          msg : "Due date minimum is today"
+        isNotBefore(value) {
+          
+          if (value < new Date()) {
+            throw new Error("Due date minimum is tomorrow")
+          }
         }
       }
     },

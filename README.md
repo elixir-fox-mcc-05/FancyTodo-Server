@@ -10,6 +10,7 @@
 | /todos            | POST          |
 | /todos/:id        | GET           |
 | /todos/:id        | PUT           |
+| /todos/:id        | PATCH         |
 | /todos/:id        | DELETE        |
 | /public-holidays  | GET           |
 <br><br>
@@ -43,20 +44,38 @@
         }
     ```
 * error response: <br>
-    * code: 400 <br>
+    * code: 401 <br>
     * content: <br>
     ```javascript
     {
-        "msg": "please input data as required"
+        "err": "Please input name with minimum 3 characters"
     }
     ```
 
     OR
-    * code: 400 <br>
+    * code: 401 <br>
     * content: <br>
     ```javascript
     {
-        "msg": "please make sure your email never registered before"
+        "err": "Please input the correct email"
+    }
+    ```
+
+    OR
+    * code: 401 <br>
+    * content: <br>
+    ```javascript
+    {
+        "err": "Please input password from 6-20 characters"
+    }
+    ```
+
+    OR
+    * code: 401 <br>
+    * content: <br>
+    ```javascript
+    {
+        "err": "Please make sure your email never registered here before"
     }
     ```
 
@@ -65,7 +84,7 @@
     * content: <br>
     ```javascript
     {
-        "msg": "internal server error"
+        "err": "internal server error"
     }
     ```
 
@@ -88,7 +107,8 @@
     * content: <br>
     ```javascript
         {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b25vQGNvbnRvaC5jb20iLCJpYXQiOjE1ODgwNTk1OTl9.czlkTrQIkGR3tfLF4AfATex5iCI5MoqhiZNMdQd_eec"
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b25vQGNvbnRvaC5jb20iLCJpYXQiOjE1ODgwNTk1OTl9.czlkTrQIkGR3tfLF4AfATex5iCI5MoqhiZNMdQd_eec",
+            "notif": "Welcome back fullname!"
         }
     ```
 * error response: <br>
@@ -96,10 +116,7 @@
     * content: <br>
     ```javascript
         {
-            "err": {
-                "msg": "Please input registered email",
-                "code": 401
-            }
+            "err": "Please input registered email",
         }
     ```
 
@@ -109,10 +126,7 @@
     * content: <br>
     ```javascript
         {
-            "err": {
-                "msg": "Please input correct password",
-                "code": 401
-            }
+            "err": "Please input correct password",
         }
     ```
 
@@ -121,7 +135,7 @@
     * content: <br>
     ```javascript
     {
-        "msg": "internal server error"
+        "err": "internal server error"
     }
     ```
 
@@ -172,7 +186,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "please login first"
+            "err": "please login first"
         }
         ```
     OR
@@ -181,7 +195,7 @@
     * content: <br>
         ```javascript
         {
-            "error": "internal server error"
+            "err": "internal server error"
         }
         ```
 
@@ -220,15 +234,32 @@
                 "updatedAt": "2020-04-27T05:44:14.609Z",
                 "createdAt": "2020-04-27T05:44:14.609Z",
                 "status": false
-            }
+            },
+            "notif": 'Todo successfully created!'
         }
         ```
 * error response: <br>
-    * code: 400 <br>
+    * code: 401 <br>
     * content: <br>
     ```javascript
         {
-            "msg": "please input data as required",
+            "err": "Please input title from 3-40 characters",
+        }
+    ```
+    OR
+    * code: 401 <br>
+    * content: <br>
+    ```javascript
+        {
+            "err": "Please input due date which is greater than today",
+        }
+    ```
+    OR
+    * code: 401 <br>
+    * content: <br>
+    ```javascript
+        {
+            "err": "Please input description from 3-150 characters",
         }
     ```
 
@@ -238,7 +269,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "internal server error"
+            "err": "internal server error"
         }
         ```
 
@@ -278,7 +309,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "Todo not found"
+            "err": "Todo not found"
         }
         ```
 
@@ -288,7 +319,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "unauthorized"
+            "err": "please login first"
         }
         ```
 
@@ -297,7 +328,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "internal server error"
+            "err": "internal server error"
         }
         ```
 
@@ -329,7 +360,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "Todo with id 5 successfully updated"
+            "notif": "Todo with id 5 successfully updated"
         }
         ```
 * error response: <br>
@@ -337,7 +368,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "Todo not found"
+            "err": "Todo not found"
         }
         ```
 
@@ -347,7 +378,87 @@
     * content: <br>
         ```javascript
         {
-            "msg": "unauthorized"
+            "err": "please login first"
+        }
+        ```
+
+    OR
+
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "err": "Please input title from 3-40 characters"
+        }
+        ```
+
+    OR
+
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "err": "Please input due date which is greater than today"
+        }
+        ```
+
+    OR
+
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "err": "Please input description from 3-150 characters"
+        }
+        ```
+    
+    OR
+    * code: 500 <br>
+    * content: <br>
+        ```javascript
+        {
+            "err": "internal server error"
+        }
+        ```
+
+<br><br>
+
+-----
+## /todos/:id
+-----
+* method: PATCH
+* purpose: Check/uncheck your todo list
+* request headers: <br>
+    ```javascript
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b25vQGNvbnRvaC5jb20iLCJpYXQiOjE1ODgwNTk1OTl9.czlkTrQIkGR3tfLF4AfATex5iCI5MoqhiZNMdQd_eec"
+        }
+    ```
+* request params: id <br>
+* success response: <br>
+    * code: 200 <br>
+    * content: <br>
+        ```javascript
+        {
+            "notif": `Status of Todo with id 5 successfully changed!`
+        }
+        ```
+* error response: <br>
+    * code: 404 <br>
+    * content: <br>
+        ```javascript
+        {
+            "err": "Todo not found"
+        }
+        ```
+
+    OR
+
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "err": "please login first"
         }
         ```
 
@@ -356,11 +467,12 @@
     * content: <br>
         ```javascript
         {
-            "msg": "internal server error"
+            "err": "internal server error"
         }
         ```
 
 <br><br>
+
 
 -----
 ## /todos/:id
@@ -379,7 +491,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "Todo with id 5 successfully deleted"
+            "notif": "Todo with id 5 successfully deleted"
         }
         ```
 * error response: <br>
@@ -387,7 +499,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "Todo not found"
+            "err": "Todo not found"
         }
         ```
 
@@ -397,7 +509,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "unauthorized"
+            "err": "please login first"
         }
         ```
 
@@ -406,7 +518,7 @@
     * content: <br>
         ```javascript
         {
-            "msg": "internal server error"
+            "err": "internal server error"
         }
         ```
 <br><br>
@@ -463,6 +575,6 @@
     * content: <br>
         ```javascript
         {
-            "msg": "internal server error"
+            "err": "internal server error"
         }
         ```

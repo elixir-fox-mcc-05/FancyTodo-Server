@@ -40,10 +40,10 @@ class UserController {
                             id: result.id,
                             email: result.email
                         })
-                        res.status(200).json({token});
+                        res.status(201).json({token, id:result.id, email:result.email});
                     }
                     else {
-                        return next({
+                        throw next({
                             name: `BadRequest`,
                             errors: [{
                                 msg: `Invalid E-Mail/Password`
@@ -52,7 +52,7 @@ class UserController {
                     }
                 }
                 else {
-                    return next({
+                    throw next({
                         name: `BadRequest`,
                         errors: [{
                             msg: `Invalid E-Mail/Password`

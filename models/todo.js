@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          args: true,
+          msg: "Title is required"
+        },
         notEmpty: {
           args: true,
           msg: "This field cannot be empty"
@@ -17,7 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          args: true,
+          msg: "Description is required"
+        },
         notEmpty: {
           args: true,
           msg: "This field cannot be empty"
@@ -27,15 +37,58 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Status is required"
+        },
+        notEmpty: {
+          args: true,
+          msg: "This field cannot be empty"
+        },
+        isIn: {
+          args : [['true', 'false']],
+          msg : "This field is true or false only"
+        }
+      }
     },
     due_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Due_date is required"
+        },
+        notEmpty: {
+          args: true,
+          msg: "This field cannot be empty"
+        },
+        isDate: {
+          args : true,
+          msg : "This field is date format yyyy-mm-dd"
+        },
+        isDueDate(value){
+          if (value < new Date()){
+            throw new Error("Due date is after today")
+          }
+        }
+      }
     },
     UserId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "UserId is required"
+        },
+        notEmpty: {
+          args: true,
+          msg: "This field cannot be empty"
+        }
+      }
     }
   },
   {

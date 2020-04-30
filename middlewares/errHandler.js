@@ -12,6 +12,12 @@ module.exports = (err, req, res, next) => {
                 Message : "Password must be from 8 - 50 characters",
                 Detail : err
             })
+        } else if(err.errors[0].path === "due_date"){
+            return res.status(400).json ({
+                Error : err.name,
+                Message : "Only present to the future date is allowed",
+                Detail : err
+            })
         }
     } else if (err.name === "SequelizeUniqueConstraintError"){
         return res.status(400).json ({

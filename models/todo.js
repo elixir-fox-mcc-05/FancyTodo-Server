@@ -6,7 +6,12 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATEONLY,
+    due_date: {
+      type : DataTypes.DATEONLY,
+      validate : {
+        isAfter : new Date().toISOString().split('T')[0]
+      }
+    },
     UserId : {
       type : DataTypes.INTEGER,
       references : {

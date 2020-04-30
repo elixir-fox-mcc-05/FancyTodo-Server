@@ -95,6 +95,47 @@ class userController {
                 if(user){
                     return user
                 } else {
+                    newUser = true
+                    return User
+                        .create({
+                            email,
+                            password : process.env.Default_user_password
+                        })
+                }
+            })
+            .then(user => {
+                let code = newUser ? 202 : 201
+                let token = generateToken({
+                    id : user.id,
+                    email : user.email
+                })
+                res.status(code).json({
+                    Token : token
+                })
+            })
+            .catch(err => {
+                return next({
+                    code : 500,
+                    msg : "Something Went Wrong",
+                    type : "Internal Server Error"
+                })
+            })
+    }
+    static facebookLogin(req, res, next){ 
+        const {email} = req.headers
+        // let email = null
+        let newUser = false
+        console.log(email)
+        User.findOne({
+                where : {
+                    email
+                }
+            })
+            .then(user => {
+                if(user){
+                    return user
+                } else {
+                    newUser = true
                     return User
                         .create({
                             email,

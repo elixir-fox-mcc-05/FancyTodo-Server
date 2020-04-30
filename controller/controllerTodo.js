@@ -29,7 +29,7 @@ class TodoController {
                 }
             })
             .catch(err => {
-                next({
+                return next({
                     code : 500,
                     msg : "Something Went Wrong",
                     type : "Internal Server Error"
@@ -54,7 +54,7 @@ class TodoController {
                         Todos : result
                     })
                 } else {
-                    next({
+                    return next({
                         code : 404,
                         msg : "Data Not Found",
                         type : "Not Found"
@@ -62,7 +62,7 @@ class TodoController {
                 }
             })
             .catch(err => {
-                next({
+                return next({
                     code : 500,
                     msg : "Something Went Wrong",
                     type : "Internal Server Error"
@@ -82,7 +82,7 @@ class TodoController {
                         Todos : data,
                     })
                 } else {
-                    next({
+                    return next({
                         code : 404,
                         msg : "Data Not Found",
                         type : "Not Found"
@@ -90,7 +90,7 @@ class TodoController {
                 }
             })
             .catch(err => {
-                next({
+                return next({
                     code : 500,
                     msg : "Something Went Wrong",
                     type : "Internal Server Error"
@@ -118,7 +118,7 @@ class TodoController {
                         Todos : result
                     })
                 } else {
-                    next({
+                    return next({
                         code : 304,
                         msg : "Cannot Modified, You are not authorized to change the file",
                         type : "Not Modified"
@@ -126,11 +126,15 @@ class TodoController {
                 }
             })
             .catch(err => {
-                next({
-                    code : 500,
-                    msg : "Something Went Wrong",
-                    type : "Internal Server Error"
-                })
+                if(err.name){
+                    return next(err)
+                } else {
+                    return next({
+                        code : 500,
+                        msg : "Something Went Wrong",
+                        type : "Internal Server Error"
+                    })
+                }
             })
     }
     static delete(req, res, next){
@@ -147,7 +151,7 @@ class TodoController {
                         msg : `Completely Destroy Todo ${id}`
                     })
                 } else {
-                    next({
+                    return next({
                         code : 403,
                         msg : "You Doesn't allow to delete this file",
                         type : "Forbidden"
@@ -155,7 +159,7 @@ class TodoController {
                 }
             })
             .catch(err => {
-                next({
+                return next({
                     code : 500,
                     msg : "Something Went Wrong",
                     type : "Internal Server Error"

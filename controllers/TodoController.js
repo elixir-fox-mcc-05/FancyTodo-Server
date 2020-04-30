@@ -34,11 +34,13 @@ class TodoController {
     }
 
     static add(req, res, next) {
+        let date = new Date(req.body.due_date)
+        let newdate = `${date.getMonth()} ${date.getDate()} ${date.getFullYear()} 23:59:59`
         let payload = {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date,
+            due_date: new Date(newdate),
             UserId: req.currentUserId
         }
         Todo.create(payload)
@@ -52,11 +54,13 @@ class TodoController {
 
     static edit(req, res, next) {
         let id = +req.params.id
+        let date = new Date(req.body.due_date)
+        let newdate = `${date.getMonth()} ${date.getDate()} ${date.getFullYear()} 23:59:59`
         let payload = {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date,
+            due_date: new Date(newdate),
             UserId: req.currentUserId
         }
         Todo.findOne({ where: { id } })
@@ -68,6 +72,7 @@ class TodoController {
                 })
             })
             .then((result) => {
+                console.log('berhasil update')
                 return res.status(200).json({
                     title: req.body.title,
                     description: req.body.description,
@@ -77,14 +82,6 @@ class TodoController {
                 })
             })
             .catch((err) => {
-                // if (err.name == 'SequelizeValidationError') {
-                //     next(err)
-                // } else {
-                //     next({
-                //         name: 'InternalServerError',
-                //         errors: [{ msg: err }]
-                //     })
-                // }
                 next(err)
             })
     }

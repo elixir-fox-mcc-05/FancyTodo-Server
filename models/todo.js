@@ -45,8 +45,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             validate: {
                 checkDueDate() {
-                    if (this.due_date < new Date()) {
+                    if (new Date(this.due_date).getTime < new Date().getTime) {
                         throw new Error('Error Date cannot be past time.')
+                    } else {
+                        console.log('lolos')
                     }
                 },
                 notNull: {

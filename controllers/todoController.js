@@ -30,7 +30,8 @@ class ToDoController {
         let options = {
             where : {
                 UserId : req.loggedInUserId
-            }
+            },
+            order : [["id", "desc"]]
         };
 
         ToDo

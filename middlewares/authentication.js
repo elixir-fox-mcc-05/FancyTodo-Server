@@ -25,6 +25,7 @@ const authentication = (req, res, next) => {
             })            
     } catch (error) {
         res.status(401).json({
+            msg: '@ Authentication',
             error
         })
     }

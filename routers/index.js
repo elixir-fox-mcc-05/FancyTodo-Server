@@ -4,8 +4,8 @@ const userRouter = require('./users')
 const holidayRouter = require('./indonesianHolidays')
 const weatherRouter = require('./jakartaWeathers')
 
+router.use('/', userRouter)
 router.use('/todos', todoRouter)
-router.use('/users', userRouter)
 router.use('/holidays', holidayRouter)
 router.use('/weathers', weatherRouter)
 

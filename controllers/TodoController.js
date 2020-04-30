@@ -14,7 +14,7 @@ class TodoController {
     axios.get('https://www.metaweather.com/api/location/1047378/')
       .then(result => {
         weather = result.data;
-        return  Todo.findAll(options)
+        return Todo.findAll(options)
       })
       .then(data => {
         res.status(200).json({

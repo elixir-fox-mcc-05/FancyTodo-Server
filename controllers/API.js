@@ -13,6 +13,7 @@ class API {
 
             })
             .then((data) => {
+                console.log('success load schedule')
                 return res.status(200).json({ data })
             })
             .catch((err) => {
@@ -25,7 +26,6 @@ class API {
             let KEY = process.env.ACCESS_KEY
             axios.get(`http://api.ipstack.com/${ip}?access_key=${KEY}`)
                 .then((result) => {
-                    console.log(result.data.ip);
                     let data = {
                         city: result.data.city,
                         ip: result.data.ip
@@ -40,11 +40,12 @@ class API {
 
     static getSchedule(payload) {
         return new Promise((resolve, reject) => {
+            console.log('test kecepatan schedule');
             let AP_ID = process.env.AP_ID
-            axios
-                .get(`https://muslimsalat.com/${payload.city}.json?key=${AP_ID}`)
+            console.log(AP_ID)
+            let city = payload.city
+            axios.get('https://muslimsalat.com/' + city + '.json?key=' + AP_ID)
                 .then((result) => {
-                    console.log('masuk show');
                     let data = {
                         ip: payload.ip,
                         data: result.data

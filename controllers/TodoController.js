@@ -21,7 +21,10 @@ class TodoController {
 
     static findAll(req, res, next) {
         const options = {
-            orderBy: 'id'
+            orderBy: 'id',
+            where: {
+                UserId: req.currentUserId
+            }
         }
         Todo.findAll(options)
             .then(todo => {
@@ -57,7 +60,7 @@ class TodoController {
             })
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         const id = Number(req.params.id);
         const { title, description, due_date } = req.body;
         const options = {

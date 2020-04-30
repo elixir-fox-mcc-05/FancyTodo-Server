@@ -155,7 +155,7 @@ Create a ToDo and show new Added ToDo if success
             "title": "nugas lagi",
             "description": "nugas lagi dan lagi",
             "status": false,
-            "due_date": "2020-04-28T00:00:00.000Z",
+            "due_date": "2020-04-28",
             "UserId": 1,
             "updatedAt": "2020-04-28T14:45:28.762Z",
             "createdAt": "2020-04-28T14:45:28.762Z"
@@ -239,21 +239,21 @@ Show All ToDo if success
     {
         "ToDos": [
             {
-                "id": 1,
+                "id": 2,
                 "title": "nugas lagi",
                 "description": "nugas lagi dan lagi",
                 "status": false,
-                "due_date": "2020-04-28T00:00:00.000Z",
+                "due_date": "2020-04-28",
                 "UserId": 1,
                 "createdAt": "2020-04-28T14:45:28.762Z",
                 "updatedAt": "2020-04-28T14:45:28.762Z"
                 },
                 {
-                "id": 2,
+                "id": 1,
                 "title": "tidur",
                 "description": "bangun terus tidur lagi",
                 "status": false,
-                "due_date": "2020-04-29T00:00:00.000Z",
+                "due_date": "2020-04-29",
                 "UserId": 1,
                 "createdAt": "2020-04-28T14:50:08.731Z",
                 "updatedAt": "2020-04-28T14:50:08.731Z"
@@ -311,7 +311,7 @@ Show a ToDo by Id
             "title": "nugas lagi",
             "description": "nugas lagi dan lagi",
             "status": false,
-            "due_date": "2020-04-28T00:00:00.000Z",
+            "due_date": "2020-04-28",
             "UserId": 1,
             "createdAt": "2020-04-28T14:45:28.762Z",
             "updatedAt": "2020-04-28T14:45:28.762Z"
@@ -387,7 +387,7 @@ Update a ToDo by Id and show new Updated ToDo if success
             "title": "ganti jadi apa ya",
             "description": "hmm apa dong",
             "status": false,
-            "due_date": "2020-03-28T00:00:00.000Z",
+            "due_date": "2020-03-28",
             "createdAt": "2020-04-28T14:45:28.762Z",
             "updatedAt": "2020-04-28T14:59:42.944Z",
             "UserId": 1
@@ -456,7 +456,7 @@ Delete a ToDo by Id and show a deleted ToDo if success
             "title": "nugas lagi",
             "description": "nugas lagi dan lagi",
             "status": false,
-            "due_date": "2020-04-28T00:00:00.000Z",
+            "due_date": "2020-04-28",
             "UserId": 1,
             "createdAt": "2020-04-28T14:45:28.762Z",
             "updatedAt": "2020-04-28T14:45:28.762Z"

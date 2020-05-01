@@ -1,10 +1,13 @@
 const { User } = require('../models')
 const {get_token} = require('../helpers/jwt')
+const {generate_password, compare_password} = require('../helpers/bcrypt')
 const verification_google = require('../helpers/google-auth')
 
 class UserController {
     static register(req, res, next) {
         let { email, password } = req.body
+        password = generate_password(password)
+
         User.create({ email, password })
             .then(data => {
                 res
@@ -18,20 +21,21 @@ class UserController {
 
     static login(req, res, next) {
         let { email, password } = req.body
-        User.findOne({ where: { email, password } })
-        .then(data => {
-            if (data) {
-                let token = (get_token(data.dataValues))
-                    res
-                      .status(200)
-                      .json({ token })
+            User.findOne({ where: { email } })
+            .then(data => {
+                let access = compare_password(password, data.password)
+                if (access) {
+                    let token = (get_token(data.dataValues))
+                        res
+                          .status(200)
+                          .json({ token })
                 } else {
                     next(err)
                 }
             })
-            .catch(err => {-
-                next(err)
-            })
+        .catch(err => {-
+            next(err)
+        })
     }
 
     static google_signin(req, res, next) {

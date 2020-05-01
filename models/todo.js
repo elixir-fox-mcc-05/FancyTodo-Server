@@ -56,6 +56,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'cascade',
       onDelete: 'cascade'
+    },
+    ProjectId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Projects",
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
     }
   }, {
     hooks: {
@@ -71,6 +80,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.associate = function(models) {
     Todo.belongsTo(models.User);
+    Todo.belongsTo(models.Project);
   };
   return Todo;
 };

@@ -34,7 +34,7 @@ class PublicApiController {
                 let result = {};
                 if (country === 'Global') {
                     res.status(200).json({
-                        data: response.data.Global
+                        country: response.data.Global
                     })
                 } else {
                     response.data.Countries.forEach(nation => {

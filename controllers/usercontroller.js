@@ -4,6 +4,9 @@ const { User } = require(`../models`)
 const { compare } = require(`../helpers/bcrypt`)
 const { generateToken } = require(`../helpers/jwt`)
 const mailer = require(`../helpers/mailer`)
+const  googleAuth = require(`../helpers/gauth`)
+
+require('dotenv').config()
 
 class UserController {
 
@@ -103,7 +106,7 @@ class UserController {
                         })
                     }
                 } else {
-                    throw res.status(401).json({
+                    res.status(401).json({
                         Error : {
                             message : `Unregistered email`
                         }
@@ -117,6 +120,63 @@ class UserController {
             })
     }
 
+    static getNick( req, res) {
+        User.findOne ({
+            where : {
+                id : req.UserId
+            }
+        })
+        .then( result => {
+            res.status(201).json ({
+                nickname : result.nickname
+            })
+        })
+        .catch( err => {
+            res.status(500).json({
+                message : err
+            })
+        }) 
+    }
+
+    static googleSign( req, res, next) {
+        let token = req.headers.google_token;
+        // console.log(token)
+        googleAuth(token)
+            .then ( data => {
+                return User
+                    .findOne({
+                        where : {
+                            email : data.email
+                        }
+                    })
+                    .then( result => {
+                        if(result){
+                            return result;
+                        } else {
+                            return User.create({
+                                nickname : data.given_name,
+                                email : data.email,
+                                password : process.env.GAuth_pass
+                            })
+                        }
+                    })
+            })
+            .then( result => {
+                let newToken = {
+                    UserId : result.id
+                }
+                res.json({
+                    token : generateToken(newToken)
+                })
+            })
+            .catch( err => {
+                res.status(500).json({
+                    err
+                })
+            })  
+
+        
+    }
 
 }
 

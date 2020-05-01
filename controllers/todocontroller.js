@@ -1,6 +1,7 @@
 'use strict';
 
 const { Todo } = require(`../models`)
+const { Op } = require("sequelize");
 
 class TodoController {
 
@@ -24,9 +25,32 @@ class TodoController {
         Todo.findAll({
             where : {
                 UserId : req.UserId
-            }
+            },
+            order : [
+                [`due_date`, `asc`]
+            ]
         })
         .then (result => {
+            for(let i = 0; i < result.length; i++) {
+            if(result[i].due_date < new Date() && result[i].status !== `completed`){
+                    Todo.update({
+                        status : `expired`
+                    }, {
+                        where : {
+                            id : result[i].id,
+                            status : {
+                                [Op.not] : `completed`
+                            }
+                        }
+                    }).catch(err=> {
+                        console.log(err)
+                        res.status(500).json({
+                            message : err
+                        })
+                    });
+                    result[i].status = `expired`
+                }
+            }
             res.status(200).json({
                 Todo : result
             });
@@ -58,11 +82,12 @@ class TodoController {
     }
 
     static updateTodo ( req, res) {
-        const { title, description, status } = req.body
+        const { title, description, status, due_date} = req.body
         Todo.update({
             title,
             description,
-            status
+            status,
+            due_date
         }, {
             where : {
                 id : Number(req.params.id),
@@ -100,6 +125,90 @@ class TodoController {
         .catch ( err => {
             res.status(500).json({
                 Error : err
+            });
+        })
+    }
+
+    static setActive ( req, res) {
+        const { id } = req.params
+        Todo.update({
+            status : `active`
+        }, {
+            where : {
+                id : Number(id),
+                UserId : req.UserId
+            }
+        })
+        .then (result => {
+            if(result){
+                res.status(200).json({
+                    result
+                });
+            } else {
+                res.status(401).json({
+                    message : `invalid request`
+                })
+            }
+        })
+        .catch ( err => {
+            res.status(501).json({
+                err
+            });
+        })
+    }
+
+    static setQueue ( req, res) {
+        const { id } = req.params
+        Todo.update({
+            status : `queued`
+        }, {
+            where : {
+                id : Number(id),
+                UserId : req.UserId
+            }
+        })
+        .then (result => {
+            if(result){
+                res.status(200).json({
+                    result
+                });
+            } else {
+                res.status(401).json({
+                    message : `invalid request`
+                })
+            }
+        })
+        .catch ( err => {
+            res.status(501).json({
+                err
+            });
+        })
+    }
+
+    static setComplete ( req, res) {
+        const { id } = req.params
+        Todo.update({
+            status : `completed`
+        }, {
+            where : {
+                id : Number(id),
+                UserId : req.UserId
+            }
+        })
+        .then (result => {
+            if(result){
+                res.status(200).json({
+                    result
+                });
+            } else {
+                res.status(401).json({
+                    message : `invalid request`
+                })
+            }
+        })
+        .catch ( err => {
+            res.status(501).json({
+                err
             });
         })
     }

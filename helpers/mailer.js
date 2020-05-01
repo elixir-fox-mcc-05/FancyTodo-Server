@@ -1,14 +1,15 @@
 'use strict'
 
 const nodemailer = require('nodemailer');
+require('dotenv').config()
 
 function sendMails (target, subject, message){
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'excavadm@gmail.com',
-          pass: '12345poiuy' // naturally, replace both with your real credentials or an application-specific password
+          user: process.env.mailuser,
+          pass: process.env.mailpass 
         }
       });
     

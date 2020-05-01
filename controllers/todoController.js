@@ -8,7 +8,7 @@ class ToDoController {
         let values = {
             title : req.body.title,
             description : req.body.description,
-            status : req.body.status,
+            status : req.body.status, // default value of status = false
             due_date : req.body.due_date,
             UserId : req.loggedInUserId
         }

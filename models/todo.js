@@ -46,12 +46,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         isDate: {
           args : true,
-          msg : "Please insert correct date format yyyy-mm-dd!"
+          msg : "Please insert correct date format!"
         },
         isNotBefore(value) {
           
           if (value < new Date()) {
-            throw new Error("Due date minimum is tomorrow")
+            throw new Error("Hey, due date minimum is tomorrow")
           }
         }
       }

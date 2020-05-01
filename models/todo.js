@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         isDate: {
           args: true,
           msg: 'Due Date must in sting'
-        },
+        }
       }
     },
     UserId: DataTypes.INTEGER

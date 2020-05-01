@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
         return res.status(401).json({
             name: `Unauthorized`,
             errors: [{
-                message: `Unauthorized. Please login first`
+                msg: `Unauthorized. Please login first`
             }]
         })
     }
@@ -26,7 +26,7 @@ module.exports = (err, req, res, next) => {
         return res.status(400).json({
             name: `BadRequest`,
             errors: [{
-                message: err.message
+                msg: err.message
             }]
         })
     }
@@ -34,7 +34,7 @@ module.exports = (err, req, res, next) => {
         return res.status(404).json({
             name: `NotFound`,
             errors: [{
-                message: err.message
+                msg: err.message
             }]
         })
     }
@@ -42,7 +42,7 @@ module.exports = (err, req, res, next) => {
         return res.status(401).json({
             name: `Unauthorized`,
             errors: [{
-                message: err.message
+                msg: err.message
             }]
         })
     }
@@ -50,7 +50,7 @@ module.exports = (err, req, res, next) => {
         return res.status(500).json({
             name: `InternalServerError`,
             errors: [{
-                message: err.message
+                msg: err.message
             }]
         })
     }

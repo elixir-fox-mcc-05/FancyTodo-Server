@@ -64,10 +64,14 @@ class UserController {
         let google_token = req.headers.google_token;
         let email = null;
         let newUser = false;
+        let first_name = null;
+        let last_name = null
     
         googleVerification(google_token)
           .then(payload => {
             email = payload.email;
+            first_name = payload.given_name;
+            last_name = payload.family_name
             console.log('payload: ', payload)
             console.log('emaul: ', email)
             return User
@@ -84,6 +88,8 @@ class UserController {
               newUser = true;
               return User
                 .create({
+                    first_name,
+                    last_name,
                   email,
                   password: process.env.DEFAULT_GOOGLE_PASSWORD
                 });

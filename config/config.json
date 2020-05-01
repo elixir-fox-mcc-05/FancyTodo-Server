@@ -1,0 +1,24 @@
+{
+    "development": {
+        "username": "postgres",
+        "password": "admin",
+        "database": "db_fancytodo",
+        "host": "127.0.0.1",
+        "dialect": "postgres"
+    },
+    "test": {
+        "username": "root",
+        "password": null,
+        "database": "database_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "operatorsAliases": false
+    },
+    "production": {
+        "username": "ecftazffavrvzz",
+        "password": "1738c04329ff98094b2bef17e40ebcd689d792ffad046019784d5c7e3f786a89",
+        "database": "d74r7j3gtgucs3",
+        "host": "ec2-18-235-20-228.compute-1.amazonaws.com",
+        "dialect": "postgres"
+    }
+}

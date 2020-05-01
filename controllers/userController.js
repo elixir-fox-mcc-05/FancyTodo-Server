@@ -2,7 +2,7 @@ const Model = require("../models");
 const User = Model.User;
 const { checkPassword } = require("../helpers/bcrypt.js");
 const { generateToken } = require("../helpers/jwt.js");
-
+const googleVerification = require("../helpers/googleOauthAPI.js");
 
 class UserController {
 
@@ -28,7 +28,7 @@ class UserController {
     }
 
     static login (req, res, next) {
-        
+
         let values = {
             email : req.body.email,
             password : req.body.password
@@ -70,6 +70,51 @@ class UserController {
                         message : "Opps!, invalid email / password"
                     }
                 }
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static googleLogin (req, res, next) {
+
+        let google_token = req.headers.google_token
+        let email = null;
+        let newUser = null;
+
+        googleVerification(google_token)
+
+            .then(dataPayload => {
+                
+                email = dataPayload.email;
+
+                let options = {
+                    where : { email }
+                }
+                return User.findOne(options)
+            })
+            .then(dataUser => {
+                if (dataUser) {
+                    return dataUser;
+                } else {
+                    newUser = true;
+                    return User.create({
+                        email : email,
+                        password : process.env.DEFAULT_PASSWORD_GOOGLE_LOGIN
+                    })
+                }
+            })
+            .then(user => {
+                let code = newUser ? 201 : 200;
+
+                let token = generateToken({
+                    id : user.id,
+                    email : user.email
+                })
+
+                res.status(code).json({
+                    token
+                })
             })
             .catch(err => {
                 next(err)

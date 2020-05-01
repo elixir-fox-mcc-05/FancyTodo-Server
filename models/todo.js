@@ -49,7 +49,8 @@ module.exports = (sequelize, DataTypes) => {
         isDate: true
       }
     },
-    UserId: DataTypes.STRING
+    UserId: DataTypes.INTEGER,
+    ProjectId: DataTypes.INTEGER
   }, {
     validate: {
       checkEmpty() {
@@ -73,6 +74,10 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Todo.belongsTo(models.User, {
       foreignKey: "UserId",
+      targetKey: "id"
+    });
+    Todo.belongsTo(models.Project, {
+      foreignKey: "ProjectId",
       targetKey: "id"
     });
   };

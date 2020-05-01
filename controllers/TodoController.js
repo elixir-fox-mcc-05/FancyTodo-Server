@@ -29,12 +29,14 @@ class TodoController {
   static createTodo(req, res, next) {
     let { title, description, status, due_date } = req.body;
     let UserId = req.UserId;
+    let ProjectId = req.params.projectid || null;
     Todo.create({
       title,
       description,
       status,
       due_date,
-      UserId
+      UserId,
+      ProjectId
     })
       .then(data => {
         res.status(201).json({
@@ -68,6 +70,7 @@ class TodoController {
   static updateTodo(req, res, next) {
     let { title, description, status, due_date } = req.body;
     let { id } = req.params;
+    let UserId = req.UserId;
     if(!title || !description) return next({
       code: 400,
       name: "Bad Request",
@@ -77,7 +80,8 @@ class TodoController {
       title,
       description,
       status,
-      due_date
+      due_date,
+      UserId
     }, {
       where: {
         id
@@ -100,7 +104,6 @@ class TodoController {
       .catch(err => {
         return next(err);
       });
-
   }
   static deleteTodo(req, res, next) {
     let { id } = req.params;
@@ -130,7 +133,6 @@ class TodoController {
       .catch(err => {
         return next(err);
       });
-
   }
 }
 

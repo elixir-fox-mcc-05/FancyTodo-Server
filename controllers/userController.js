@@ -1,6 +1,7 @@
 const { User } = require('../models')
 const { comparePassword } = require('../helpers/bcryptjs')
 const { generateToken } = require('../helpers/token')
+const verificationGoogle = require('../helpers/googleOauth')
 
 class userController{
     static signup(req, res, next){
@@ -53,6 +54,45 @@ class userController{
                         code: 400
                     }
                 }
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static googleSignin(req, res, next){
+        let google_token = req.headers.google_token
+        let email = null
+        let newUser= false
+
+        verificationGoogle(google_token)
+            .then(payload => {
+                email = payload.email
+                return User.findOne({where: {email}})
+            })
+            .then(user => {
+                if(user){
+                    return user
+                } else {
+                    newUser = true
+                    return User.create({
+                        email,
+                        password: process.env.DEFAULT_GOOGLE_PASS
+                    })
+                }
+            })
+            .then(user => {
+                let code = newUser ? 201 : 200
+                let { id, email, password } = user
+                let token = generateToken({
+                    id,
+                    email,
+                    password
+                })
+
+                res.status(code).json({
+                    token
+                })
             })
             .catch(err => {
                 next(err)

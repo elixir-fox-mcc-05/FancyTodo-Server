@@ -13,9 +13,7 @@ class userController{
             .then(data => {
                 let { id, email, password } = data
                 res.status(201).json({
-                    id,
-                    email,
-                    password
+                    msg: `sign up success`
                 })
             })
             .catch(err => {         

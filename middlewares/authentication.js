@@ -4,10 +4,11 @@ const { verifyToken } = require('../helpers/jwt.js');
 module.exports = {
     authenticateUser: (req, res, next) => {
         let token = req.headers.token;
-
+        
         try {
             let decoded = verifyToken(token);
             let { id } = decoded;
+            console.log(id);
             User
                 .findByPk(id)
                 .then(result => {

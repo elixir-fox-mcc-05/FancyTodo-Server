@@ -1,4 +1,4 @@
-const { Todo } = require('../models');
+const { Todo, User } = require('../models');
 
 class TodoController {
     static createTodo(req, res, next) {
@@ -25,11 +25,13 @@ class TodoController {
     static getAllTodo(req, res, next) {
         const id = req.userId;
 
-        Todo
-            .findAll({
+        User
+            .findOne({
+                include: [Todo],
                 where: {
-                    UserId: id
-                }
+                    id
+                },
+                order: [[Todo, 'id', 'desc']]
             })
             .then(todos => {
                 res.status(200).json({
@@ -65,6 +67,32 @@ class TodoController {
                 title,
                 description,
                 due_date: new Date(due_date)
+            }, {
+                where: {
+                    id
+                }
+            })
+            .then(() => {
+                return Todo
+                .findByPk(id)
+            })
+            .then(todo => {
+                res.status(200).json({
+                    Todo: todo
+                })
+            })
+            .catch(err => {
+                next(err);
+            })
+    }
+
+    static checkTodo(req, res, next) {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        Todo
+            .update({
+                status
             }, {
                 where: {
                     id

@@ -14,7 +14,7 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING,
-        allowNull: false
+        defaultValue: "No description"
       },
       status: {
         type: Sequelize.BOOLEAN,

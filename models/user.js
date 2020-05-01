@@ -17,23 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      unique: {
-        args: true,
-        msg: "username already taken"
-      },
-      validate: {
-        notEmpty: {
-          msg: "username cant be left empty"
-        },
-        is: {
-          args: /^[\w]+$/gi,
-          msg: "username can only contain alphanumeric and underscore"
-        }
-      }
-    },
     email: {
       type: DataTypes.STRING,
       allowNull:false,

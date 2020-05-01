@@ -10,18 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "title cant be empty"
+          msg: "title can\'t be empty"
         }
       }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "description cant be empty"
-        }
-      }
+      defaultValue: "No description"
     },
     status: {
       type: DataTypes.BOOLEAN,
@@ -29,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false,
       validate: {
         notEmpty: {
-          msg: "status cant be empty"
+          msg: "status can\'t be empty"
         }
       }
     },
@@ -38,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "due_date cant be empty"
+          msg: "due_date can\'t be empty"
         },
         isDate: {
           msg: "due_date input must be in date format"
@@ -63,6 +58,13 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade'
     }
   }, {
+    hooks: {
+      beforeCreate(todo, option) {
+        if(!todo.description) {
+          todo.description = "No description"
+        }
+      }
+    },
     sequelize,
     modelName: "Todo"
   });

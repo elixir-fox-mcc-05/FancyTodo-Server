@@ -1,16 +1,16 @@
 const { User } = require('../models');
 const { compareHash } = require('../helpers/bcrypt.js');
 const { generateToken } = require('../helpers/jwt.js');
+const { verifyIdToken } = require('../helpers/googleOauthVerification.js');
 
 class UserController {
     static register(req, res, next) {
-        const { name, username, email, password } = req.body;
+        const { name, email, password } = req.body;
         console.log(req.body);
 
         User
             .create({
                 name,
-                username,
                 email,
                 password
             })
@@ -61,6 +61,51 @@ class UserController {
             .catch(err => {
                 next(err);
             })
+    }
+
+    static googleLogin(req, res, next) {
+        let email;
+        let name;
+        let newUser = false;
+        const token = req.headers.google_token;
+        verifyIdToken(token)
+            .then(payload => {
+                email = payload.email;
+                name = `${payload.given_name} ${payload.family_name}`
+                return User
+                    .findOne({
+                        where: {
+                            email
+                        }
+                    })
+            })
+            .then(user => {
+                if(user) {
+                    return user;
+                } else {
+                    newUser = true;
+                    return User
+                        .create({
+                            name,
+                            email,
+                            password: process.env.GOOGLE_PASSWORD_DEFAULT
+                        })
+                }
+            })
+            .then(newUser => {
+                let code = newUser ? 201 : 200;
+                const accessToken = generateToken({
+                    id: newUser.id,
+                    email: newUser.email
+                });
+                res.status(code).json({
+                    accessToken
+                })
+            })
+            .catch(err => {
+                next(err);
+            })
+
     }
 }
 

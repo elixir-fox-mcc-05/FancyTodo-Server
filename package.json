@@ -1,7 +1,7 @@
 {
-    "name": "FancyTodo-Server-1",
+    "name": "fancytodo-server-1",
     "version": "1.0.0",
-    "description": "",
+    "description": "Documentation : https://documenter.getpostman.com/view/11000152/SzfCT5wf\r SECRET : lalalisa\r PORT: 3000",
     "main": "index.js",
     "dependencies": {
         "axios": "^0.19.2",
@@ -17,14 +17,15 @@
     "devDependencies": {},
     "scripts": {
         "dev": "NODE_ENV=development nodemon app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/achrams/FancyTodo-Server-1.git"
     },
     "keywords": [],
-    "author": "",
+    "author": "achrams",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/achrams/FancyTodo-Server-1/issues"

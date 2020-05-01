@@ -3,11 +3,8 @@ const axios = require('axios')
 class API {
 
     static show(req, res, next) {
-        axios.get(`https://api.ipify.org`)
-            .then((result) => {
-                const ip = result.data
-                return API.getLocation(ip)
-            })
+        const ip = req.headers.ip
+        API.getLocation(ip)
             .then((payload) => {
                 return API.getSchedule(payload)
 

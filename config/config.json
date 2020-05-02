@@ -5,5 +5,19 @@
     "database": "db_fancytodo",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "db_fancytodo",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "vnmuqjwfylgopv",
+    "password": "63130f1a8805e52d1553e91825f38e09bfb6c9366ba0793b7b1a22bfac2fb787",
+    "database": "d58fu32rlsb2pq",
+    "host": "ec2-52-71-231-180.compute-1.amazonaws.com",
+    "dialect": "postgres"
   }
 }

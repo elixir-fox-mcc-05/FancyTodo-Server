@@ -64,7 +64,6 @@ class TodosController {
         Todo.update({
             title,
             description,
-            status: false,
             due_date
         }, {
             where: {
@@ -73,7 +72,7 @@ class TodosController {
         })
             .then(() => {
                 res.status(200).json({
-                    notif: `Todo with id ${id} successfully updated`
+                    notif: `Todo successfully updated`
                 })
             })
             .catch(err => {
@@ -90,7 +89,7 @@ class TodosController {
         })
             .then(() => {
                 res.status(200).json({
-                    notif: `Todo with id ${id} successfully deleted`
+                    notif: `Todo successfully deleted`
                 })
             })
             .catch(err => {
@@ -113,7 +112,7 @@ class TodosController {
             })
             .then(() => {
                 res.status(200).json({
-                    notif: `Status of Todo with id ${id} successfully changed!`
+                    notif: `Status of Todo successfully changed!`
                 })
             })
             .catch(err => {

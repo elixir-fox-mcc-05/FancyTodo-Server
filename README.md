@@ -40,7 +40,8 @@
                 "password": "$2a$10$vGDNHEv6eVd5t1m1z6Tske31y69h7xs346S7iwiKwwIo9d3T2vnDm",
                 "updatedAt": "2020-04-28T07:21:21.651Z",
                 "createdAt": "2020-04-28T07:21:21.651Z"
-            }
+            },
+            "notif": "Register successful!"
         }
     ```
 * error response: <br>
@@ -360,7 +361,7 @@
     * content: <br>
         ```javascript
         {
-            "notif": "Todo with id 5 successfully updated"
+            "notif": "Todo successfully updated"
         }
         ```
 * error response: <br>
@@ -440,7 +441,7 @@
     * content: <br>
         ```javascript
         {
-            "notif": `Status of Todo with id 5 successfully changed!`
+            "notif": `Status of Todo successfully changed!`
         }
         ```
 * error response: <br>
@@ -491,7 +492,7 @@
     * content: <br>
         ```javascript
         {
-            "notif": "Todo with id 5 successfully deleted"
+            "notif": "Todo successfully deleted"
         }
         ```
 * error response: <br>

@@ -93,9 +93,9 @@ Request header:
 Request body:
 ```javascript
 {
-      "title": "Pull Request",
-      "description": "PR Tugas hari Senin",
-      "due_date": "2020-05-01"
+      "title": "mandi",
+      "description": "Just Do it",
+      "due_date": "2020-05-02"
 }
 ```
 Success Response:

@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
     email: {
       type : DataTypes.STRING,
+      
         validate: {
           notEmpty: true
         }
@@ -18,17 +19,24 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
       },
-
+    status: {
+      type : DataTypes.BOOLEAN,
+        validate: {
+          notEmpty: true
+        }
+      },
   }, {
     sequelize,
     hooks: {
       beforeCreate(user) {
         user.password = hash(user.password)
+        user.status = true
       }
     }
   });
   User.associate = function(models) {
     User.hasMany(models.Todo)
+    User.belongsToMany(models.Project, { through: 'UserProject' })
   };
   return User;
 };

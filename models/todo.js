@@ -4,19 +4,22 @@ module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {}
   Todo.init({
     title: {
-      type : DataTypes.STRING,
-        validate: {
-          notEmpty: true
-        }
-      },
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+          notEmpty: true,
+          notNull: true
+      }
+    },
 
     description: {
-      type : DataTypes.STRING,
-        validate: {
-          notEmpty: true
-        }
-      },
-
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+          notEmpty: true,
+          notNull: true
+      }
+    },
     status: DataTypes.BOOLEAN, //
 
     due_date: {
@@ -38,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     hooks: {
-      beforeValidate: (todo) => {
+      beforeCreate: (todo) => {
         todo.status = false;
       },
     }

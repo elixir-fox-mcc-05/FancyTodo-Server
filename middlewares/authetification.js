@@ -5,7 +5,6 @@ function authentification (req, res, next) {
     let token = req.headers.access_token
     try {
         let decode = verifyToken(token)
-        // console.log(decode);
         let id = decode.id
         User.findByPk(id)
         .then((data) => {
@@ -13,22 +12,17 @@ function authentification (req, res, next) {
                 req.currentUserId = decode.id
                 next()
             } else {
-                res.status(401).json({
-                    msg:'unautorized'
-                })
+                throw {
+                    msg:'you need to login',
+                    code:401
+                }
             }
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                msg: 'server error'
-            })
+            throw err
         })
     } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            msg: 'server error'
-        })
+       next(err)
     }
 }
 

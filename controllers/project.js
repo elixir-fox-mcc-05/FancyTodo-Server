@@ -1,17 +1,21 @@
-let { Todo, User } = require('../models/index')
+let { Todo, User, UserProject, Project} = require('../models/index')
 let axios = require('axios')
 
-class ControllerTodo {
-    static show (req, res) {
-        Todo.findAll({
+class ControllerProject {
+
+    static myProject (req, res) {
+
+        UserProject.findAll({
             where: {
                 UserId : req.currentUserId
             },
-            order: [['status', 'DESC']]
+            include: [Project, User]
+
         })
         .then(data => {
+
             res.status(200).json({
-                Todo : data
+                UserProject : data
             })
         })
         .catch(err => {
@@ -23,14 +27,11 @@ class ControllerTodo {
 
     static create (req, res, next) {
         let data = {
-            title: req.body.title || '',
-            description: req.body.description || '',
-            status: req.body.status || '',
-            due_date: req.body.due_date || '',
-            UserId: req.currentUserId || ''
+            name: req.body.name || '',
         }
-        Todo.create(data)
+        Project.create(data)
         .then(data => {
+            console.log(data);
             res.status(201).json({
                 Todo : data
             })  
@@ -42,12 +43,10 @@ class ControllerTodo {
 
     static edit (req, res, next) {
         let data = {
-            title: req.body.title,
-            description: req.body.description,
+            name: req.body.name,
             status: req.body.status,
-            due_date: req.body.due_date
         }
-        Todo.update(data, 
+        Project.update(data, 
         {   
             where : {
                 id : req.params.id
@@ -58,10 +57,8 @@ class ControllerTodo {
             result = result[1][0]
             if (result) {
                 res.status(200).json({
-                    title: result.title,
-                    description: result.description,
-                    status: result.status,
-                    due_date: result.due_date
+                    name: req.body.name,
+                    status: req.body.status,
                 })
             }
             else {
@@ -77,7 +74,7 @@ class ControllerTodo {
     }
 
     static delete (req, res, next) {
-        Todo.destroy({ where : {
+        Project.destroy({ where : {
             id : req.params.id
         }})
         .then(data => {
@@ -96,30 +93,36 @@ class ControllerTodo {
             next(err)
         })
     }
-    static getWeather (req, res, next) {
-        axios.get('http://api.weatherstack.com/current', {
-            params: {
-                access_key : process.env.WEATHER_API_KEY,
-                query : req.params.location
-            }
+
+    static invite (req, res, next) {
+        let data = {
+            UserId: req.body.UserId || '',
+            ProjectId: req.body.ProjectId || '',
+        }
+        UserProject.create(data)
+        .then(data => {
+            console.log(data);
+            res.status(201).json({
+                UserProject : data
+            })  
         })
-            .then(result => {
-                res.status(200).json({
-                    weather : result.data
-                })
-            })
+        .catch(err => {
+            next(err)
+        })
     }
 
-    static findOne (req, res) {
-        User.findOne({
+    static check (req, res) {
+        console.log(req.params);
+        UserProject.findOne({
             where: {
-                id : req.currentUserId
-            }
+                ProjectId : req.params.project,
+                UserId : req.params.user,
+            },
         })
         .then(data => {
             // console.log(data);
             res.status(200).json({
-                result : data 
+                UserProject : data
             })
         })
         .catch(err => {
@@ -130,4 +133,4 @@ class ControllerTodo {
     }
 }
 
-module.exports = ControllerTodo
+module.exports = ControllerProject

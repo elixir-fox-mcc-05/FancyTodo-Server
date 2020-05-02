@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           args: true,
-          msg: 'Input Title'
+          msg: 'Title is required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Title is required'
         }
       }
     },
@@ -23,7 +27,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           args: true,
-          msg: 'Input Due Date'
+          msg: 'Due date is required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Due date is required'
         }
       }
     },

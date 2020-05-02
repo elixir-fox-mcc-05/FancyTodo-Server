@@ -297,8 +297,12 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-        "name": "Not Found",
-        "errors": "Todo Not Found"
+      "type": "Not Found",
+      "errors": [
+          {
+              "message": "Todo not found"
+          }
+      ]
     }`
 
     OR
@@ -348,14 +352,17 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-      "id": 2,
-      "title": "Study",
-      "description": "Learning jquery & ajax",
-      "status": true,
-      "due_date": "2020-08-17T00:00:00.000Z",
-      "UserId": 1,
-      "createdAt": "2020-04-27T10:22:08.010Z",
-      "updatedAt": "2020-04-28T07:20:32.830Z"
+        "msg": "Todo successfully updated",
+        "result": {
+            "id": 4,
+            "title": "Study",
+            "description": "Learning jquery & ajax",
+            "status": false,
+            "due_date": "2020-08-17T00:00:00.000Z",
+            "UserId": 1,
+            "createdAt": "2020-04-28T09:40:07.925Z",
+            "updatedAt": "2020-04-28T09:40:19.474Z"
+        }
     }`
  
 * **Error Response:**
@@ -364,8 +371,12 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-      "name": "Not Found",
-      "errors": "Todo Not Found"
+        "type": "Not Found",
+        "errors": [
+            {
+                "message": "Todo not found"
+            }
+        ]
     }`
 
     OR
@@ -415,8 +426,12 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-      "name": "Not Found",
-      "errors": "Todo Not Found"
+        "type": "Not Found",
+        "errors": [
+            {
+                "message": "Todo not found"
+            }
+        ]
     }`
 
     OR
@@ -466,8 +481,12 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-      "name": "Not Found",
-      "errors": "Todo Not Found"
+        "type": "Not Found",
+        "errors": [
+            {
+                "message": "Todo not found"
+            }
+        ]
     }`
 
     OR
@@ -478,7 +497,7 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     `{ errors : "Internal Server Error" }`
 
 
-**Update Todo**
+**3rd API**
 ----
 
 * **URL**
@@ -491,8 +510,6 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
   
 
 *  **Request Body**
-
-   **Required:**
 
    `{
        city: "bandung"
@@ -544,7 +561,10 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-      "errors": "City not found"
+      "type": "Not Found",
+      "errors": {
+          "message": "City not found"
+      }
     }`
 
     OR

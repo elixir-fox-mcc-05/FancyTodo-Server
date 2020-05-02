@@ -8,6 +8,7 @@ class ApiController {
         let cityWeather = ''
         let shalatSchedule = ''
         let city = req.body.city || 'jakarta'
+        
         axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.APIKEY_WEATHER}`)
         .then(result => {
             cityName = {city: result.data.name, country: result.data.sys.country}
@@ -21,7 +22,7 @@ class ApiController {
                 cityName,
                 weatherIcon,
                 cityWeather, 
-                shalatSchedule
+                shalatSchedule 
             })
         })
         .catch(err => {

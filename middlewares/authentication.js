@@ -15,22 +15,23 @@ function authentication(req, res, next) {
                 next()
             }
             else {
-                return res.status(404).json({
-                    name: "Not Found",
+                return next({
+                    name : 'Not Found',
                     errors: [{message: "User not found"}]
                 })
             }
         })
         .catch(err=> {
-            return res.status(401).json({
-                name: "Unauthorized",
-                errors: [{ message: "User unauthenticated"}]
+            return next({
+                name : 'Unauthorized',
+                errors: [{message: "User not authorized"}]
             })
         })
     }
     catch(err) {
-        return res.status(500).json({
-            errors: "Internal Server Error"
+        return next({
+            name : 'JsonWebTokenError',
+            errors: [{message: "Please login first"}]
         })
     }
 }

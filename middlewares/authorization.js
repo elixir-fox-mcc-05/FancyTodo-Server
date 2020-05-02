@@ -12,22 +12,23 @@ function authorization (req, res, next) {
                 return next()
             }
             else {
-                return res.status(401).json({
-                    name: "Unauthorizes",
-                    errors: "User not authorized"
+                return next({
+                    name : 'Unauthorized',
+                    errors: [{message: "User not authorized"}]
                 })
             }
         }
         else {
-            return res.status(404).json({
-                name: "Not Found",
-                errors: "Todo Not Found"
+            return next({
+                name : 'Not Found',
+                errors: [{message: "Todo not found"}]
             })
         }
     })
     .catch(err=> {
-        return res.status(500).json({
-            errors: "Internal Server Error"
+        return next({
+            name : 'Internal Server Error',
+            errors: [{message: err}]
         })
     })
 

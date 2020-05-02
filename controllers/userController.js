@@ -17,7 +17,7 @@ class UserController {
                                                 email : data.email
                                                 }))
             .catch(err => {
-                res.status(500).json({error : err.message})
+                res.status(500).json({error : err.message.split(',')})
             })
 
     }

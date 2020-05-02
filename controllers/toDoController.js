@@ -1,7 +1,7 @@
 const {User,Todo} = require('../models')
 // const {compare} = require('../helpers/bcrypt')
 // const generateToken = require('../helpers/jwt')
-const Axios = require('axios')
+// const Axios = require('axios')
 
 require('cors')
 
@@ -29,14 +29,14 @@ class ToDoController{
             .then(data => res.status(201).json({todo : data}))
             .catch(err => {
                
-                    res.status(400).json({err : err.message})
+                    res.status(400).json({err : err.message.split(',')})
 
             })
 
     }
 
     static updateToDo(req,res){
-        let { title, description, status} = req.body
+        let { title, description, status, due_date} = req.body
         // console.log(title, description, status)
         Todo
             .update({
@@ -58,8 +58,8 @@ class ToDoController{
                 }    
             })
             .catch(err => {
-                console.log(err.message)
-                res.status(400).json({err : err.message})
+                // console.log(err.message)
+                res.status(400).json({err : err.message.split(',')})
             })
     }
 

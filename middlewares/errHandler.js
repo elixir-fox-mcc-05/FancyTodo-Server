@@ -5,7 +5,7 @@ module.exports = (err, req, res, next) => {
         msg: 'Unable to Access, Please Login First'
       })
     } else {
-      console.log(err.message)
+      // console.log(err.message)
       res.status(err.code || 500).json({
         err: err.message
       })

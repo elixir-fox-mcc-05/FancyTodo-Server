@@ -7,7 +7,7 @@ function authentication (req, res, next) {
   try {
     let decodedid = verifyToken(token)
     let { id } = decodedid
-    console.log(decodedid)
+    // console.log(decodedid)
     User.findByPk(id)
       .then(result => {
         //   console.log(result)

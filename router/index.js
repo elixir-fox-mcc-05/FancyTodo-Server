@@ -26,7 +26,7 @@ router.get('/holidays', (req,res) => {
             res.status(500).json({
                 error : error.message
             })
-            console.log(error);
+            // console.log(error);
         })
 })
 

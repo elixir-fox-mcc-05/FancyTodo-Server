@@ -48,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: "This field cannot be empty"
         },
         isIn: {
-          args : [['true', 'false']],
-          msg : "This field is true or false only"
+          args: [['true', 'false']],
+          msg: "This field is true or false only"
         }
       }
     },
@@ -66,8 +66,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: "This field cannot be empty"
         },
         isDate: {
-          args : true,
-          msg : "This field is date format yyyy-mm-dd"
+          args: true,
+          msg: "This field is date format yyyy-mm-dd"
         },
         isDueDate(value){
           if (value < new Date()){

@@ -6,17 +6,17 @@ if(process.env.NODE_ENV == 'development'){
 
 const express = require('express');
 const app = express();
+const routes = require("./routes");
+const errorHandler = require("./middlewares/errorhandler.js");
+const port = process.env.PORT || 3000;
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
-const routes = require("./routes");
 app.use("/", routes);
-
-const errorHandler = require("./middlewares/errorhandler.js");
 app.use(errorHandler);
 
-const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log('app listen to port', port);
   })

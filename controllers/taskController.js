@@ -4,7 +4,8 @@ class taskController {
     static findAll(req,res,next) {
         Task.findAll({
           where: { UserId : req.currentUserId },
-          include: [ User, Project ]
+          include: [ User, Project ],
+          order: [['updatedAt', 'DESC']]
         })
           .then(result =>{
             res.status(200).json({
@@ -13,7 +14,6 @@ class taskController {
             })
           })
           .catch(error =>{
-            console.log(error)
             res.status(500).json({
               message: 'Internal Server Error',
               error
@@ -30,7 +30,6 @@ class taskController {
             })
           })
           .catch(error =>{
-            console.log(error)
             res.status(500).json({
                 message:'Internal Server Error',
                 error

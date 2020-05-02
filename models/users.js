@@ -32,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type : DataTypes.STRING,
-      unique: true,
+      unique: { args : true, msg : 'email is already used'}
+      ,
       validate : {
         isEmail : {args : true, msg : `email must with @ and .`}
       }

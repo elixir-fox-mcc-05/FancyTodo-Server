@@ -11,7 +11,10 @@ Method:
 
 POST
 
-URL Params
+URL Header
+
+Required: 
+token=[string]
 
 Data Params
 
@@ -43,6 +46,21 @@ Content: { error : "unable to create todo" }
 code: 500 INTERNAL SERVER ERROR
 content : {error : "Internal Server Error"}
 
+Sample Call : 
+
+$.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/todos',
+    headers: {
+      token
+    },
+    data: {
+      title,
+      description,
+      due_date
+    }
+  })
+
 
 Show Todos
 Returns json data with all todos.
@@ -54,6 +72,12 @@ URL
 Method:
 
 Get
+
+URL Header
+
+Required: 
+
+token=[string]
 
 
 Success Response:
@@ -89,6 +113,16 @@ Error Response:
 code: 500 INTERNAL SERVER ERROR
 content : {error : "Internal Server Error"}
 
+Sample Call:
+
+ $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/todos',
+    headers: {
+      token
+    }
+  })
+
 
 
 Show todos based id
@@ -108,10 +142,11 @@ Required:
 
 id=[integer]
 
-Data Params
+URL Header
 
-[N/A]
+Required:
 
+token=[string]
 
 Success Response:
 
@@ -134,6 +169,15 @@ Error Response:
 code: 404 NOT FOUND
 Content: { error : "id not found"}
 
+Sample Call:
+
+$.ajax({
+    method: 'get',
+    url: `http://localhost:3000/todos/${id}`,
+    params: { id },
+    headers: { token }
+  })
+
 
 
 Update todos based id
@@ -153,10 +197,11 @@ Required:
 
 id=[integer]
 
-Data Params
+URL Header
 
-[N/A]
+Required:
 
+token=[string]
 
 Success Response:
 
@@ -185,6 +230,21 @@ content : {error : "id not found}
 code : 500 INTERNAL SERVER ERROR
 content : {error : "Internal Server Error"}
 
+Sample Call : 
+
+ $.ajax({
+    method: 'put',
+    url: `http://localhost:3000/todos/${id}`,
+    headers: {
+      token
+    },
+    data: {
+      title,
+      description,
+      due_date,
+      status
+    }
+  })
 
 
 Delete todos based id
@@ -204,10 +264,11 @@ Required:
 
 id=[integer]
 
-Data Params
+URL Header
 
-[N/A]
+Required:
 
+token=[string]
 
 Success Response:
 
@@ -233,6 +294,15 @@ content : {error : "id not found"}
 code : 500 INTERNAL SERVER ERROR
 content : {error : "Internal Server Error"}
 
+Sample Call : 
+
+$.ajax({
+    method: 'delete',
+    url: `http://localhost:3000/todos/${id}`,
+    params: { id },
+    headers: { token }
+  })
+
 Login
 Returns json data with auth token.
 
@@ -253,6 +323,17 @@ Error Response:
 
 code : 400 BAD REQUEST
 content : {error : "id not found"}
+
+Sample Call :
+
+$.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/login',
+    data: {
+      email,
+      password
+    }
+  })
 
 
 Register
@@ -279,6 +360,56 @@ Error Response:
 code : 400 BAD REQUEST
 content : {error : "id not found"}
 
+Sample Call :
+
+ $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/register',
+    data: {
+      first_name,
+      last_name,
+      email,
+      password
+    }
+  })
+
+
+Login
+Returns json data with auth token.
+
+URL
+
+/login
+
+Method:
+
+POST
+
+URL Header
+
+required:
+
+id_token = [string]
+
+Success Response:
+
+Code: 201 CREATED
+Content:{ accessToken : ""}
+
+Error Response:
+
+code : 400 BAD REQUEST
+content : {error : "id not found"}
+
+Sample Call :
+
+$.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/logingoogle',
+    headers: {
+      google_token: id_token
+    }
+  })
 
 Holiday List
 show list of holiday this year
@@ -323,3 +454,9 @@ Error Response:
 
 code : 500 INTERNAL SERVER ERROR
 content : {error : "internal server error"}
+
+Sample Call:
+$.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/holidays'
+    })

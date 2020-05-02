@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   Project.init({
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Project name can\'t be empty"
+        }
+      }
     },
     total_member: {
       type: DataTypes.INTEGER,

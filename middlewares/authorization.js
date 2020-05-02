@@ -30,7 +30,8 @@ module.exports = {
     authorizeProjectMember: (req, res, next) => {
         const UserId = req.userId;
         const ProjectId = req.params.id ? req.params.id : req.params.project_id;
-
+        console.log(UserId);
+        console.log(ProjectId);
         UserProject
             .findOne({
                 where: {

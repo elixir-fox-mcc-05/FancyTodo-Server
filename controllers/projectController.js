@@ -136,7 +136,8 @@ class ProjectController {
             })
             .then(newMember => {
                 res.status(201).json({
-                    newMember
+                    newMember,
+                    name
                 })
             })
             .catch(err => {
@@ -177,9 +178,9 @@ class ProjectController {
                     ProjectId
                 }
             })
-            .then(todo => {
+            .then(todos => {
                 res.status(200).json({
-                    todo
+                    todos
                 })
             })
             .catch(err => {
@@ -230,6 +231,27 @@ class ProjectController {
             .then(() => {
                 res.status(200).json({
                     msg: `Succes delete todo with id ${id} from project with id ${ProjectId}`
+                })
+            })
+            .catch(err => {
+                next(err);
+            })
+    }
+
+    static showAllMembers(req, res,next) {
+        const { id } = req.params;
+
+        Project
+            .findOne({
+                include: [User],
+                where: {
+                        id
+                    }
+            })
+            .then(project => {
+                console.log(project);
+                res.status(200).json({
+                    members: project.Users
                 })
             })
             .catch(err => {

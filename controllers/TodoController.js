@@ -1,8 +1,13 @@
 const {Todo} = require('../models');
 
 class TodoController{
-    static showAll(req, res){
-        Todo.findAll()
+    static showAll(req, res, next){
+        const id = req.userId;
+        const option = {
+            where: {UserId: id, ProjectId: null},
+            order: [['id', 'ASC']]
+        }
+        Todo.findAll(option)
             .then(response => {
                 res.status(200).json({
                     todos: response
@@ -14,7 +19,7 @@ class TodoController{
                 })
             })
     }
-    static showById(req, res){
+    static showById(req, res, next){
         const {id} = req.params;
         Todo.findByPk(id)
             .then(response => {
@@ -31,12 +36,14 @@ class TodoController{
                 })
             })
     }
-    static create(req, res){
+    static create(req, res, next){
         const {title, description, due_date} = req.body;
+        const UserId = req.userId;
         const todo = {
             title,
             description,
-            due_date
+            due_date,
+            UserId
         }
         Todo.create(todo)
             .then(response => {
@@ -57,7 +64,7 @@ class TodoController{
                 }
             })
     }
-    static update(req, res){
+    static update(req, res, next){
         const {id} = req.params;
         const {title, description, status, due_date} = req.body;
         const newTodo = {
@@ -67,7 +74,8 @@ class TodoController{
             due_date
         }
         const option = {
-            where: {id}
+            where: {id},
+            returning: true
         }
         Todo.update(newTodo,option)
                     .then(updated => {
@@ -76,7 +84,7 @@ class TodoController{
                                 message: 'Id Not Found'
                             })
                         }else{
-                            res.status(200).json(newTodo);
+                            res.status(200).json(updated[1]);
                         }
                     })
                     .catch(err => {
@@ -94,7 +102,7 @@ class TodoController{
                         }
                     })
     }
-    static delete(req, res){
+    static delete(req, res, next){
         const {id} = req.params;
         const option = {
             where: {id}

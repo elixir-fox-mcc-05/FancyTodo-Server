@@ -17,7 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('Not Started', 'On Going', 'Finished'),
+      validate: {
+        checkStatus() {
+          const list = ['not started', 'on going', 'finished'];
+          if(!list.includes(this.status.toLowerCase())){
+            throw new Error('Status must be : Not Started, On Going, Finished')
+          }
+        }
+      }
     },
     due_date: {
       type: DataTypes.DATEONLY,
@@ -25,29 +33,47 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {args: true, msg: 'due date cannot be empty'},
         checkBackdate(){
           const currentDate = new Date();
-          if(Math.floor((currentDate - new Date(this.due_date)) / 86400000) <= 0){
+          if(Math.floor((new Date(this.due_date) - currentDate) / 86400000) <= 0){
             throw new Error('Cannot set due date to backdate or today');
           }
         }
       }
     },
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'Id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
+    ProjectId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Projects',
+        key: 'id'
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    }
   }, {
     hooks:{
       beforeCreate: (todo) => {
         todo.status =  'Not Started';
       },
       beforeBulkUpdate: (todo) => {
-        console.log(todo);
         if(!todo.attributes.status){
           todo.attributes.status =  'Not Started';
         }
-        console.log(todo);
       }
     },
     sequelize
   });
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User);
+    Todo.belongsTo(models.Project);
   };
   return Todo;
 };

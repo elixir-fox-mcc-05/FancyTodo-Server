@@ -375,16 +375,13 @@
     * content: <br>
         ```javascript
         {
-        "Country": "Angola",
-        "CountryCode": "AO",
-        "Slug": "angola",
-        "NewConfirmed": 0,
-        "TotalConfirmed": 27,
-        "NewDeaths": 0,
-        "TotalDeaths": 2,
-        "NewRecovered": 0,
-        "TotalRecovered": 6,
-        "Date": "2020-04-29T21:44:19Z"
+      "attributes": {
+        "FID": 12,
+        "Kode_Provi": 32,
+        "Provinsi": "Jawa Barat",
+        "Kasus_Posi": 1043,
+        "Kasus_Semb": 147,
+        "Kasus_Meni": 84
       }
         ```
 * error response: <br>

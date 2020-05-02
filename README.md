@@ -815,9 +815,9 @@
 
     ```json
       $.ajax({
-        method : `GET`,
-        url : `http://localhost:3000/users/getNick`,
-        headers : {
-          token
+        "method" : `GET`,
+        "url" : `{ host }/users/getNick`,
+        "headers" : {
+          'token'
       }
     ```

@@ -4,6 +4,7 @@
   "description": "build fancy todo server",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development nodemon app.js "
   },

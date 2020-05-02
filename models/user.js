@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: {
         args: true,
-        msg: `Email already exists`
+        msg: `Email sudah ada terdapat di server. Silangkan menggunakan email lainnya`
       },
       validate: {
         isEmail: {
           args: true,
-          msg: `Harus format email yang ditulis`
+          msg: `Email harus dalam bentuk format email`
         }
       }
     },

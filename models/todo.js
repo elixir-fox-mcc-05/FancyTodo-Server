@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: `Title tidak boleh kosong`
+          msg: `Title harus diisi`
         }
       }
     },
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: `Description tidak boleh kosong`
+          msg: `Description harus diisi`
         }
       }
     },
@@ -33,11 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       validate : {
         isDate: {
           args: true,
-          msg: `Due Date harus format tanggal`
+          msg: `Due date harus diisi`
         },
         isAfter: {
           args: newDate,
-          msg: `Tanggal harus setelah hari ini`
+          msg: `Tanggal tidak boleh hari kemarin / tanggal dahulu`
         }
       }
     },

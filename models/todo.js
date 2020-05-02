@@ -9,8 +9,24 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model;
   class Todo extends Model {}
   Todo.init({
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: `Title tidak boleh kosong`
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: `Description tidak boleh kosong`
+        }
+      }
+    },
     status: DataTypes.BOOLEAN,
     due_date: {
       type: DataTypes.DATE,
@@ -29,13 +45,6 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
-    validate: {
-      valueNotEmpty() {
-        if (!this.title || !this.description || !this.due_date) {
-          throw new Error (`Semua data harus diisi`);
-        }
-      }
-    },
     modelName: 'Todo'
   })
 

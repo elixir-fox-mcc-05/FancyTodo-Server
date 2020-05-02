@@ -10,7 +10,6 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
    return queryInterface.bulkDelete('Users', {username : 'username'});
-
   },
 
   down: (queryInterface, Sequelize) => {
@@ -21,6 +20,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-  //  return queryInterface.bulkInsert('Users', 'username');
+  return queryInterface.bulkInsert('Users', 'username');
   }
 };

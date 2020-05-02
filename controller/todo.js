@@ -1,13 +1,21 @@
 const Model = require('../models')
 const Todo = Model.Todo
+const axios = require('axios')
+
 
 class TodoController {
     static findAll(req, res, next) {
+        let temp;
         const userId = req.userId
-        Todo.findAll({where : {userId : userId}})
+        axios.get(`http://www.omdbapi.com/?apikey=${process.env.apiKEY}&s=movie`)
+            .then(data => {
+                temp = data.data
+                return Todo.findAll({where : {userId : userId}})
+            })
             .then(data => {
                 res.status(200).json({
-                    data
+                    data, 
+                    Movie : temp
                 })
             })
             .catch(err => {

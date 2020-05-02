@@ -9,14 +9,19 @@ class UserController {
             orderBy: 'id'
         }
         User.findAll(options)
-            .then(users => {
-                res.status(200).json({ users });
+            .then(user => {
+                const userList = [];
+                for (let i = 0; i < user.length; i++) {
+                    const userData = {
+                        id: user[i].id,
+                        email:user[i].email
+                    }
+                    userList.push(userData);
+                }
+                res.status(200).json({ Users: userList })
             })
             .catch(err => {
-                next({
-                    name: 'Internal Server Error',
-                    errors: [{ message: err }]
-                })
+                next(err);
             })
     }
 

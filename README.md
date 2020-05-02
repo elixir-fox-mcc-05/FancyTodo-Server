@@ -29,7 +29,7 @@
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:** `{ "name": "Agus", "email": "agus@gmail.com" }`
  
 * **Error Response:**
@@ -110,6 +110,12 @@
   
   `GET`
 
+  **Required:**
+ 
+   Headers: {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
+   }
+
 *  **URL Params**
 
     none
@@ -121,7 +127,34 @@
 * **Success Response:**
   
   * **Code:** 200 <br />
-    **Content:** `{ id : 1, name: "charles", email:"charles@gmail.com"}`
+    **Content:** `{
+  "Users": [
+      {
+        "id": 17,
+        "email": "irene@gmail.com"
+      },
+      {
+        "id": 18,
+        "email": "reina@gmail.com"
+      },
+      {
+        "id": 48,
+        "email": "viola@gmail.com"
+      },
+      {
+        "id": 54,
+        "email": "tania@gmail.com"
+      },
+      {
+        "id": 55,
+        "email": "hafidh.finand@gmail.com"
+      },
+      {
+        "id": 56,
+        "email": "jack@gmail.com"
+      }
+    ]
+  }`
  
 * **Error Response:**
 
@@ -355,4 +388,256 @@
       "type": "Internal Server Error"
     }`
 
+---
+**Create New Project**
+----
 
+* **URL**
+
+  /projects
+
+* **Method:**
+  
+  `POST` 
+
+  **Required:**
+ 
+   Headers: {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
+   }
+
+  **Required:**
+ 
+   Headers: {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
+   }
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+  {
+      "name": "Mobile App Project"
+  }
+
+* **Success Response:**
+  
+  * **Code:** 201 <br />
+    **Content:** `{
+      "Projects": {
+        "id": 6,
+        "ProjectId": 10,
+        "UserId": 17,
+        "updatedAt": "2020-05-02T08:40:42.986Z",
+        "createdAt": "2020-05-02T08:40:42.986Z"
+      }
+    }`
+ 
+* **Error Response:**
+
+    * **Code:** 400 <br />
+    **Content:** `{
+      "code": "400",
+      "type": "Bad Request",
+      "errors": "Email already exists"
+    }`
+  * **Code:** 500 <br />
+    **Content:** `{
+      "code": "500",
+      "type": "Internal Server Error"
+    }`
+---
+**Show Anime List**
+----
+
+* **URL**
+
+  /anime
+
+* **Method:**
+  
+  `GET`
+
+  **Required:**
+ 
+   Headers: {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
+   }
+
+*  **URL Params**
+
+    none
+
+* **Data Params**
+
+    none
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `
+    { "movie": [
+    {
+      "mal_id": 32281,
+      "rank": 1,
+      "title": "Kimi no Na wa.",
+      "url": "https://myanimelist.net/anime/32281/Kimi_no_Na_wa",
+      "image_url": "https://cdn.myanimelist.net/images/anime/5/87048.jpg?s=2bca128fcb9dfd6d0908f3d9986576c6",
+      "type": "Movie",
+      "episodes": 1,
+      "start_date": "Aug 2016",
+      "end_date": "Aug 2016",
+      "members": 1265853,
+      "score": 9.06
+    },
+    {
+      "mal_id": 28851,
+      "rank": 2,
+      "title": "Koe no Katachi",
+      "url": "https://myanimelist.net/anime/28851/Koe_no_Katachi",
+      "image_url": "https://cdn.myanimelist.net/images/anime/1122/96435.jpg?s=56d2750d600af93a5d326daec7748cae",
+      "type": "Movie",
+      "episodes": 1,
+      "start_date": "Sep 2016",
+      "end_date": "Sep 2016",
+      "members": 950262,
+      "score": 9.02
+    },
+    ]
+    }`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{
+      "code": "500",
+      "type": "Internal Server Error"
+    }`
+
+---
+
+**Show Corona Update**
+----
+
+* **URL**
+
+  /corona
+
+* **Method:**
+  
+  `GET`
+
+  **Required:**
+ 
+   Headers: {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
+   }
+
+*  **URL Params**
+
+    none
+
+* **Data Params**
+
+    none
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `
+    {
+  "corona": [
+    {
+      "Country": "Indonesia",
+      "CountryCode": "",
+      "Province": "",
+      "City": "",
+      "CityCode": "",
+      "Lat": "0",
+      "Lon": "0",
+      "Confirmed": 0,
+      "Deaths": 0,
+      "Recovered": 0,
+      "Active": 0,
+      "Date": "2020-01-22T00:00:00Z"
+    },
+    {
+      "Country": "Indonesia",
+      "CountryCode": "",
+      "Province": "",
+      "City": "",
+      "CityCode": "",
+      "Lat": "0",
+      "Lon": "0",
+      "Confirmed": 0,
+      "Deaths": 0,
+      "Recovered": 0,
+      "Active": 0,
+      "Date": "2020-01-23T00:00:00Z"
+    },
+    ]
+    }`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{
+      "code": "500",
+      "type": "Internal Server Error"
+    }`
+
+---
+
+**Add Member**
+----
+
+* **URL**
+
+  /projects/:id/addmember
+
+* **Method:**
+  
+  `POST` 
+
+  **Required:**
+ 
+   Headers: {
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
+   }
+  
+*  **URL Params**
+
+   none
+
+* **Data Params**
+
+  {
+      "id": "17"
+  }
+
+* **Success Response:**
+  
+  * **Code:** 201 <br />
+    **Content:** `{
+      "id": 5,
+      "UserId": 17,
+      "ProjectId": 9,
+      "updatedAt": "2020-05-02T07:42:32.226Z",
+      "createdAt": "2020-05-02T07:42:32.226Z"
+    }`
+ 
+* **Error Response:**
+
+    * **Code:** 400 <br />
+    **Content:** `{
+      "code": "400",
+      "type": "Bad Request",
+      "errors": "Email already exists"
+    }`
+  * **Code:** 500 <br />
+    **Content:** `{
+      "code": "500",
+      "type": "Internal Server Error"
+    }`

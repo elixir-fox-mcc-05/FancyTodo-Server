@@ -1,4 +1,4 @@
-let baseUrl = 'https://todo-app-adit.herokuapp.com'
+let baseUrl = 'http://localhost:3000'
 
 $(document).ready(() => {
     authentication()    

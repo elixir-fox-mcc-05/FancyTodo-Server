@@ -22,7 +22,7 @@ function errorHandler(err, req, res, next) {
     } else {
       res
         .status(500)
-        .json({ name: err.name, errors: err.message })
+        .json({ name: err.name, errors: err.respondJSON.name })
     }
 }
 

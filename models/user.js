@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   })
   User.associate = function(models) {
     User.hasMany(models.Todo)
+    User.hasMany(models.Project)
   };
   return User;
 };

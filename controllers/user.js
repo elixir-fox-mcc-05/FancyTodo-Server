@@ -5,6 +5,7 @@ const verification_google = require('../helpers/google-auth')
 
 class UserController {
     static register(req, res, next) {
+        console.log(req.body)
         let { email, password } = req.body
         password = generate_password(password)
 
@@ -72,6 +73,22 @@ class UserController {
                     .catch(err => { next(err) })
             })
             .catch(err => { next(err) })
+    }
+
+    static findAll(req, res, next) {
+        User.findAll()
+            .then(data => {
+                if (data){
+                    res
+                      .status(200)
+                      .json({ data })
+                } else {
+                    next(err)
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 }
 

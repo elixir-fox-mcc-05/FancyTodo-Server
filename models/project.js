@@ -58,6 +58,7 @@ module.exports = (sequelize, DataTypes) => {
     Project.belongsToMany(models.User, {
       through: 'UserProjects'
     });
+    Project.hasMany(models.Todo);
   };
   return Project;
 };

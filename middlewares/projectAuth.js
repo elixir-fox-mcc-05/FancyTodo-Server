@@ -17,7 +17,7 @@ const projectAuth = (req, res, next) => {
         return next({
           code: 401,
           name: "Unauthorized Error",
-          msg: `You cannot access this service ini`
+          msg: `You cannot access this service`
         });
       }
     })

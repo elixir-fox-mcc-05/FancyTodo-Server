@@ -60,6 +60,13 @@ class ProjectController {
         })
       })
       .then(result => {
+        for(let i = 0; i < users.length; i++) {
+          for(let j = 0; j < result.Users.length; j++) {
+            if(users[i].id == result.Users[j].id) {
+              users.splice(i, 1);
+            }
+          }
+        }
         res.status(200).json({
           Project: result,
           Users: users

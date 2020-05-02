@@ -4,10 +4,12 @@ const axios = require('axios');
 class TodoController {
   static findAll(req, res, next) {
     let UserId = req.UserId;
+    let ProjectId = req.params.projectid || null;
     let weather = {};
     let options = {
       where: {
-        UserId
+        UserId,
+        ProjectId
       },
       order: [["id", "ASC"]]
     }
@@ -29,7 +31,7 @@ class TodoController {
   static createTodo(req, res, next) {
     let { title, description, status, due_date } = req.body;
     let UserId = req.UserId;
-    let ProjectId = req.params.projectid || null;
+    let ProjectId = req.body.projectid || req.params.projectid || null;
     Todo.create({
       title,
       description,

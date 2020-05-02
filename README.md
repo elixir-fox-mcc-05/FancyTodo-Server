@@ -238,7 +238,11 @@ Success Response:
 
 Error Response:
 ```javascript
-{ msg: `Todo dengan id 5 tidak ditemukan` }
+{
+  "code": 404,
+  "name": "Not Found",
+  "errors": "Data Not Found"
+}
 ```
 
 ### DELETE /todos/:id

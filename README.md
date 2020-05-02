@@ -425,8 +425,8 @@
 
   | key | value | required |
   | :---: | :---: | :---: |
-  | name | Huey McMeow | true |
-  | email | hueyguey@mail.com | true |
+  | name | <YOUR_NAME> | true |
+  | email | <YOUR_EMAIL> | true |
   | password | <YOUR_PASSWORD_HERE> | true |
 
 * **Success Response:**
@@ -476,7 +476,7 @@
 
   | key | value | required |
   | :---: | :---: | :---: |
-  | email | hueyguey@mail.com | true |
+  | email | <YOUR_EMAIL> | true |
   | password | <YOUR_PASSWORD_HERE> | true |
 
 * **Success Response:**

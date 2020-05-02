@@ -105,7 +105,7 @@ class ControllerUser {
             })
         })
     }
-    static change (req, res) {
+    static change (req, res, next) {
         let data = {
             status: req.body.status
         }

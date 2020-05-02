@@ -1,61 +1,11 @@
-# FancyTodo-Server
+# FancyTodo-Server Todo
 ----
-  <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
+  <_https://documenter.getpostman.com/preview/11218257-6a910f56-3542-420c-a701-0c4497c95f48?versionTag=latest&apiName=CURRENT&version=latest&documentationLayout=classic-double-column&top-bar=FFFFFF&right-sidebar=303030&highlight=EF5B25._>
 
-* **URL**
-    /todos/:id
+# FancyTodo-Server User
+----
+  <_https://documenter.getpostman.com/preview/11218257-f9f46710-5523-433e-84e5-7c606a7b493c?versionTag=latest&apiName=CURRENT&version=latest&documentationLayout=classic-double-column&top-bar=ffffff&right-sidebar=303030&highlight=ef5b25._>
 
-* **Method:**
-    PUT
-
-  `GET` | `POST` | `DELETE` | `PUT`
-  
-*  **URL Params**
-
-
-   **Required:**
- 
-   `id=[integer]`
-
-* **Data Params**
-**Optional:**
-
-  `tittle = [string]`
-  `desc = [string]`
-  `tittle = [string]`
-  `tittle = [string]`
-
-* **Success Response:**
-  
-  
-
-  * **Code:** 200 <br />
-    **Content:** 
-    ```JSON
-    {
-        "title": "BermainBola3",
-        "description": "belajar",
-        "status": true,
-        "due_date": "2020-04-27T06:06:21.494Z"
-    }
-    ```
-
-* **Error Response:**
-
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
-
-  OR
-
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Invalid" }`
-
-* **Sample Call:**
-
-  <_Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable._> 
-
-* **Notes:**
-
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
+# FancyTodo-Server Project
+----
+<_https://documenter.getpostman.com/preview/11218257-461228b2-8a77-43d0-9582-65e8a780c370?versionTag=latest&version=latest&apiName=CURRENT&top-bar=FFFFFF&right-sidebar=303030&highlight=EF5B25&documentationLayout=classic-single-column#fa42593c-c027-4b86-a588-500c458e8662._>

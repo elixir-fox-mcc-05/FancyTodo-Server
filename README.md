@@ -8,12 +8,6 @@
 * **Method:**
   
   `POST` 
-
-  **Required:**
- 
-   Headers: {
-       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
-   }
   
 *  **URL Params**
 
@@ -57,12 +51,6 @@
 * **Method:**
   
   `POST` 
-  
-    **Required:**
- 
-    Headers: {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
-    }
 
 *  **URL Params**
 
@@ -197,7 +185,7 @@
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:** `{
       "id": 1,
       "title": "Belajar",
@@ -399,12 +387,6 @@
 * **Method:**
   
   `POST` 
-
-  **Required:**
- 
-   Headers: {
-       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSXJlbmUiLCJlbWFpbCI6ImlyZW5lQGdtYWlsLmNvbSIsImlhdCI6MTU4Nzk5Mzk3Nn0.IKagkwozRHj7Y-otxgk60HiE98EL78-R5Llssjoa3AQ"
-   }
 
   **Required:**
  

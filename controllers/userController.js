@@ -7,7 +7,7 @@ class UserController {
 
     static register(req,res){
 
-        console.log(req.body)
+        // console.log(req.body)
         let {first_name, last_name, password, email} = req.body
         let newUser = {first_name, last_name,  password, email}
 
@@ -72,8 +72,8 @@ class UserController {
             email = payload.email;
             first_name = payload.given_name;
             last_name = payload.family_name
-            console.log('payload: ', payload)
-            console.log('emaul: ', email)
+            // console.log('payload: ', payload)
+            // console.log('emaul: ', email)
             return User
               .findOne({
                 where: {

@@ -37,7 +37,7 @@ class ToDoController{
 
     static updateToDo(req,res){
         let { title, description, status} = req.body
-        console.log(title, description, status)
+        // console.log(title, description, status)
         Todo
             .update({
                 'title' : title,

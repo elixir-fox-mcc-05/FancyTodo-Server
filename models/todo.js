@@ -1,4 +1,7 @@
 'use strict';
+const date = new Date()
+date.setDate(date.getDate() - 1)
+
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
 
@@ -21,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type:DataTypes.DATE,
       validate:{
-        notEmpty:true
+        notEmpty:true,
+        isAfter: date.toISOString().split('T')[0]
       }
     },
     UserId: DataTypes.INTEGER

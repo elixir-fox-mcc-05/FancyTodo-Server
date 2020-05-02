@@ -114,14 +114,25 @@ class TodoController {
             })
             .then(result => {
                 if(result){
-                    res.status(201).json({
-                        Todos : result
-                    })
+                    return Todo.findByPk(id)
                 } else {
                     return next({
                         code : 304,
                         msg : "Cannot Modified, You are not authorized to change the file",
                         type : "Not Modified"
+                    })
+                }
+            })
+            .then(Todos => {
+                if(Todos){
+                    res.status(201).json({
+                        Todos,
+                    })
+                } else {
+                    return next({
+                        code: 404,
+                        msg : "Data Not Found",
+                        type : "Not Found"
                     })
                 }
             })

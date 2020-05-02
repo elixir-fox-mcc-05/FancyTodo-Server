@@ -4,9 +4,9 @@ FancyTodo API is organized around [REST][1]. It is based on resource-oriented UR
 
 Post, Put and Delete /todos will require jsonwebtoken from users who succesfully registered and signed in.
 
-## /users
+## SignUp n SignIn
 
-### POST /users/signup
+### POST /signup
 
 This will create a new user based on form-URL-encoded request body.
 
@@ -41,7 +41,7 @@ Error Response:
 }
 ```
 
-### POST /users/signin
+### POST /signin
 
 This will return a string of jsonwebtoken based on input of user (email and password) in request body.
 

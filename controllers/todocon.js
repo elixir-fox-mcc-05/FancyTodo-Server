@@ -78,7 +78,7 @@ class TodoCon {
         })
         .then(_=>{
             res.status(201).json({
-                msg : `success deleting task with id ${req.params.id}`
+                msg : `success deleting task `
             })
         })
         .catch(err=>{

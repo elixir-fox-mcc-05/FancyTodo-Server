@@ -91,6 +91,39 @@ GET
 id
 
 * **Success Response:**
+there are 2 response in this part. If the title is makan or hangout or dinner or nongkrong: 
+{
+  "Todo": {
+    "id": 20,
+    "title": "makan",
+    "description": "harus jadi sih pokoknya",
+    "status": false,
+    "due_date": "2020-05-09T17:00:00.000Z",
+    "UserId": 7,
+    "createdAt": "2020-04-28T16:46:10.023Z",
+    "updatedAt": "2020-04-28T16:46:10.023Z"
+  },
+  "recommendations": [
+    {
+      "title": "Makan di Rumah",
+      "description": "Temukan restoran dengan layanan pesan antar makanan di bawah ini. Tetap sehat dan kenyang, #DiRumahAja!",
+      "url": "https://www.zomato.com/jakarta/makan-di-rumah?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1"
+    },
+    {
+      "title": "Trending in Jakarta",
+      "description": "Most-loved & highly-reviewed restaurants, by and for Jakartans!",
+      "url": "https://www.zomato.com/jakarta/top-restaurants?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1"
+    },
+    .
+    .
+    .
+    {
+      "title": "Feast from the East",
+      "description": "Selected East Indonesian dish that you would not want to miss!",
+      "url": "https://www.zomato.com/jakarta/feast-from-the-east?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1"
+    }
+  ] <br />
+else <br />
 {
   "todo": {
     "id": 4,

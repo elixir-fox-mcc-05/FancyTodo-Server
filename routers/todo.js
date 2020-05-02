@@ -1,4 +1,5 @@
 const router = require("express").Router()
+
 //middlewares
 const authentication = require('../middlewares/authetication')
 const authorization = require('../middlewares/authorization')
@@ -14,13 +15,14 @@ router.post("/todos",authentication, Controller.add)
 router.get("/todos/:id",authentication, Controller.search)
 router.put("/todos/:id",authentication, authorization,  Controller.update)
 router.delete("/todos/:id",authentication, authorization, Controller.delete)
+router.get("/todos/completed",authentication, Controller.showComplete)
 
 //User's Controller
 router.post("/register", UserController.register)
 router.post("/login", UserController.login)
+router.post('/googleSign', UserController.googleSign)
 
 //Holiday's Controller
-router.get('/holiday', HolidayController.holiday)
-
+router.get('/holiday/:year', HolidayController.holiday)
 
 module.exports = router

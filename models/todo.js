@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       {
         beforeCreate: (data, option) =>
         {
-          data.status = false;
+          data.status = "Unfinished";
         }
       }
     }

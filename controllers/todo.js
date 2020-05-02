@@ -17,7 +17,7 @@ class Controller {
 
     static search(req, res, next) {
         let id = req.params.id
-        Todo.findOne({ where: { id } })
+        Todo.findOne({ where: { id }, where: {UserId: req.currentUserId} })
             .then((result) => {
                 if (result) {
                     return res.status(200).json(result)
@@ -61,7 +61,7 @@ class Controller {
         }
         Todo.findOne({ where: { id } })
             .then((data) => {
-                if (data) Todo.update(payload, { where: { id: id } })
+                if (data) Todo.update(payload, { where: { id: id }, where: {UserId: req.currentUserId} })
                 else next({
                     name: 'NotFound',
                     msg: 'Data Not Found'
@@ -86,7 +86,7 @@ class Controller {
         Todo.findOne({ where: { id } })
             .then((data) => {
                 if (data) {
-                    Todo.destroy({ where: { id: id } })
+                    Todo.destroy({ where: { id: id }, where: {UserId: req.currentUserId} })
                         .then((result) => {
                             return res.status(201).json({ data })
                         })
@@ -102,6 +102,18 @@ class Controller {
             })
     }
 
+    static showComplete(req, res, next) {
+        Todo.findAll({ where: { UserId: req.currentUserId , status: true} })
+            .then((result) => {
+                return res.status(200).json(result)
+            })
+            .catch((err) => {
+                next({
+                    name: 'NotFound',
+                    errors: [{ msg: 'Data Not Found' }]
+                })
+            })
+    }
 }
 
 module.exports = Controller

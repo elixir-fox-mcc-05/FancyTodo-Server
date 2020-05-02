@@ -325,3 +325,326 @@
 * **Sample Call:**
 
   http://localhost:3000/login
+
+## Add Project
+  *Login required
+
+* **URL**
+
+  /login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   NONE
+
+* **Data Params**
+
+  name=[string]
+  description=[string]
+  status=[boolean]
+  due_date=[date]
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "Project": {
+        "id": 2,
+        "name": "DirumahAja",
+        "description": "Dirumah aja project hacktiv8",
+        "status": false,
+        "due_date": "2020-05-06T00:00:00.000Z",
+        "updatedAt": "2020-05-01T11:20:08.369Z",
+        "createdAt": "2020-05-01T11:20:08.369Z"
+    },
+    "Member": {
+        "id": 3,
+        "UserId": 6,
+        "ProjectId": 2,
+        "updatedAt": "2020-05-01T11:20:08.559Z",
+        "createdAt": "2020-05-01T11:20:08.559Z"
+    }
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 400 <br />
+    **Content:** `{ error : "Validate Error" }`
+
+    OR
+
+  * **Code:** 401 <br />
+    **Content:** `{ error : "Unauthorized Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/projects
+
+## Get Project
+  *Login required
+  Get all project that current user is part of
+
+* **URL**
+
+  /projects
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   NONE
+
+* **Data Params**
+
+    NONE
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "Projects": [
+        {
+            "id": 1,
+            "name": "DirumahAja",
+            "description": "Dirumah aja project hacktiv8",
+            "status": false,
+            "due_date": "2020-05-06T00:00:00.000Z",
+            "createdAt": "2020-05-01T11:20:08.369Z",
+            "updatedAt": "2020-05-01T11:20:08.369Z",
+            "UserProjects": {
+                "createdAt": "2020-05-01T11:20:08.559Z",
+                "updatedAt": "2020-05-01T11:20:08.559Z",
+                "ProjectId": 1,
+                "UserId": 6
+            }
+        }
+    ]
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** `{ error : "Unauthorized Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/projects
+
+## Add Member to Project
+  *Login required
+  Add a new member to the project
+
+* **URL**
+
+  /projects/id
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   id=[integer]
+
+* **Data Params**
+
+    userid=[integer]
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "data": {
+        "id": 2,
+        "UserId": 2,
+        "ProjectId": 1,
+        "updatedAt": "2020-05-01T10:03:23.626Z",
+        "createdAt": "2020-05-01T10:03:23.626Z"
+    }
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** `{ error : "Unauthorized Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/projects/1
+
+## Update Project Detail
+  *Login required
+  Update the project detail (name, description, status, etc.)
+
+* **URL**
+
+  /projects/id
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   id=[integer]
+
+* **Data Params**
+
+   name=[string]
+   description=[string]
+   status=[boolean]
+   due_date=[date]
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "data": [
+        {
+            "id": 1,
+            "name": "DirumahAja bareng mamahnya anak2",
+            "description": "description project baru nih",
+            "status": false,
+            "due_date": "2020-06-05T00:00:00.000Z",
+            "createdAt": "2020-05-01T07:25:08.078Z",
+            "updatedAt": "2020-05-01T10:06:48.685Z"
+        }
+    ]
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** `{ error : "Unauthorized Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/projects/1
+
+## Delete Project
+  *Login required
+  When you no longer need the project, delete it
+
+* **URL**
+
+  /projects/id
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   id=[integer]
+
+* **Data Params**
+
+   NONE
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "deletedData": {
+        "id": 3,
+        "name": "DirumahAja",
+        "description": "Dirumah aja project hacktiv8",
+        "status": false,
+        "due_date": "2020-05-06T00:00:00.000Z",
+        "createdAt": "2020-05-01T11:36:17.242Z",
+        "updatedAt": "2020-05-01T11:36:17.242Z"
+    }
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** `{ error : "Unauthorized Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/projects/1
+
+## Get Todo By Project
+  *Login required
+  Get all todo in a project
+
+* **URL**
+
+  /projects/id/todos
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   id=[integer]
+
+* **Data Params**
+
+   NONE
+
+* **Success Response:**
+
+  * **Code:** 200 OK<br />
+    **Content:** `{
+    "ProjectTodos": [
+        {
+            "id": 37,
+            "title": "New Todos",
+            "description": "adding new todos",
+            "status": "pending",
+            "due_date": "2020-06-23T17:00:00.000Z",
+            "UserId": 6,
+            "ProjectId": 4,
+            "createdAt": "2020-05-01T11:38:15.905Z",
+            "updatedAt": "2020-05-01T11:38:15.905Z"
+        }
+    ]
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 <br />
+    **Content:** `{ error : "Unauthorized Error" }`
+
+    OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+
+  http://localhost:3000/projects/1/todos

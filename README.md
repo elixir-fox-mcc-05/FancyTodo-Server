@@ -27,7 +27,7 @@ Success Response:
 ```javascript
 {
   "id": 2,
-  "email": "mama@gmail.com"
+  "email": "azka1999@gmail.com"
 }
 ```
 

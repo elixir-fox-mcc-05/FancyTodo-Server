@@ -4,7 +4,7 @@ FancyTodo API is organized around [REST][1] which is based on resource-oriented 
 
 Post, Put and Delete /todos will require jsonwebtoken as an identification from users who succesfully registered and signed in.
 
-## /users
+## USER
 
 ### POST /register
 
@@ -76,7 +76,7 @@ Error Response:
 }
 ```
 
-## /todos
+## TODO's
 
 ### POST /todos
 

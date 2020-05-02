@@ -12,7 +12,5 @@ router.post(`/register`, UserController.create)
 router.post(`/login`, UserController.login)
 router.delete(`/:id`, UserController.deleteUser)
 
-// router.get(`/:id`, UserController.getOneTodo)
-// router.put(`/:id`, UserController.updateTodo)
 
 module.exports = router

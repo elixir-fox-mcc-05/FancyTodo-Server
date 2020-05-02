@@ -371,3 +371,142 @@ HTTP Status Code : `400`
 ~~~
 ---
 ---
+***ddlkfajkdfajsndfjknsdjkfnajskdnfkajs
+asdfa
+sd
+fa
+sdf
+as
+df
+a
+sdf
+as
+dfa
+sdf
+s
+da
+f
+asdf
+a
+sd
+fa
+sd
+f
+as
+d
+f
+asdf
+
+
+> SIGNIN WITH `GOOGLE`
+
+URL : <br>
+`localhost:3000/goole-signin`
+
+Method: <br>
+`POST`
+
+Requirment :
+- email
+
+
+## RESPOND :
+
+> `CREATED`
+
+HTTP Status Code : `201`
+
+~~~
+
+   // user will be direct to dashboard
+
+~~~
+
+---
+---
+> `BAD REQUEST`
+
+HTTP Status Code : `400`
+
+~~~
+{
+   // user keep stay on login page
+}
+~~~
+---
+---
+
+# Success to login? [`read documentaion below`]
+## Use this documentation for guide you `how to use this app`
+### Lemme show you how..
+
+Our Features : <br><br>
+    • `Create` Todo list <br>
+    • `Read` Todo list (`show you all your list`) <br>
+    • `Update` Todo list <br>
+    • `Delete` Todo list <br>
+
+Additional Features : You can make a or more `Project list` with `add your friend` as a member  <br>
+
+# Features
+
+> `Create` - TODO LIST
+
+CREATE TODO LIST : <br><br>
+    • Click Create Todo <br>
+    • Fill all field <br>
+    • Make sure all field are filled <br>
+
+`Rules`: 
+
+    Due Date field : min date is tommorrow
+
+    
+• Click Submit <br>
+• then see your `email for notification` and <br>
+
+> `Read` <br>
+
+• see your new `todo list` by click Dashboard on Navigation
+
+> `Update`
+
+• Click `Update` on table then fill them like usual
+
+> `Delete`
+
+• Click `Delete` on table then your list will be `removed`
+
+---
+> `Create` - PROJECT LIST
+
+CREATE PROJECT LIST : <br><br>
+    • Click `Project` on Navigation <br>
+    • Click `Create Project` <br>
+    • Fill all field <br>
+    • Make sure all field are filled <br>
+
+`Rules`: 
+
+    Due Date field : min date is tommorrow
+
+    
+• `Taraaa~` Now, you can add your friend as a member <br>
+• Click `Submit` <br>
+
+> `Read` <br>
+
+• see your new `project list` by click Project on Navigation
+
+> `Update`
+
+• Click `Update` on table then fill them like usual
+
+`Authorization`: 
+
+    Now, your member access project list with (CRUD) create, read, update, delete
+
+
+> `Delete`
+
+• Click `Delete` on table then your list will be `removed`

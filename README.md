@@ -1,6 +1,8 @@
 # FancyTodo-Server 
 
-## GET ALL TODOS 
+## TODOS
+
+### GET ALL TODOS 
 
 #### URL 
 /todos
@@ -23,7 +25,8 @@ None
 - Content: 
     ```
     {
-    "msg":{
+    "data": [
+        {
         "id":3,
         "title":"Masak",
         "description":"Step memasak",
@@ -33,7 +36,13 @@ None
         "createdAt":"2020-04-27T14:34:37.552Z",
         "UserId":null
         }
-    }
+    ],
+    "weather": {
+        "weather_state_name": "Showers",
+        "min_temp": 26.465,
+        "the_temp": 30.915,
+         "humidity": 74,
+    } 
     ```
 
 #### Error Response 
@@ -51,7 +60,7 @@ None
 
 <br>
 
-## GET TODOS BY ID
+### GET TODOS BY ID
 
 #### URL 
 /todos/:id
@@ -101,7 +110,7 @@ None
 
 <br>
 
-## CREATE NEW TODOS 
+### CREATE NEW TODOS 
 
 #### URL 
 /todos
@@ -153,7 +162,7 @@ None
 
 <br>
 
-## UPDATE TODOS 
+### UPDATE TODOS 
 
 #### URL 
 /todos/:id
@@ -219,7 +228,7 @@ None
 
 <br>
 
-## DELETE TODOS 
+### DELETE TODOS 
 
 #### URL 
 /todos/:id
@@ -265,3 +274,99 @@ None
 
 #### Sample Call 
 - http://localhost:3000/todos/1
+
+
+======================================================================================
+
+## USER
+
+### USER REGISTER 
+
+#### URL 
+/user/register
+
+
+#### Method 
+    > POST
+
+
+#### URL Parameter 
+None
+
+
+#### Data Parameter 
+ - username=[string] (must be unique, or automatically generate if login using Google Account)
+ - email=[string]
+ - password=[string] (minimum length 6)
+
+
+#### Success Response 
+- Code: 201
+- Content: 
+    ```
+    {
+    "id": 2,
+    "username": "gonfreecs",
+    "email": "gonfreecs@hunter.mail",
+    "password": "$2b$05$CZSyhlTucwTGXNCy.s0KYOQgZ8DtAX.k.m1S8XusqAd9DxN3LYqQq",
+    "updatedAt": "2020-04-30T03:21:54.152Z",
+    "createdAt": "2020-04-30T03:21:54.152Z"
+    }
+    ```
+
+#### Error Response 
+- Code: 400 
+- Content: 
+    ```
+    {
+        "error": "Error"
+    } 
+    ```
+
+#### Sample Call 
+- http://localhost:3000/user/register 
+
+<br>
+
+### USER LOGIN
+
+#### URL 
+/user/login
+
+
+#### Method 
+    > POST
+
+
+#### URL Parameter 
+None
+
+
+#### Data Parameter 
+- email=[string]
+- password=[string] (minimum length 6)
+
+
+#### Success Response 
+- Code: 200
+- Content: 
+    ```
+    {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJnb25mcmVlY3NAaHVudGVyLm1haWwiLCJpYXQiOjE1ODgzOTE1MzB9.wPBaIAGZ0HulinSLowj_S1YOJfD3kUeTW7NXkgbASKg"
+    }
+    ```
+
+#### Error Response 
+- Code: 400 
+- Content: 
+    ```
+    {
+        "error": "Error"
+    } 
+    ```
+
+#### Sample Call 
+- http://localhost:3000/user/login
+
+<br>
+

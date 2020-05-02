@@ -2,13 +2,23 @@
 
 const Model = require('../models');
 const Todo = Model.Todo;
+const axios = require('axios');
 
 class TodoController {
     
     static findAll(req, res, next) {
-        Todo.findAll()
+        let temp;
+        axios.get('https://www.metaweather.com/api/location/1047378/')
+            .then(result => {
+                temp = result.data.consolidated_weather[0]
+                return Todo.findAll({
+                    where: {
+                        UserId: req.UserId
+                    }
+                })
+            })
             .then(data => {
-                res.status(200).json(data);
+                res.status(200).json({data, weather: temp});
             })
             .catch(err => {
                 next(err);
@@ -44,7 +54,7 @@ class TodoController {
             });
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         const id = Number(req.params.id);
         const {title, description, status, due_date} = req.body;
         Todo.update({

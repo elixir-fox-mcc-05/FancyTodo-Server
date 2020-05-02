@@ -1,4 +1,7 @@
 'use strict';
+const date = new Date();
+date.setDate(date.getDate() - 1)
+
 module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model{}
 
@@ -9,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type : DataTypes.DATEONLY,
       validate : {
-        isAfter : new Date().toISOString().split('T')[0]
+        isAfter : date.toISOString().split('T')[0]
       }
     },
     UserId : {

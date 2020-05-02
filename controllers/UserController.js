@@ -23,8 +23,8 @@ class UserController {
     }
 
     static login(req, res, next) {
-        const { email, password } = req.body;
-
+        let { email, password } = req.body;
+        email = email.toLowerCase();
         User.findOne({
                 where: {
                     email

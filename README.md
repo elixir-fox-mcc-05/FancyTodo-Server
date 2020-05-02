@@ -374,6 +374,43 @@ Sample Call :
   })
 
 
+Login
+Returns json data with auth token.
+
+URL
+
+/login
+
+Method:
+
+POST
+
+URL Header
+
+required:
+
+id_token = [string]
+
+Success Response:
+
+Code: 201 CREATED
+Content:{ accessToken : ""}
+
+Error Response:
+
+code : 400 BAD REQUEST
+content : {error : "id not found"}
+
+Sample Call :
+
+$.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/logingoogle',
+    headers: {
+      google_token: id_token
+    }
+  })
+
 Holiday List
 show list of holiday this year
 

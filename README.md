@@ -417,7 +417,7 @@ Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
     **Content:** 
     
     `{
-      "msg": "Todo successfully updated"
+      "msg": "Successfully update this todo's status"
     }`
  
 * **Error Response:**

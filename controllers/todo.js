@@ -109,7 +109,7 @@ class TodoController {
         })
         .then(result => {
             return res.status(200).json({
-                msg: "Todo successfully updated"
+                msg: "Successfully update this todo's status"
             })
         })
         .catch(err => {

@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Name is required",
           },
           len: {
-            args: 4, 
-            msg: "Name must be or more than 4 character"
+            args: 4,
+            msg: "Name must be or more than 4 character",
           },
         },
       },
@@ -61,8 +61,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Email is required",
           },
           len: {
-            args: 4, 
-            msg: "Password must be or more than 4 character"
+            args: 4,
+            msg: "Password must be or more than 4 character",
           },
         },
       },

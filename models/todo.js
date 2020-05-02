@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Title is required",
           },
           len: {
-            args: 4, 
-            msg: "Title must be or more than 4 character"
+            args: 4,
+            msg: "Title must be or more than 4 character",
           },
         },
       },
@@ -37,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Description is required",
           },
           len: {
-            args: 4, 
-            msg: "Description must be or more than 4 character"
+            args: 4,
+            msg: "Description must be or more than 4 character",
           },
         },
       },
@@ -59,14 +59,14 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Due date is required",
           },
           isAfter: {
-            args:`${new Date()}`,
-            msg: "Due date must be more than current day and time"
-          }
+            args: `${new Date()}`,
+            msg: "Due date must be more than current day and time",
+          },
         },
       },
-      UserId:{
-        type: DataTypes.INTEGER
-      }
+      UserId: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

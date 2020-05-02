@@ -1,5 +1,12 @@
 # FancyTodo-Server
->Rest Api Todo App<br>
+>Rest Api Todo App
+
+<br>
+
+    Base URL : http://localhost:3000
+
+<br>
+
 >List of endpoint you can use<br>
 
 | URL           | Method        |
@@ -9,13 +16,20 @@
 | /todos/:id    | GET           |
 | /todos/:id    | PUT           |
 | /todos/:id    | DELETE        |
-<br><br>
+| /covid        | GET           |
+<br>
 
 -----
 ## /todos
 -----
 * method: GET
 * purpose: Show All Todos
+* request token in headers <br>
+     ```javascript
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbWlyQGdtYWlsLmNvbSIsImlhdCI6MTU4ODE4NjAxN30.buWR7ZObH7L0_OmSMZSrj6wwrOTIH3Lak7tTX_HCqLE"
+                }
+     ```
 * success response: <br>
     * code: 200 <br>
     * content: <br>
@@ -43,12 +57,22 @@
             ]
         }
         ```
+
 * error response: <br>
     * code: 500 <br>
     * content: <br>
         ```javascript
         {
             "error": "internal server error"
+        }
+        ```
+        <br>
+
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Please login first"
         }
         ```
 
@@ -59,6 +83,12 @@
 -----
 * method: POST
 * purpose: Create new Todo
+* request token in headers <br>
+     ```javascript
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbWlyQGdtYWlsLmNvbSIsImlhdCI6MTU4ODE4NjAxN30.buWR7ZObH7L0_OmSMZSrj6wwrOTIH3Lak7tTX_HCqLE"
+                }
+     ```
 * request body: <br>
     ```javascript
         {
@@ -92,6 +122,62 @@
         }
         ```
 
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Please login first"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Title is required"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Description is required"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Due date is required"
+        }
+        ```
+    
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Title must be or more than 4 character"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Description must be or more than 4 character"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Due date must be more than current day and time"
+        }
+        ```
+
 <br><br>
 
 -----
@@ -100,6 +186,12 @@
 * method: GET
 * purpose: Show Todo based on ID
 * request params: id <br>
+* request token in headers <br>
+     ```javascript
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbWlyQGdtYWlsLmNvbSIsImlhdCI6MTU4ODE4NjAxN30.buWR7ZObH7L0_OmSMZSrj6wwrOTIH3Lak7tTX_HCqLE"
+                }
+     ```
 * success response: <br>
     * code: 200 <br>
     * content: <br>
@@ -125,6 +217,22 @@
         }
         ```
 
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Please login first"
+        }
+        ```
+    
+    * code: 404 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Id 7 is not found"
+        }
+        ```
+
 <br><br>
 
 -----
@@ -133,6 +241,12 @@
 * method: PUT
 * purpose: Edit Todo based on ID
 * request params: id <br>
+* request token in headers <br>
+     ```javascript
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbWlyQGdtYWlsLmNvbSIsImlhdCI6MTU4ODE4NjAxN30.buWR7ZObH7L0_OmSMZSrj6wwrOTIH3Lak7tTX_HCqLE"
+                }
+     ```
 * request body: <br>
     ```javascript
     {		
@@ -159,6 +273,47 @@
         }
         ```
 
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Please login first"
+        }
+        ```
+
+    * code: 404 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Id 7 is not found"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Title must be or more than 4 character"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Description must be or more than 4 character"
+        }
+        ```
+
+    * code: 400 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Due date must be more than current day and time"
+        }
+        ```
+
+
 <br><br>
 
 -----
@@ -167,6 +322,12 @@
 * method: DELETE
 * purpose: Delete todo based on ID
 * request params: id <br>
+* request token in headers <br>
+     ```javascript
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbWlyQGdtYWlsLmNvbSIsImlhdCI6MTU4ODE4NjAxN30.buWR7ZObH7L0_OmSMZSrj6wwrOTIH3Lak7tTX_HCqLE"
+                }
+     ```
 * success response: <br>
     * code: 200 <br>
     * content: <br>
@@ -174,6 +335,57 @@
         {
             "msg": "Todo with id 3 successfully deleted"
         }
+        ```
+* error response: <br>
+    * code: 500 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "internal server error"
+        }
+        ```
+   
+    * code: 401 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Please login first"
+        }
+        ```
+    
+    * code: 404 <br>
+    * content: <br>
+        ```javascript
+        {
+            "error": "Id 7 is not found"
+        }
+        ```
+
+
+<br><br>
+
+-----
+## /covid
+-----
+* method: GET
+* purpose: Stay safe, this end point give you information covid in the world
+* request params: none <br>
+* success response: <br>
+    * code: 200 <br>
+    * content: <br>
+        ```javascript
+        {
+        "Country": "Angola",
+        "CountryCode": "AO",
+        "Slug": "angola",
+        "NewConfirmed": 0,
+        "TotalConfirmed": 27,
+        "NewDeaths": 0,
+        "TotalDeaths": 2,
+        "NewRecovered": 0,
+        "TotalRecovered": 6,
+        "Date": "2020-04-29T21:44:19Z"
+      }
         ```
 * error response: <br>
     * code: 500 <br>

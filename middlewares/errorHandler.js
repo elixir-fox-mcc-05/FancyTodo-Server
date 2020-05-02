@@ -1,4 +1,5 @@
 module.exports = (err, req, res, next) => {
+  console.log(err)
   if (err.name == "JsonWebTokenError") {
     res.status(401).json({
       msg: "please login first",

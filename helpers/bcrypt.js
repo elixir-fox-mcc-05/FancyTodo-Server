@@ -7,7 +7,7 @@ function generatePassword(password) {
 }
 
 function checkPassword(password, hash) {
-return bcrypt.compareSync(password, hash)
+  return bcrypt.compareSync(password, hash);
 }
 
 module.exports = { generatePassword, checkPassword };

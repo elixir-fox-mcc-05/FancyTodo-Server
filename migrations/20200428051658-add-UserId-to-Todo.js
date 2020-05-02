@@ -1,21 +1,19 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Todos', 'UserId', {
+    return queryInterface.addColumn("Todos", "UserId", {
       type: Sequelize.INTEGER,
       references: {
         model: "Users",
-        key: "id"
+        key: "id",
       },
       onUpdate: "cascade",
-      onDelete: "cascade"
+      onDelete: "cascade",
     });
-    
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Todos', 'UserId');
-    
-  }
+    return queryInterface.removeColumn("Todos", "UserId");
+  },
 };

@@ -391,3 +391,87 @@
             }
         });
         ```
+
+### Return json data after login/register via google user
+*    Url
+        /user/google-login
+
+*    Method:
+
+        POST
+
+*    URL PARAMS
+
+        token : google_token
+
+*    Data PARAMS
+
+        None
+
+*    Succes Response
+        ```
+        Code : 200
+        Content :   {
+                        "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
+                    }
+        ```
+*    Error Response :
+        ```
+        Code :  500
+        Content : "Internal server error"
+        ```
+*    Sample Call :
+        ```
+        $.ajax({
+            url: "/user/google-login",
+            dataType: "json",
+            type : "Post",
+            success : function(result) {
+                res.status(200).json({
+                    Token : result
+                })
+            }
+        });
+        ```
+
+### Return json data after login/register via facebook user
+*    Url
+        /user/google-login
+
+*    Method:
+
+        POST
+
+*    URL PARAMS
+
+        email : facebook_email
+
+*    Data PARAMS
+
+        None
+
+*    Succes Response
+        ```
+        Code : 200
+        Content :   {
+                        "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
+                    }
+        ```
+*    Error Response :
+        ```
+        Code :  500
+        Content : "Internal server error"
+        ```
+*    Sample Call :
+        ```
+        $.ajax({
+            url: "/user/facebook-login",
+            dataType: "json",
+            type : "Post",
+            success : function(result) {
+                res.status(200).json({
+                    Token : result
+                })
+            }
+        });
+        ```

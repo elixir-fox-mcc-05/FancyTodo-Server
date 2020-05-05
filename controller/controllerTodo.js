@@ -55,13 +55,16 @@ class TodoController {
                     })
                 } else {
                     return next({
-                        code : 404,
-                        msg : "Data Not Found",
-                        type : "Not Found"
+                        code : 406,
+                        msg : "Cannot Create Todo",
+                        type : "Cannot Accepted"
                     })
                 }
             })
             .catch(err => {
+                if(err.name || err.code){
+                    return next(err)
+                }
                 return next({
                     code : 500,
                     msg : "Something Went Wrong",
@@ -90,6 +93,9 @@ class TodoController {
                 }
             })
             .catch(err => {
+                if(err.name || err.code){
+                    return next(err)
+                }
                 return next({
                     code : 500,
                     msg : "Something Went Wrong",
@@ -125,7 +131,7 @@ class TodoController {
             })
             .then(Todos => {
                 if(Todos){
-                    res.status(201).json({
+                    res.status(202).json({
                         Todos,
                     })
                 } else {
@@ -137,7 +143,7 @@ class TodoController {
                 }
             })
             .catch(err => {
-                if(err.name){
+                if(err.name || err.code){
                     return next(err)
                 } else {
                     return next({
@@ -163,13 +169,16 @@ class TodoController {
                     })
                 } else {
                     return next({
-                        code : 403,
+                        code : 400,
                         msg : "You Doesn't allow to delete this file",
-                        type : "Forbidden"
+                        type : "Bad Request"
                     })
                 }
             })
             .catch(err => {
+                if(err.name || err.code){
+                    return next(err)
+                }
                 return next({
                     code : 500,
                     msg : "Something Went Wrong",

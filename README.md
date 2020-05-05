@@ -12,7 +12,6 @@
 
 *    URL PARAMS
 
-        UserId = Integer
         headers = Token
 
 *    Data PARAMS
@@ -21,8 +20,7 @@
 
 *    Succes Response
         ```
-        Code : 200
-        
+        Code : 200        
         Content : {
                         "Todos": [
                             {
@@ -59,13 +57,13 @@
 *    Error Response :
         ```
         Code :  500
-        Content : "Error Acces Server"
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
         $.ajax({
             url: "/todos",
-            dataType: "json",
+            headers: "token",
             type : "GET",
             success : function(result) {
                 res.status(200).json({
@@ -86,21 +84,17 @@
 
 *    URL PARAMS
 
-        UserId : Integer
-        headers = Token
+        headers : token
 
 *    Data PARAMS
-
+        ```
         title : String
         description : String
-        status : Boolean
-        due_date : DateOnly
-        UserId : Integer
-
+        due_date : Date
+        ```
 *    Succes Response
         ```
-        Code : 201
-        
+        Code : 201       
         Content : {
                     "Todos": {
                         "id": 7,
@@ -117,14 +111,19 @@
 *    Error Response :
         ```
         Code :  500
-        Content : "Error Acces Server"
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
         $.ajax({
             url: "/todos",
-            dataType: "json",
+            headers: "token",
             type : "POST",
+            data : {
+                    "title",
+                    "description",
+                    "due_date"
+            },
             success : function(result) {
                 res.status(200).json({
                     Todos : result
@@ -143,18 +142,17 @@
         GET
 
 *    URL PARAMS
-
+        ```
         id = integer
-        headers = Token
-
+        headers = token
+        ```
 *    Data PARAMS
 
         None
 
 *    Succes Response
         ```
-    *    Code : 200
-
+        Code : 200
         Content :   {
                         "Todos": {
                             "id": 7,
@@ -188,14 +186,14 @@
         ```
 *    Error Response :
         ```
-    *    Code :  500
-        Content : "Not Found"
+        Code :  500
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
         $.ajax({
             url: "/todos/7",
-            dataType: "json",
+            headers: "token",
             type : "GET",
             success : function(result) {
                 res.status(200).json({
@@ -215,21 +213,20 @@
         PUT
 
 *    URL PARAMS
-
-        id = [integer]
-        headers = Token
-
+        ```
+        id = integer
+        headers = token
+        ```
 *    Data PARAMS
-
+        ```
         title : String
         description : String
         status : Boolean
-        due_date : DateOnly
-
+        due_date : Date
+        ```
 *    Succes Response
         ```
-        Code : 201
-
+        Code : 202
         Content :   {
                         "Todos": {
                             "id": 7,
@@ -245,14 +242,20 @@
         ```
 *    Error Response :
         ```
-        Code :  304
-        Content : "Not Modified"
+        Code :  500,
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
         $.ajax({
             url: "/todos/7",
-            dataType: "json",
+            headers: "token",
+            data : {
+                    title,
+                    descriptions,
+                    status,
+                    due_date,
+            }
             type : "PUT",
             success : function(result) {
                 res.status(200).json({
@@ -272,10 +275,10 @@
         DELETE
 
 *    URL PARAMS
-
+        ```
         id : INTEGER
         headers = Token
-
+        ```
 *    Data PARAMS
 
         NONE
@@ -287,14 +290,14 @@
         ```
 *    Error Response :
         ```
-        Code :  501
-        Content : "Not Implemented"
+        Code :  500
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
         $.ajax({
             url: "/todos/3",
-            dataType: "json",
+            headers: "token",
             type : "DELETE",
             success : function(result) {
                 res.status(200).json({
@@ -318,10 +321,10 @@
         NONE
 
 *    Data PARAMS
-
+        ```
         email : String
         password : String
-
+        ```
 *    Succes Response
         ```
         Code : 201
@@ -332,14 +335,13 @@
         ```
 *    Error Response :
         ```
-        Code :  501
-        Content : "Cannot Implemented"
+        Code :  500
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
         $.ajax({
             url: "/user/register",
-            dataType: "json",
             type : "Post",
             success : function(result) {
                 res.status(200).json({
@@ -362,13 +364,13 @@
         NONE
 
 *    Data PARAMS
-
+        ```
         email : String
         password : String
-
+        ```
 *    Succes Response
         ```
-        Code : 200
+        Code : 202
         Content :   {
                         "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
                     }
@@ -382,7 +384,6 @@
         ```
         $.ajax({
             url: "/user/login",
-            dataType: "json",
             type : "Post",
             success : function(result) {
                 res.status(200).json({
@@ -410,7 +411,7 @@
 
 *    Succes Response
         ```
-        Code : 200
+        Code : 202
         Content :   {
                         "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
                     }
@@ -418,7 +419,7 @@
 *    Error Response :
         ```
         Code :  500
-        Content : "Internal server error"
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```
@@ -452,7 +453,7 @@
 
 *    Succes Response
         ```
-        Code : 200
+        Code : 202
         Content :   {
                         "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5b2RqaTA5QGdtYWlsLmNvbSIsImlhdCI6MTU4ODA4MDg5Mn0.RGbRjWwP5ZwhqZIsDSDKlciDyR-AR0MW8VDxllYjeKY"
                     }
@@ -460,7 +461,7 @@
 *    Error Response :
         ```
         Code :  500
-        Content : "Internal server error"
+        Content : "Something Went Wrong"
         ```
 *    Sample Call :
         ```

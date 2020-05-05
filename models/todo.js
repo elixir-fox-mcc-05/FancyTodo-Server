@@ -6,7 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   class Todo extends sequelize.Sequelize.Model{}
 
   Todo.init({
-    title: DataTypes.STRING,
+    title: {
+      type : DataTypes.STRING,
+      validate : {
+        notEmpty : true
+      }
+    },
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
     due_date: {

@@ -18,6 +18,12 @@ module.exports = (err, req, res, next) => {
                 Message : "Only present to the future date is allowed",
                 Detail : err
             })
+        } else if(err.errors[0].path === "title"){
+            return res.status(400).json({
+                Error : err.name,
+                Message : "Title Cannot be Empty",
+                Detail : err
+            })
         }
     } else if (err.name === "SequelizeUniqueConstraintError"){
         return res.status(400).json ({

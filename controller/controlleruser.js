@@ -123,9 +123,7 @@ class userController {
     }
     static facebookLogin(req, res, next){ 
         const {email} = req.headers
-        // let email = null
         let newUser = false
-        console.log(email)
         User.findOne({
                 where : {
                     email

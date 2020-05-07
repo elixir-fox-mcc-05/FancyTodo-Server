@@ -30,17 +30,18 @@ class ControllerUser{
     }
     static signin(req, res, next){
         let {email, password} = req.body;
-
+        
         User.findOne({
-            where: {
-                email
-            }
+          where: {
+            email
+          }
         })
         .then(result => {
-            if(result){
-                let compare = checkPassword(password, result.password);
-                
-                if(compare){
+          if(result){
+            let compare = checkPassword(password, result.password);
+            
+            console.log(compare)
+            if(compare){
                     let token = generateToken({
                         id: result.id,
                         email: result.email

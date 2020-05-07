@@ -1,5 +1,5 @@
 "use strict"
-
+console.log(process.env.NODE_ENV)
 if(process.env.NODE_ENV == 'development'){
   require('dotenv').config();
 }
@@ -19,4 +19,4 @@ app.use(errorHandler);
 
 app.listen(port, () => {
     console.log('app listen to port', port);
-  })
+})

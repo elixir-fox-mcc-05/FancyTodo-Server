@@ -23,7 +23,7 @@ class ToDoController{
         
         let {title , description, due_date} = req.body
         let UserId = req.LoginId
-
+        console.log(req.LoginId)
         Todo    
             .create({title,description, due_date, UserId})
             .then(data => res.status(201).json({todo : data}))

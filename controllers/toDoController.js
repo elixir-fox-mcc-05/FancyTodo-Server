@@ -9,8 +9,10 @@ class ToDoController{
 
     static list(req,res){
 
+        let {ProjectId} = req.body
+
         Todo
-            .findAll({order : [['id','ASC']], where : {ProjectId : req.ProjectId},include : [User,Project]})
+            .findAll({order : [['id','ASC']], where : {ProjectId},include : [User,Project]})
             .then(data => {
                 res.status(200).json({todos : data})
             })

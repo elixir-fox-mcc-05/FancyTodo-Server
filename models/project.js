@@ -3,9 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   class Project extends sequelize.Sequelize.Model{}
 
   Project.init({
-    name: DataTypes.STRING,
-    UserId :DataTypes.INTEGER,
-    TodoId: DataTypes.INTEGER
+    name: DataTypes.STRING
   }, {
     sequelize,
     modelname: 'Project'

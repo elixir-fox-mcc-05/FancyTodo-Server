@@ -7,8 +7,7 @@ router.use(authentication)
 
 router.get('/', ProjectController.list)
 router.post('/add', ProjectController.add)
-router.post('/:id', ProjectController.invite)
-// router.put('/:id', authorization,  ToDoController.updateToDo)
-// router.delete('/:id', authorization, ToDoController.deleteToDo)
+router.put('/edit/:id',ProjectController.edit)
+router.post('/delete/:id', ProjectController.delete)
 
 module.exports = router

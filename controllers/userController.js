@@ -10,7 +10,7 @@ class UserController {
         // console.log(req.body)
         let {first_name, last_name, password, email} = req.body
         let newUser = {first_name, last_name,  password, email}
-        console.log(newUser)
+        // console.log(newUser)
         User
             .create(newUser)
             .then(data => res.status(201).json({id :data.id,

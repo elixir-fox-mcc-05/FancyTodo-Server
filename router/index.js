@@ -4,6 +4,7 @@ const UserController = require('../controllers/userController')
 const todos = require('../router/todos')
 const Axios = require('axios')
 const projects = require('./projects')
+const passes = require('./passes')
 require('dotenv').config();
 
 const CALENDARIFIC = process.env.CALENDARIFIC
@@ -32,7 +33,8 @@ router.get('/holidays', (req,res) => {
 })
 
 router.use('/todos', todos)
-// router.use('/projects',projects)
+router.use('/projects',projects)
+router.use('/pass',passes)
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/logingoogle', UserController.googleLogin);

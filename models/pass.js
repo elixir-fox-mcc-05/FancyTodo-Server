@@ -1,6 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Pass = sequelize.define('Pass', {
+  class Pass extends sequelize.Sequelize.Model{}
+
+  Pass.init({
     name: DataTypes.STRING
   }, {
     sequelize,

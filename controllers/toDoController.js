@@ -10,11 +10,12 @@ class ToDoController{
     static list(req,res){
 
         Todo
-            .findAll({order : [['id','ASC']], where : {ProjectId : req.ProjectId},include : [User,Project]})
+            .findAll({order : [['id','ASC']],include : [User]})
             .then(data => {
                 res.status(200).json({todos : data})
             })
             .catch(err => {
+                console.log(err)
                 res.status(500).json({error : err})
             })
     }

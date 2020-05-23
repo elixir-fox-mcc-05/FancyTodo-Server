@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const p1 = queryInterface.addColumn('Projects', 'UserId', {
+    const p1 = queryInterface.addColumn('Passes', 'UserId', {
       type : Sequelize.INTEGER,
       foreignKey : true,
       references: {
@@ -13,7 +13,7 @@ module.exports = {
       onDelete : 'cascade'
     })
 
-    const p2 = queryInterface.addColumn('Projects', 'TodoId', {
+    const p2 = queryInterface.addColumn('Passes', 'ProjectId', {
       type : Sequelize.INTEGER,
       foreignKey : true,
       references: {
@@ -28,8 +28,8 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    const p1 = queryInterface.removeColumn('Projects','UserId')
-    const p2 = queryInterface.removeColumn('Projects','TodoId')
+    const p1 = queryInterface.removeColumn('Passes','UserId')
+    const p2 = queryInterface.removeColumn('Passes','ProjectId')
 
     return Promise.all([p1,p2])
   }

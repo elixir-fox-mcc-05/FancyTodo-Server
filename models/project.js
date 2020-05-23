@@ -3,14 +3,16 @@ module.exports = (sequelize, DataTypes) => {
   class Project extends sequelize.Sequelize.Model{}
 
   Project.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    UserId :DataTypes.INTEGER,
+    TodoId: DataTypes.INTEGER
   }, {
     sequelize,
     modelname: 'Project'
   });
   Project.associate = function(models) {
-    Project.belongsTo(models.Todo)
-    Project.belongsTo(models.User)
+    Project.hasMany(models.Todo)
+    Project.belongsToMany(models.User,{through : "Passes"})
     // associations can be defined here
   };
   return Project;

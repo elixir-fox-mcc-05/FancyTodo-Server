@@ -89,8 +89,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Todo.associate = function(models) {
+    Todo.belongsTo(models.Project)
     Todo.belongsTo(models.User)
-    Todo.belongsToMany(models.User,{through : "Projects"})
     // associations can be defined here
   };
   return Todo;

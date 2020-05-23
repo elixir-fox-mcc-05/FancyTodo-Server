@@ -38,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type : DataTypes.INTEGER
+    },
+    ProjectId: {
+      type : DataTypes.INTEGER
     }
   }, {
     sequelize,
@@ -87,6 +90,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Todo.associate = function(models) {
     Todo.belongsTo(models.User)
+    Todo.belongsToMany(models.User,{through : "Projects"})
     // associations can be defined here
   };
   return Todo;

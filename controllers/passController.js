@@ -4,7 +4,7 @@ class PassController{
 
     static list(req,res){
         Pass
-            .findAll({where : {id : req.LoginId}})
+            .findAll({where : {UserId : req.LoginId}})
             .then(data => {
                 res.status(200).json({
                     data
@@ -18,11 +18,11 @@ class PassController{
     }
 
     static invite(req,res){
-        let {name,ProductId} = req.body
+        let {name,ProjectId} = req.body
         let UserId = req.LoginId
 
         Pass
-            .create({name,UserId,ProductId})
+            .create({name,UserId,ProjectId})
             .then(data => {
                 res.status(201).json({
                     data

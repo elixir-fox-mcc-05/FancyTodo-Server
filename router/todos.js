@@ -7,7 +7,7 @@ router.use(authentication)
 
 router.post('/', ToDoController.list)
 router.get('/all', ToDoController.listall)
-router.post('/', ToDoController.createToDo)
+router.post('/add', ToDoController.createToDo)
 router.get('/:id', authorization, ToDoController.getId)
 router.put('/:id', authorization,  ToDoController.updateToDo)
 router.delete('/:id', authorization, ToDoController.deleteToDo)

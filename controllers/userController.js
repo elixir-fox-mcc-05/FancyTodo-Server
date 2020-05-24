@@ -5,6 +5,25 @@ const googleVerification = require('../helpers/googleOAuth')
 
 class UserController {
 
+    static list(req,res){
+
+      User
+        .findAll()
+        .then(data => {
+          let results = [];
+            for(let i=0;i < data.length;i++){
+              results.push({
+                  id: data[i].id,
+                  name: data[i].fullname
+              })
+            }
+          res.status(200).json({
+            results
+          })
+        })
+
+    }
+
     static register(req,res){
 
         // console.log(req.body)

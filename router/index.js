@@ -37,6 +37,7 @@ router.use('/projects',projects)
 router.use('/pass',passes)
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.get('/userlist',UserController.list)
 router.post('/logingoogle', UserController.googleLogin);
 // router.get('/todos', ToDoController.list)
 // router.post('/todos', ToDoController.createToDo)

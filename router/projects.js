@@ -8,6 +8,6 @@ router.use(authentication)
 router.get('/', ProjectController.list)
 router.post('/add', ProjectController.add)
 router.put('/edit/:id',ProjectController.edit)
-router.post('/delete/:id', ProjectController.delete)
+router.delete('/delete/:id', ProjectController.delete)
 
 module.exports = router

@@ -1,10 +1,10 @@
-const {Pass} = require('../models')
+const {Pass,Project} = require('../models')
 
 class PassController{
 
     static list(req,res){
         Pass
-            .findAll({where : {UserId : req.LoginId}})
+            .findAll({where : {UserId : req.LoginId},include : [Project]})
             .then(data => {
                 res.status(200).json({
                     data
@@ -18,8 +18,8 @@ class PassController{
     }
 
     static invite(req,res){
-        let {name,ProjectId} = req.body
-        let UserId = req.LoginId
+        let {name,ProjectId,UserId} = req.body
+        // let UserId = req.LoginId
 
         Pass
             .create({name,UserId,ProjectId})

@@ -1,7 +1,7 @@
-const {Todo} = require('../models')
+const {Todo,Pass} = require('../models')
 
 function authorization (req,res,next){
-    
+    let checkProject;
 
     Todo
         .findByPk(req.params.id)
@@ -10,16 +10,19 @@ function authorization (req,res,next){
             //console.log(data)
                     // return results
             if (data){
-                if (data.UserId == req.LoginId){
-                    //let results = Object.assign(data)
-                    //console.log(results)
-                    next()
-                }else {
+                checkproject = data.ProjectId
+                return Pass.findOne({where : {UserId : req.LoginId,ProjectId: checkproject}})
+
+                // if (data.UserId == req.LoginId){
+                //     //let results = Object.assign(data)
+                //     //console.log(results)
+                //     next()
+                // }else {
                    
-                    res.status(401).json({
-                        msg : 'Unauthorized to access!'
-                    })
-                }
+                //     res.status(401).json({
+                //         msg : 'Unauthorized to access!'
+                //     })
+                // }
                 
             }else {
                 
@@ -30,6 +33,19 @@ function authorization (req,res,next){
             
             
                 })
+        .then(data => {
+            
+                if (data.UserId == req.LoginId){
+                    //let results = Object.assign(data)
+                    //console.log(results)
+                    next()
+                }else {
+                   
+                    res.status(401).json({
+                        msg : 'Unauthorized to access!'
+                    })
+                }
+        })
         // .catch(err => res.status(404).json({error : err.message}))
 }
 

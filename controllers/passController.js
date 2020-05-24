@@ -4,7 +4,7 @@ class PassController{
 
     static list(req,res){
         Pass
-            .findAll({where : {UserId : req.LoginId},include : [Project]})
+            .findAll({where : {UserId : req.LoginId},include : [Project],order : [['id','ASC']]})
             .then(data => {
                 res.status(200).json({
                     data

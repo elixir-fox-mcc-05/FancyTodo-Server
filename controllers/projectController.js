@@ -80,6 +80,9 @@ class ProjectController{
                         return Project.destroy({where : {id : req.params.id},returning : true})
                         })
             .then(data2 => {
+                return Pass.destroy({where : {ProjectId : results.id},returning : true})
+            })
+            .then(data2 => {
                 res.status(200).json({project : results})
             })
             .catch(err => res.status(404).json({error : err.message}))

@@ -1,54 +1,57 @@
-# FancyTodo-Server
+**Title**
+----
+  Create Todos
 
-Create Todos
-Returns json data with last created todos.
+* **URL**
 
-URL
+  /todos
 
-/todos
+* **Method:**
+  
+  POST
+  
+*  **URL Params**
 
-Method:
+   **Required:**
+ 
+   token=[string]
 
-POST
 
-URL Header
+* **Data Params**
 
-Required: 
-token=[string]
+  Title=[string]
+  description=[string]
+  due_date=[date]
+  ProjectId=[integer]
 
-Data Params
+* **Success Response:**
+  
+  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
 
- {
-    "title" : "beli sayur" , 
-    "description" : "kepasar untuk beli sayur:, 
-    "due_date" : "march 29 2020 19:00:12" 
- }
-
-Success Response:
-
-Code: 201 CREATED
-Content:  "todo": {
+  * **Code:** 201 CREATED <br />
+    **Content:** `"todo": {
         "id": 10,
         "title": "beli sayur",
         "description": "kepasar untuk beli sayur",
         "due_date": "2020-03-29T11:00:12.000Z",
+        "ProjectId" : 1
         "updatedAt": "2020-04-27T09:59:18.847Z",
         "createdAt": "2020-04-27T09:59:18.847Z",
         "status": false,
-        "UserId": null
-    }
+        "UserId": 1
+    }`
+ 
+* **Error Response:**
 
-Error Response:
+  Code: 400 BAD REQUEST
+    Content: { error : "unable to create todo" }
 
-Code: 400 BAD REQUEST
-Content: { error : "unable to create todo" }
+    code: 500 INTERNAL SERVER ERROR
+    content : {error : "Internal Server Error"}
 
-code: 500 INTERNAL SERVER ERROR
-content : {error : "Internal Server Error"}
+* **Sample Call:**
 
-Sample Call : 
-
-$.ajax({
+  $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/todos',
     headers: {
@@ -62,116 +65,166 @@ $.ajax({
   })
 
 
-Show Todos
-Returns json data with all todos.
 
-URL
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-/todos
+  **Title**
+----
+  Show Todos
 
-Method:
+* **URL**
 
-Get
+  /todos
 
-URL Header
+* **Method:**
+  
+  POST
+  
+*  **URL Params**
 
-Required: 
+   **Required:**
+ 
+   `token=[string]`
 
-token=[string]
+   * **Data Params**
 
+  ProjectId=[integer]
 
-Success Response:
+* **Success Response:**
+  
 
-Code: 200 SUCCESS
-Content: {
+  * **Code:** 200 SUCCESS <br />
+    **Content:** `{
     "todos": [
         {
             "id": 1,
-            "title": null,
-            "description": null,
+            "title": "beli sayur",
+            "description": "halllllleeeee",
             "status": false,
-            "due_date": "2020-04-27T09:19:25.574Z",
-            "createdAt": "2020-04-27T09:19:25.558Z",
-            "updatedAt": "2020-04-27T09:19:25.558Z",
-            "UserId": null
+            "due_date": "2020-12-09T16:00:00.000Z",
+            "UserId": 1,
+            "ProjectId": 1,
+            "createdAt": "2020-05-23T13:45:40.532Z",
+            "updatedAt": "2020-05-23T13:45:40.532Z",
+            "User": {
+                "id": 1,
+                "first_name": "yusak",
+                "last_name": "haha",
+                "password": "$2b$05$h.40CZRASGKvMVZdWEtsdOSy9pqnrJjK/ummcT4yGYXVLZ0gxIa.2",
+                "email": "beli1dapet2@mail.com",
+                "createdAt": "2020-05-23T13:37:19.305Z",
+                "updatedAt": "2020-05-23T13:37:19.305Z"
+            },
+            "Project": {
+                "id": 1,
+                "name": "boluz",
+                "createdAt": "2020-05-23T13:43:49.767Z",
+                "updatedAt": "2020-05-24T02:11:21.893Z"
+            }
         },
         {
             "id": 2,
-            "title": null,
-            "description": "perjalanan ke pasa",
+            "title": "asdasd",
+            "description": "asdasd",
             "status": false,
-            "due_date": "2020-04-27T09:24:04.369Z",
-            "createdAt": "2020-04-27T09:24:04.320Z",
-            "updatedAt": "2020-04-27T09:24:04.320Z",
-            "UserId": null
+            "due_date": "2021-12-05T00:00:00.000Z",
+            "UserId": 1,
+            "ProjectId": 1,
+            "createdAt": "2020-05-24T02:13:55.569Z",
+            "updatedAt": "2020-05-24T02:13:55.569Z",
+            "User": {
+                "id": 1,
+                "first_name": "yusak",
+                "last_name": "haha",
+                "password": "$2b$05$h.40CZRASGKvMVZdWEtsdOSy9pqnrJjK/ummcT4yGYXVLZ0gxIa.2",
+                "email": "beli1dapet2@mail.com",
+                "createdAt": "2020-05-23T13:37:19.305Z",
+                "updatedAt": "2020-05-23T13:37:19.305Z"
+            },
+            "Project": {
+                "id": 1,
+                "name": "boluz",
+                "createdAt": "2020-05-23T13:43:49.767Z",
+                "updatedAt": "2020-05-24T02:11:21.893Z"
+            }
         }
     ]
-}
+}`
+ 
+* **Error Response:**
 
-Error Response:
 
-code: 500 INTERNAL SERVER ERROR
-content : {error : "Internal Server Error"}
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ error : "Internal Server Error" }`
 
-Sample Call:
 
- $.ajax({
-    method: 'GET',
+* **Sample Call:**
+
+$.ajax({
+    method: 'POST',
     url: 'http://localhost:3000/todos',
     headers: {
       token
+    },
+    data: {
+      ProjectId
     }
+
   })
 
 
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Show todos based id
-Returns json data with specific todos.
+  **Title**
+----
+    show todos based id
 
-URL
+* **URL**
 
-/todos/:id
+  /todos/:id
 
-Method:
+* **Method:**
+  
+  Get
+  
+*  **URL Params**
 
-Get
+   **Required:**
+ 
+   `id=[integer]`
+   `token=[string]`
 
-URL Params
 
-Required: 
+* **Success Response:**
+  
+  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
 
-id=[integer]
-
-URL Header
-
-Required:
-
-token=[string]
-
-Success Response:
-
-Code: 200 OK
-Content: [{
+  * **Code:** 200 SUCCESS<br />
+    **Content:** `[{
     "todo": {
         "id": 2,
         "title": null,
         "description": "perjalanan ke pasa",
         "status": false,
+        "ProjectId": 1,
         "due_date": "2020-04-27T09:24:04.369Z",
         "createdAt": "2020-04-27T09:24:04.320Z",
         "updatedAt": "2020-04-27T09:24:04.320Z",
-        "UserId": null
+        "UserId": 1
     }
-}]
+}]`
+ 
+* **Error Response:**
 
-Error Response:
+  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
 
-code: 404 NOT FOUND
-Content: { error : "id not found"}
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "id not found"}`
 
-Sample Call:
 
-$.ajax({
+* **Sample Call:**
+
+  $.ajax({
     method: 'get',
     url: `http://localhost:3000/todos/${id}`,
     params: { id },
@@ -179,58 +232,71 @@ $.ajax({
   })
 
 
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Update todos based id
-Returns json data with specific todos.
+  **Title**
+----
+  Update todos
 
-URL
+* **URL**
 
-/todos/:id
+  /todos/:id
 
-Method:
+* **Method:**
+  
+  PUT
+  
+*  **URL Params**
 
-PUT
+   <_If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints._> 
 
-URL Params
+   **Required:**
+ 
+   `id=[integer]`
+   `token=[string]`
 
-Required: 
 
-id=[integer]
+* **Data Params**
 
-URL Header
+  title=[string]
+  description=[string]
+  status=[string]
+  due_date=[string]
 
-Required:
+* **Success Response:**
 
-token=[string]
-
-Success Response:
-
-Code: 200 OK
-Content: [{
+  * **Code:** 200 OK<br />
+    **Content:** `[{
     "todo": {
         "id": 2,
         "title": null,
         "description": "perjalanan ke pasa",
         "status": false,
+        "ProjectId" : 1,
         "due_date": "2020-04-27T09:24:04.369Z",
         "createdAt": "2020-04-27T09:24:04.320Z",
         "updatedAt": "2020-04-27T09:24:04.320Z",
-        "UserId": null
+        "UserId": 1
     }
-}]
+}]`
+ 
+* **Error Response:**
 
-Error Response:
 
-code: 400 BAD REQUEST
-Content: { error : "title invalid"}
+  * **Code:** 401 BAD REQUEST <br />
+    **Content:** `{ error : "title invalid"}`
 
-code : 404 NOT FOUND
-content : {error : "id not found}
+  OR
 
-code : 500 INTERNAL SERVER ERROR
-content : {error : "Internal Server Error"}
+  * **Code:** 404 NOT FOUND<br />
+    **Content:** `{error : "id not found}`
 
-Sample Call : 
+    OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+    **Content:** ` {error : "Internal Server Error"}`
+
+* **Sample Call:**
 
  $.ajax({
     method: 'put',
@@ -245,60 +311,164 @@ Sample Call :
       status
     }
   })
+ 
 
 
-Delete todos based id
-Returns json data with removed todos.
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-URL
+  **Title**
+----
+  Delete Todo
 
-/todos/:id
+* **URL**
 
-Method:
+  /todos/:id
 
-DELETE
+* **Method:**
+  
+  DELETE
+  
+*  **URL Params**
 
-URL Params
+   **Required:**
+ 
+   `id=[integer]`
+   `token=[string]`
 
-Required: 
 
-id=[integer]
+* **Success Response:**
 
-URL Header
 
-Required:
+  * **Code:** 200 <br />
+    **Content:** `Content:[{
+                            "todo": {
+                                "id": 2,
+                                "title": null,
+                                "description": "perjalanan ke pasa",
+                                "status": false,
+                                "due_date": "2020-04-27T09:24:04.369Z",
+                                "createdAt": "2020-04-27T09:24:04.320Z",
+                                "updatedAt": "2020-04-27T09:24:04.320Z",
+                                "UserId": null
+                            }
+                        }]`
+ 
+* **Error Response:**
 
-token=[string]
+  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
 
-Success Response:
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{error : "id not found"}`
 
-Code: 200 OK
-Content:[{
-    "todo": {
-        "id": 2,
-        "title": null,
-        "description": "perjalanan ke pasa",
-        "status": false,
-        "due_date": "2020-04-27T09:24:04.369Z",
-        "createdAt": "2020-04-27T09:24:04.320Z",
-        "updatedAt": "2020-04-27T09:24:04.320Z",
-        "UserId": null
-    }
-}]
+  OR
 
-Error Response:
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{error : "Internal Server Error"}`
 
-code : 404 NOT FOUND
-content : {error : "id not found"}
+* **Sample Call:**
 
-code : 500 INTERNAL SERVER ERROR
-content : {error : "Internal Server Error"}
-
-Sample Call : 
-
-$.ajax({
+  $.ajax({
     method: 'delete',
     url: `http://localhost:3000/todos/${id}`,
     params: { id },
     headers: { token }
   })
+
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  **Title**
+----
+    show all todos
+
+* **URL**
+
+  /todos/all
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `token=[string]`
+
+
+* **Success Response:**
+
+
+  * **Code:** 200 <br />
+    **Content:** `{
+                        "todos": [
+                            {
+                                "id": 1,
+                                "title": "beli sayur",
+                                "description": "halllllleeeee",
+                                "status": false,
+                                "due_date": "2020-12-09T16:00:00.000Z",
+                                "UserId": 1,
+                                "ProjectId": 1,
+                                "createdAt": "2020-05-23T13:45:40.532Z",
+                                "updatedAt": "2020-05-23T13:45:40.532Z",
+                                "User": {
+                                    "id": 1,
+                                    "first_name": "yusak",
+                                    "last_name": "haha",
+                                    "password": "$2b$05$h.40CZRASGKvMVZdWEtsdOSy9pqnrJjK/ummcT4yGYXVLZ0gxIa.2",
+                                    "email": "beli1dapet2@mail.com",
+                                    "createdAt": "2020-05-23T13:37:19.305Z",
+                                    "updatedAt": "2020-05-23T13:37:19.305Z"
+                                },
+                                "Project": {
+                                    "id": 1,
+                                    "name": "boluz",
+                                    "createdAt": "2020-05-23T13:43:49.767Z",
+                                    "updatedAt": "2020-05-24T02:11:21.893Z"
+                                }
+                            },
+                            {
+                                "id": 2,
+                                "title": "asdasd",
+                                "description": "asdasd",
+                                "status": false,
+                                "due_date": "2021-12-05T00:00:00.000Z",
+                                "UserId": 1,
+                                "ProjectId": 1,
+                                "createdAt": "2020-05-24T02:13:55.569Z",
+                                "updatedAt": "2020-05-24T02:13:55.569Z",
+                                "User": {
+                                    "id": 1,
+                                    "first_name": "yusak",
+                                    "last_name": "haha",
+                                    "password": "$2b$05$h.40CZRASGKvMVZdWEtsdOSy9pqnrJjK/ummcT4yGYXVLZ0gxIa.2",
+                                    "email": "beli1dapet2@mail.com",
+                                    "createdAt": "2020-05-23T13:37:19.305Z",
+                                    "updatedAt": "2020-05-23T13:37:19.305Z"
+                                },
+                                "Project": {
+                                    "id": 1,
+                                    "name": "boluz",
+                                    "createdAt": "2020-05-23T13:43:49.767Z",
+                                    "updatedAt": "2020-05-24T02:11:21.893Z"
+                                }
+                            }
+                        ]
+                    }`
+ 
+* **Error Response:**
+
+    * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{error : "Internal Server Error"}`
+
+* **Sample Call:**
+
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/todos/all',
+    headers: {
+      token
+    }
+  })
+

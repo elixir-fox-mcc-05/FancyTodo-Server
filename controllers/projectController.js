@@ -76,8 +76,13 @@ class ProjectController{
         Project
             .findByPk(req.params.id)
             .then(data1 => {
-                        results = Object.assign(data1)
-                        return Project.destroy({where : {id : req.params.id},returning : true})
+                        if(data1){
+                            results = Object.assign(data1)
+                            return Project.destroy({where : {id : req.params.id},returning : true})
+                        }else{
+                            res.status(404).json({error : 'not found'})
+                        }
+
                         })
             .then(data2 => {
                 return Pass.destroy({where : {ProjectId : results.id},returning : true})

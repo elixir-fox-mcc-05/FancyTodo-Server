@@ -10,7 +10,7 @@ function authentication (req, res, next) {
     // console.log(decodedid)
     User.findByPk(id)
       .then(result => {
-        //   console.log(result)
+          console.log(result)
         if (result) {
           req.LoginId = id
           next()

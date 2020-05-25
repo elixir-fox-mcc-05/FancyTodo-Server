@@ -3,6 +3,8 @@ const router = require('express').Router()
 const UserController = require('../controllers/userController')
 const todos = require('../router/todos')
 const Axios = require('axios')
+const projects = require('./projects')
+const passes = require('./passes')
 require('dotenv').config();
 
 const CALENDARIFIC = process.env.CALENDARIFIC
@@ -31,14 +33,18 @@ router.get('/holidays', (req,res) => {
 })
 
 router.use('/todos', todos)
+router.use('/projects',projects)
+router.use('/pass',passes)
+router.post('/register', UserController.register)
+router.post('/login', UserController.login)
+router.get('/userlist',UserController.list)
+router.post('/logingoogle', UserController.googleLogin);
 // router.get('/todos', ToDoController.list)
 // router.post('/todos', ToDoController.createToDo)
 // router.get('/todos/:id', ToDoController.getId)
 // router.put('/todos/:id', ToDoController.updateToDo)
 // router.delete('/todos/:id', ToDoController.deleteToDo)
 
-router.post('/register', UserController.register)
-router.post('/login', UserController.login)
-router.post('/logingoogle', UserController.googleLogin);
+
 
 module.exports = router

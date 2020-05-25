@@ -3,7 +3,7 @@ require('dotenv').config()
 
 module.exports = {
   encrypt: (password) => {
-    const salt = bcrypt.genSaltSync(process.env.SALT);
+    const salt = bcrypt.genSaltSync(parseInt(process.env.SALT));
     // console.log(password)
     return bcrypt.hashSync(password, salt);
   },

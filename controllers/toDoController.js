@@ -1,4 +1,4 @@
-const {User,Todo} = require('../models')
+const {User,Todo,Project} = require('../models')
 // const {compare} = require('../helpers/bcrypt')
 // const generateToken = require('../helpers/jwt')
 // const Axios = require('axios')
@@ -9,8 +9,23 @@ class ToDoController{
 
     static list(req,res){
 
+        let {ProjectId} = req.body
+
         Todo
-            .findAll({order : [['id','ASC']], where : {UserId : req.LoginId},include : [User]})
+            .findAll({order : [['id','ASC']], where : {ProjectId},include : [User,Project]})
+            .then(data => {
+                res.status(200).json({todos : data})
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(500).json({error : err})
+            })
+    }
+
+    static listall(req,res){
+
+        Todo
+            .findAll({order : [['id','ASC']],include : [User,Project]})
             .then(data => {
                 res.status(200).json({todos : data})
             })
@@ -21,11 +36,12 @@ class ToDoController{
 
     static createToDo(req,res){
         
-        let {title , description, due_date} = req.body
+        let {title , description, due_date, ProjectId} = req.body
         let UserId = req.LoginId
-        console.log(req.LoginId)
+        // let ProjectId = req.ProjectId
+        // console.log(req.LoginId)
         Todo    
-            .create({title,description, due_date, UserId})
+            .create({title,description, due_date, UserId, ProjectId})
             .then(data => res.status(201).json({todo : data}))
             .catch(err => {
                

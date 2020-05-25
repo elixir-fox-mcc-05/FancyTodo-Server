@@ -3,7 +3,13 @@ module.exports = (sequelize, DataTypes) => {
   class Project extends sequelize.Sequelize.Model{}
 
   Project.init({
-    name: DataTypes.STRING
+    name: {
+      type : DataTypes.STRING,
+      validate : {
+        notEmpty : {args : false, msg : 'project name must not empty'},
+        len : {args : [3], msg : 'project name must more than 3 letters'}
+      }
+    }
   }, {
     sequelize,
     modelname: 'Project'

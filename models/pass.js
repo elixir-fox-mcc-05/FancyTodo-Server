@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
   Pass.init({
     name: DataTypes.STRING,
     ProjectId: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER
+    UserId: {type :DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: "Pass"

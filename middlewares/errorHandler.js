@@ -6,12 +6,12 @@ module.exports = {
                 msg: "You need to login to access this page"
             })
         } else if (Array.isArray(err.errors)) {
-            const errors = [];
-            for (let error of err.errors) {
-                errors.push(error.message);
-            }
+            const error = err.errors.map(error => {
+                return error.message;
+            });
+            const errMsg = error.join(', ')
             res.status(400).json({
-                error: errors
+                error: errMsg
             })
         } else {
             res.status(err.code || 500).json({

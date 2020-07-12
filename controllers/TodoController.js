@@ -93,7 +93,7 @@ class TodoController {
       .then(data => {
         if(data[0] > 0){
           res.status(200).json({
-            data: data[1]
+            Todo: data[1]
           });
         } else {
           return next({

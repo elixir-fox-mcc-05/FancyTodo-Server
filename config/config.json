@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "meginia12",
+    "database": "db_fancytodo",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}

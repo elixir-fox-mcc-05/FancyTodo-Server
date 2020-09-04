@@ -1,4 +1,4 @@
-# FancyTodo-Server
+# FancyTodo_Server
 
 ## Authors
 
@@ -6,10 +6,12 @@
 - Priambodo Kurniawan - Buddy Helper
 
 ## Client URL :
-https://yudhaaw96.github.io/fancytodo/ (status : active)
+
+https:// (status : inactive)
 
 ## Server URL :
-https://server-fancytodo-yudhaaw96.herokuapp.com (status : active)
+
+https:// (status : inactive)
 
 ## REGISTER USER
 

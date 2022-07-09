@@ -39,6 +39,7 @@ class UserController {
         .then(result => {
             if(result){
                 let compare = decryptPassword(payload.password, result.password)
+                console.log(payload.password, result.password);
                 if(compare){
                     let user = {
                         id: result.id,

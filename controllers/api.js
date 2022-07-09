@@ -14,15 +14,15 @@ class ApiController {
             cityName = {city: result.data.name, country: result.data.sys.country}
             weatherIcon = `http://openweathermap.org/img/wn/${result.data.weather[0].icon}@2x.png`
             cityWeather = {weather: result.data.weather[0], temp: result.data.main }
-            return axios.get(`https://muslimsalat.com/${city}.json?key=${process.env.APIKEY_SHALAT}`)
+            // return axios.get(`https://muslimsalat.com/${city}.json?key=${process.env.APIKEY_SHALAT}`)
         })
         .then(result => {
-            shalatSchedule = result.data.items[0]
-            return res.status(200).json({
+            // shalatSchedule = result.data.items[0]
+            return res.status(200).json({ 
                 cityName,
                 weatherIcon,
                 cityWeather, 
-                shalatSchedule 
+                // shalatSchedule 
             })
         })
         .catch(err => {

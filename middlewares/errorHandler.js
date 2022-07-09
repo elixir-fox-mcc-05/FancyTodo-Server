@@ -14,9 +14,15 @@ function errorHandler (err, req, res, next){
             errors: err.errors
         })
     }
-    else if(err.name == "Unauthorized" || err.name == "JsonWebTokenError" ){
+    else if(err.name == "Unauthorized" ){
         return res.status(401).json({
             type: "Unauthorized",
+            errors: err.errors
+        })
+    }
+    else if(err.name == "JsonWebTokenError" ){
+        return res.status(401).json({
+            type: "Unauthenticated",
             errors: err.errors
         })
     }

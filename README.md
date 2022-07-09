@@ -1,575 +1,69 @@
 # FancyTodo-Server
 
-Postman: https://documenter.getpostman.com/view/10895410/SzYXWzMc
 
-**User Registration**
-----
+## Tech Stack
 
-* **URL**
+**Server:** Node, Express
 
-  /users/register
+**Database:** PosgreSQL, Sequelize ORM
 
-* **Method:**
+## Features
 
-  `POST`
-  
-*  **URL Params**
+- Authentication
+- Authorization
+- CRUD list etc
+- 3rd party API
 
-   None
 
-* **Request Body**
+## Documentation
 
-    **Required:**
-    
-    `{
-        email: "todo1@mail.com", 
-        password: "qwerty123"
-    }`
+[Postman Documentation](https://documenter.getpostman.com/view/10895410/UzJPLaSj#9487f477-7880-42cc-8b5c-700b55e975fd)
 
-* **Success Response:**
+## Environment Variables
 
-  * **Code:** 201 <br />
-    **Content:** 
+To run this project, you will need to add the following environment variables to your .env file
 
-    `{
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b2RvMUBtYWlsLmNvbSIsImlhdCI6MTU4Nzk4MjcwNn0.XxcgnlKiup1qNDDS09x5Otu9opf6RMAN6MU4eUZwkC8",
-        "msg": "Successfully Registered"
-    }`
- 
-* **Error Response:**
+`PORT=3000`
 
-  * **Code:** 400 <br />
-    **Content:** 
-    
-    `{
-        type: "Bad Request",
-        "errors": [
-            {
-                "message": "Email already exists"
-            }
-        ]
-    }`
+`SECRET=test123`
 
-    OR
+`APIKEY_WEATHER = 424779461c24f3afd64d7342ed9b5d36`
 
-    `{
-        "type": "Bad Request",
-        "errors": [
-            {
-                "message": "Please enter valid email"
-            }
-        ]
-    }`
+`APIKEY_SHALAT =3805a0e7141b3aa433eadfbe76db8854`
 
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
+`CLIENT_ID=926421529791-vu779ktgp375qqnurr15o61k45ttjaq2.apps.googleusercontent.com`
 
-**User Login**
-----
+`DEFAULT_PASSWORD=Google123`
 
-* **URL**
+## Run Locally
 
-  /users/login
+Clone the project
 
-* **Method:**
+```bash
+  git clone https://github.com/Jesicaahr/FancyTodo-Server-1.git
+```
 
-  `POST`
-  
-*  **URL Params**
+Go to the project directory
 
-   None
+```bash
+  cd FancyTodo-Server-1
+```
 
-* **Request Body**
+Install dependencies
 
-  **Required:**
-    
-    `{
-        email: "todo1@mail.com", 
-        password: "qwerty123"
-    }`
+```bash
+  npm install
+```
 
-* **Success Response:**
+Create and migrate database 
 
-  * **Code:** 200 <br />
-    **Content:** 
+```bash
+  sequelize db:create
+  sequelize db:migrate
+```
 
-    `{
-        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b2RvMUBtYWlsLmNvbSIsImlhdCI6MTU4Nzk4NjY1NH0.dP7sfZ9oOhduJwDe8-dbv5EuWDMBSlu3EUWbL_fLXiQ"
-    }`
- 
-* **Error Response:**
+Start the server
 
-  * **Code:** 400 <br />
-    **Content:** 
-    
-    `{
-        type : "Bad Request",
-        msg : "Invalid email/password"
-    }`
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-**Create Todo**
-----
-
-* **URL**
-
-  /todos
-
-* **Method:**
-  
-  `POST`
-  
-*  **Request Headers**
-
-   **Required:**
- 
-   `access_token=[string]`
-
-*  **Request Body**
-
-   **Required:**
-
-   `{
-       title: "Study",
-       description: "Learning jquery"
-       due_date: 2020-05-18
-    }`
-
-* **Success Response:**
-
-  * **Code:** 201 <br />
-    **Content:** 
-    
-    `{
-        "msg": "New todo successfully created",
-        "result": {
-            "status": false,
-            "id": 2,
-            "title": "Study",
-            "description": "Learing jquery",
-            "due_date": "2020-05-18T00:00:00.000Z",
-            "UserId": 1,
-            "updatedAt": "2020-04-27T10:22:08.010Z",
-            "createdAt": "2020-04-27T10:22:08.010Z"
-        }
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 400 <br />
-    **Content:** 
-    
-    `{
-        "type": "Bad Request",
-        "errors": [
-            {
-                "message": "Input date in the future"
-            }
-        ]
-    }`
-
-    OR
-
-    `{
-        "type": "Bad Request",
-        "errors": [
-            {
-                "message": "Input Title"
-            }
-        ]
-    }`
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-
-**Show All Todo**
-----
-
-* **URL**
-
-  /todos
-
-* **Method:**
-  
-  `GET`
-  
-*  **Request Headers**
-
-   **Required:**
- 
-   `access_token=[string]`
-
-*  **Request Body**
-
-   None
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    
-    `{
-        "result": [
-            {
-                "id": 2,
-                "title": "Study",
-                "description": "Learing jquery",
-                "status": false,
-                "due_date": "2020-05-18T00:00:00.000Z",
-                "UserId": 1,
-                "createdAt": "2020-04-27T10:22:08.010Z",
-                "updatedAt": "2020-04-27T10:22:08.010Z"
-            },
-            {
-                "id": 1,
-                "title": "Watching",
-                "description": "Watch movie with my friend",
-                "status": false,
-                "due_date": "2020-07-20T00:00:00.000Z",
-                "UserId": 1,
-                "createdAt": "2020-04-27T10:21:15.328Z",
-                "updatedAt": "2020-04-27T10:21:15.328Z"
-            }
-        ]
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-
-**Find One**
-----
-
-* **URL**
-
-  /todos/:id
-
-* **Method:**
-  
-  `GET`
-  
-*  **Request Headers**
-
-   **Required:**
- 
-   `access_token=[string]`
-
-*  **URL Params**
-
-   **Required:**
- 
-   `id=[integer]`
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    
-    `{
-        "result": {
-            "id": 1,
-            "title": "Watching",
-            "description": "Watch movie with my friend",
-            "status": false,
-            "due_date": "2020-07-20T00:00:00.000Z",
-            "UserId": 1,
-            "createdAt": "2020-04-27T10:21:15.328Z",
-            "updatedAt": "2020-04-27T10:21:15.328Z"
-        }
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 404 <br />
-    **Content:** 
-    
-    `{
-      "type": "Not Found",
-      "errors": [
-          {
-              "message": "Todo not found"
-          }
-      ]
-    }`
-
-    OR
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-
-**Update Todo**
-----
-
-* **URL**
-
-  /todos/:id
-
-* **Method:**
-  
-  `PUT`
-  
-*  **Request Headers**
-
-   **Required:**
- 
-   `access_token=[string]`
-
-*  **URL Params**
-
-   **Required:**
- 
-   `id=[integer]`
-
-*  **Request Body**
-
-   **Required:**
-
-   `{
-       title: "Study",
-       description: "Learning jquery & ajax"
-       due_date: 2020-08-17
-    }`
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    
-    `{
-        "msg": "Todo successfully updated",
-        "result": {
-            "id": 4,
-            "title": "Study",
-            "description": "Learning jquery & ajax",
-            "status": false,
-            "due_date": "2020-08-17T00:00:00.000Z",
-            "UserId": 1,
-            "createdAt": "2020-04-28T09:40:07.925Z",
-            "updatedAt": "2020-04-28T09:40:19.474Z"
-        }
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 404 <br />
-    **Content:** 
-    
-    `{
-        "type": "Not Found",
-        "errors": [
-            {
-                "message": "Todo not found"
-            }
-        ]
-    }`
-
-    OR
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-
-**Make it Done**
-----
-
-* **URL**
-
-  /todos/:id
-
-* **Method:**
-  
-  `PATCH`
-  
-*  **Request Headers**
-
-   **Required:**
- 
-   `access_token=[string]`
-
-*  **URL Params**
-
-   **Required:**
- 
-   `id=[integer]`
-
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    
-    `{
-      "msg": "Successfully update this todo's status"
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 404 <br />
-    **Content:** 
-    
-    `{
-        "type": "Not Found",
-        "errors": [
-            {
-                "message": "Todo not found"
-            }
-        ]
-    }`
-
-    OR
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-
-**Delete Todo**
-----
-
-* **URL**
-
-  /todos/:id
-
-* **Method:**
-  
-  `DELETE`
-  
-*  **Request Headers**
-
-   **Required:**
- 
-   `access_token=[string]`
-
-*  **URL Params**
-
-   **Required:**
- 
-   `id=[integer]`
-
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    
-    `{
-      "msg": "Successfully deleted todo"
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 404 <br />
-    **Content:** 
-    
-    `{
-        "type": "Not Found",
-        "errors": [
-            {
-                "message": "Todo not found"
-            }
-        ]
-    }`
-
-    OR
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
-
-
-**3rd API**
-----
-
-* **URL**
-
-  /api
-
-* **Method:**
-  
-  `GET`
-  
-
-*  **Request Body**
-
-   `{
-       city: "bandung"
-    }`
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-    
-    `{
-      "cityName": {
-          "city": "Bandung",
-          "country": "ID"
-      },
-      "weatherIcon": "http://openweathermap.org/img/wn/10d@2x.png",
-      "cityWeather": {
-          "weather": {
-              "id": 501,
-              "main": "Rain",
-              "description": "moderate rain",
-              "icon": "10d"
-          },
-          "temp": {
-              "temp": 296.76,
-              "feels_like": 298.68,
-              "temp_min": 296.76,
-              "temp_max": 296.76,
-              "pressure": 1008,
-              "humidity": 69,
-              "sea_level": 1008,
-              "grnd_level": 927
-          }
-      },
-      "shalatSchedule": {
-          "date_for": "2020-4-28",
-          "fajr": "4:31 am",
-          "shurooq": "5:43 am",
-          "dhuhr": "11:47 am",
-          "asr": "3:08 pm",
-          "maghrib": "5:50 pm",
-          "isha": "6:54 pm"
-      }
-    }`
- 
-* **Error Response:**
-
-  * **Code:** 404 <br />
-    **Content:** 
-    
-    `{
-      "type": "Not Found",
-      "errors": {
-          "message": "City not found"
-      }
-    }`
-
-    OR
-
-  * **Code:** 500 <br />
-    **Content:** 
-    
-    `{ errors : "Internal Server Error" }`
+```bash
+  npm run dev
+```

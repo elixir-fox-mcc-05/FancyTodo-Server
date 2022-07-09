@@ -55,6 +55,12 @@ Install dependencies
   npm install
 ```
 
+Set .env then add environtment variables
+
+```bash
+  touch .env
+```
+
 Create and migrate database 
 
 ```bash

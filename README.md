@@ -23,17 +23,17 @@
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`PORT=3000`
+`PORT`
 
-`SECRET=test123`
+`SECRET`
 
-`APIKEY_WEATHER = 424779461c24f3afd64d7342ed9b5d36`
+`APIKEY_WEATHER`
 
-`APIKEY_SHALAT =3805a0e7141b3aa433eadfbe76db8854`
+`APIKEY_SHALAT`
 
-`CLIENT_ID=926421529791-vu779ktgp375qqnurr15o61k45ttjaq2.apps.googleusercontent.com`
+`CLIENT_ID`
 
-`DEFAULT_PASSWORD=Google123`
+`DEFAULT_PASSWORD`
 
 ## Run Locally
 
